@@ -28,6 +28,42 @@ double FileReading::readDouble(std::ifstream* fin, char delim)
   return strtod( (currLine.substr(index+1)).c_str(), NULL);
 } //readDouble method
 
+/******** readDoubleVec(std::ifstream* fin, char delim, char startChar, char endChar); ********
+* This method reads in and parses a vector of doubles from the given input stream.
+**********************************************************************************************/
+std::vector<double>* FileReading::readDoubleVec(std::ifstream* fin, char delim, 
+                                                  char startChar, char endChar)
+{
+  std::vector<double>* result = new std::vector<double>;
+  std::string          currLine;
+  uint                 delimIndex;
+  uint                 startIndex;
+  uint                 endIndex;
+  uint                 commaIndex;
+  
+  //cut off the part of the line up to and including the delim character:
+  getline(*fin, currLine);
+  delimIndex = currLine.find_last_of(delim);
+  currLine = currLine.substr(delimIndex+1);
+  
+  //cut off the characters that indicate the start and end of the list:
+  startIndex = currLine.find_first_of(startChar);
+  endIndex = currLine.find_last_of(endChar);
+  currLine = currLine.substr(startIndex+1, (endIndex - startIndex - 1) );
+  
+  //read in the doubles in the list and store them in TList_:
+  commaIndex = currLine.find_first_of(",");
+  while( commaIndex<currLine.size() )
+  {
+    result->push_back( strtod( (currLine.substr(0, commaIndex)).c_str(), NULL) );
+    currLine = currLine.substr(commaIndex+1);
+    commaIndex = currLine.find_first_of(",");
+  }
+  result->push_back( strtod( currLine.c_str(), NULL) );
+  
+  return result;
+} //readDoubleVec method
+
 /************************** readUint(std::ifstream* fin, char delim) **************************
 * This method reads in and parses an unsigned integer from the given input stream.
 **********************************************************************************************/
@@ -77,40 +113,4 @@ std::string FileReading::readString(std::ifstream* fin, char delim)
   result = currLine.substr(0,index+1);
   
   return result;
-}
-
-/******** readDoubleVec(std::ifstream* fin, char delim, char startChar, char endChar); ********
-* This method reads in and parses a vector of doubles from the given input stream.
-**********************************************************************************************/
-std::vector<double>* FileReading::readDoubleVec(std::ifstream* fin, char delim, 
-                                                  char startChar, char endChar)
-{
-  std::vector<double>* result = new std::vector<double>;
-  std::string          currLine;
-  uint                 delimIndex;
-  uint                 startIndex;
-  uint                 endIndex;
-  uint                 commaIndex;
-  
-  //cut off the part of the line up to and including the delim character:
-  getline(*fin, currLine);
-  delimIndex = currLine.find_last_of(delim);
-  currLine = currLine.substr(delimIndex+1);
-  
-  //cut off the characters that indicate the start and end of the list:
-  startIndex = currLine.find_first_of(startChar);
-  endIndex = currLine.find_last_of(endChar);
-  currLine = currLine.substr(startIndex+1, (endIndex - startIndex - 1) );
-  
-  //read in the doubles in the list and store them in TList_:
-  commaIndex = currLine.find_first_of(",");
-  while( commaIndex<currLine.size() )
-  {
-    result->push_back( strtod( (currLine.substr(0, commaIndex)).c_str(), NULL) );
-    currLine = currLine.substr(commaIndex+1);
-    commaIndex = currLine.find_first_of(",");
-  }
-  result->push_back( strtod( currLine.c_str(), NULL) );
-  
-  return result;
-} //readDoubleVec method
+} //readString method

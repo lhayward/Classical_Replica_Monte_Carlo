@@ -14,6 +14,7 @@
 #include <iostream>
 #include <string>
 #include "MersenneTwister.h"
+#include "Model.h"
 #include "SimParameters.h"
 
 typedef unsigned long ulong;
@@ -25,7 +26,8 @@ std::string getFileSuffix(int argc, char** argv);
 **********************************************************************************************/
 int main(int argc, char** argv) 
 {
-  MTRand      randomGen;
+  MTRand randomGen;
+  Model* model;     
   
   //variables related to input file names:
   std::string fileSuffix = getFileSuffix( argc, argv );
@@ -41,10 +43,12 @@ int main(int argc, char** argv)
   params->print();
   
   //initialize the model based on the model name specified in the parameter file:
-  modelParamFileName = params->getModelName() + fileSuffix + ".txt";
+  modelParamFileName = params->getModelName() + "Params" + fileSuffix + ".txt";
   if( params->getModelName() == "toriccode" )
   {
     std::cout << "TORIC CODE!" << std::endl;
+    model = new Model(modelParamFileName);
+    model->print();
   }
   
   std::cout << "\n***END OF SIMULATION***\n" << std::endl;

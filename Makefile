@@ -1,9 +1,9 @@
 CC = c++ -Wall -funroll-loops #-pg #-xHOST # -O3
 
 PROG = classicalmc
-HDRS = MersenneTwister.h FileReading.h Hypercube.h IntegerSpins.h IsingSpins.h Lattice.h SimParameters.h
-SRCS = Main.cpp FileReading.cpp Hypercube.cpp IntegerSpins.cpp IsingSpins.cpp Lattice.cpp SimParameters.cpp
-OBJS = Main.o FileReading.o Hypercube.o IntegerSpins.o IsingSpins.o Lattice.o SimParameters.o
+HDRS = MersenneTwister.h FileReading.h Hypercube.h IntegerSpins.h IsingSpins.h Lattice.h Model.h SimParameters.h
+SRCS = Main.cpp FileReading.cpp Hypercube.cpp IntegerSpins.cpp IsingSpins.cpp Lattice.cpp Model.cpp SimParameters.cpp
+OBJS = Main.o FileReading.o Hypercube.o IntegerSpins.o IsingSpins.o Lattice.o Model.o SimParameters.o
 
 $(PROG): $(OBJS)
 	$(CC) $(OBJS) -o $(PROG)
@@ -22,6 +22,9 @@ IsingSpins.o: IsingSpins.cpp $(HDRS)
 	
 Lattice.o: Lattice.cpp $(HDRS)
 	$(CC) -c Lattice.cpp -o Lattice.o
+	
+Model.o: Model.cpp $(HDRS)
+	$(CC) -c Model.cpp -o Model.o
 
 SimParameters.o: SimParameters.cpp $(HDRS)
 	$(CC) -c SimParameters.cpp -o SimParameters.o

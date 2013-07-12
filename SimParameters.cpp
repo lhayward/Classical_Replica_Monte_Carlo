@@ -24,10 +24,9 @@ SimParameters::SimParameters(std::string fileName)
   const char LIST_START_CHAR = '[';
   const char LIST_END_CHAR = ']';
   
-  std::ifstream fin;
-  
   TList_ = new std::vector<double>;
   
+  std::ifstream fin;
   fin.open(fileName.c_str());
   
   if( fin.is_open() )
@@ -41,7 +40,11 @@ SimParameters::SimParameters(std::string fileName)
     numBins_         = FileReading::readUint     (&fin, EQUALS_CHAR);
     modelName_       = FileReading::readString   (&fin, EQUALS_CHAR);
   }
-  else{ std::cout << "Could not find file \"" << fileName << "\"" << std::endl; }
+  else
+  { 
+    std::cout << "In SimParameters constructor, could not find file \"" << fileName << "\"" 
+              << std::endl; 
+  }
   
   fin.close();
 } //SimParameters constructor
