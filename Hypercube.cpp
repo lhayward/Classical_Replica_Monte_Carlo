@@ -1,15 +1,15 @@
-/*********************************************************************************************
-******************************** CLASSICAL REPLICA MONTE CODE ********************************
-**********************************************************************************************
+/**********************************************************************************************
+******************************** CLASSICAL REPLICA MONTE CODE *********************************
+***********************************************************************************************
 * Lauren Hayward
-**********************************************************************************************
+***********************************************************************************************
 * File:   Hypercube.cpp
-*********************************************************************************************/
+**********************************************************************************************/
 
 #include <iostream>
 #include "Hypercube.h"
 
-/********************* Hypercube::Hypercube(int L, int D) (constructor) *********************/
+/*************************** Hypercube(int L, int D) (constructor) ***************************/
 Hypercube::Hypercube(int L, int D)
   : Lattice(L)
 {
@@ -31,7 +31,7 @@ Hypercube::Hypercube(int L, int D)
   } //i
 }
 
-/*************************** Hypercube::~Hypercube() (destructor) ***************************/
+/********************************* ~Hypercube() (destructor) *********************************/
 Hypercube::~Hypercube()
 {
   //delete the neighbours_ array:
@@ -44,9 +44,9 @@ Hypercube::~Hypercube()
   if( neighbours_ != NULL )
   { delete[] neighbours_; }
   neighbours_ = NULL;
-}
+} // ~Hypercube
 
-/************************** Hypercube::intPower(int base, int exp) **************************/
+/******************************** intPower(int base, int exp) ********************************/
 int Hypercube::intPower(int base, int exp)
 {
   int result=0;
@@ -59,9 +59,9 @@ int Hypercube::intPower(int base, int exp)
   }
   
   return result;
-}
+} //intPower method
 
-/************************************ Hypercube::print() ************************************/
+/****************************************** print() ******************************************/
 void Hypercube::print()
 {
   std::cout << "Hypercube with:\n"
@@ -73,13 +73,13 @@ void Hypercube::print()
   //print the neighbours_ array:
   for( int i=0; i<N_; i++ )
   {
-    std::cout.width(3);
+    std::cout.width(4);
     std::cout << "    " << i << ": ";
     for( int j=0; j<D_; j++ )
     {
-      std::cout.width(3);
+      std::cout.width(4);
       std::cout << neighbours_[i][j] << " ";
-    }
+    } //j
     std::cout << std::endl;
-  }
-}
+  } //i
+} //print method

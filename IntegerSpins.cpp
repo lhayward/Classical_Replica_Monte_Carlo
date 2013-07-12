@@ -1,18 +1,18 @@
-/*********************************************************************************************
-******************************** CLASSICAL REPLICA MONTE CODE ********************************
-**********************************************************************************************
+/**********************************************************************************************
+******************************** CLASSICAL REPLICA MONTE CODE *********************************
+***********************************************************************************************
 * Lauren Hayward
-**********************************************************************************************
+***********************************************************************************************
 * File:   IntegerSpins.cpp (Abstract Class)
-*********************************************************************************************/
+**********************************************************************************************/
 
 #include <iostream>
 #include "IntegerSpins.h"
 
-/**************** IntegerSpins::IntegerSpins(int alpha, int N) (constructor) *****************
+/************************ IntegerSpins(int alpha, int N) (constructor) ************************
 * Input: alpha (number of replicas), N (number of spins per replica)
 * This constructor initializes the array of spin degrees of freedom 
-*********************************************************************************************/
+**********************************************************************************************/
 IntegerSpins::IntegerSpins(int alpha, int N)
 {
   alpha_ = alpha;
@@ -25,7 +25,7 @@ IntegerSpins::IntegerSpins(int alpha, int N)
   polarize(); //Initially, all spins have value +1
 }
 
-/************************ IntegerSpins::~IntegerSpins() (destructor) ************************/
+/******************************* ~IntegerSpins() (destructor) ********************************/
 IntegerSpins::~IntegerSpins()
 { 
   for(int a=0; a<alpha_; a++)
@@ -33,20 +33,20 @@ IntegerSpins::~IntegerSpins()
   delete[] spins_;
 }
 
-/********************************* IntegerSpins::polarize() **********************************
-* This function gives each spin the value +1 so that the lattice is polarized.
-*********************************************************************************************/
+/***************************************** polarize() *****************************************
+* This method gives each spin the value +1 so that the lattice is polarized.
+**********************************************************************************************/
 void IntegerSpins::polarize()
 {
   for( int a=0; a<alpha_; a++ )
   {
     for( int i=0; i<N_; i++ )
     { spins_[a][i] = 1; }
-  }
-}
+  } //a
+} //polarize method
 
 
-/********************************** IntegerSpins::print() ***********************************/
+/****************************************** print() ******************************************/
 void IntegerSpins::print()
 {
   for(int a=0; a<alpha_; a++)
@@ -58,5 +58,5 @@ void IntegerSpins::print()
       std::cout << spins_[a][i] << " "; 
     }
     std::cout << std::endl;
-  }
-}
+  } //a
+} //print method

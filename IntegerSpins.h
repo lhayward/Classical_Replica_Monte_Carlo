@@ -1,19 +1,20 @@
-/*********************************************************************************************
-******************************** CLASSICAL REPLICA MONTE CODE ********************************
-**********************************************************************************************
+/**********************************************************************************************
+******************************** CLASSICAL REPLICA MONTE CODE *********************************
+***********************************************************************************************
 * Lauren Hayward
-**********************************************************************************************
+***********************************************************************************************
 * File:   IntegerSpins.h (Abstract Class)
-*********************************************************************************************/
+**********************************************************************************************/
 
-#ifndef INTEGERSPINS_H
-#define INTEGERSPINS_H
+#ifndef INTEGER_SPINS_H
+#define INTEGER_SPINS_H
 
 #include "MersenneTwister.h"
 
 class IntegerSpins 
 {
-  typedef int spin_type;  //spins are integers here
+  public:
+    typedef int spin_type;  //spins are integers here
   
   protected:
     int         alpha_;   //total number of replicas
@@ -27,9 +28,9 @@ class IntegerSpins
     void polarize();
     void print();
     
-    //pure virtual functions:
+    //pure virtual method:
     virtual void randomize(MTRand* randomGen) = 0;
     virtual void randomize(MTRand* randomGen, bool* regionA) = 0;
 };
 
-#endif  // INTEGERSPINS_H
+#endif  // INTEGER_SPINS_H
