@@ -26,8 +26,11 @@ std::string getFileSuffix(int argc, char** argv);
 int main(int argc, char** argv) 
 {
   MTRand      randomGen;
+  
+  //variables related to input file names:
   std::string fileSuffix = getFileSuffix( argc, argv );
   std::string simParamFileName = "simParams" + fileSuffix + ".txt";
+  std::string modelParamFileName;
   
   std::cout.precision(8);
   std::cout << "\n***STARTING SIMULATION***\n" << std::endl;
@@ -35,9 +38,10 @@ int main(int argc, char** argv)
   std::cout << "Simulation Parameter File: " << simParamFileName << std::endl;
   
   SimParameters* params = new SimParameters(simParamFileName);
-  //params->print();
+  params->print();
   
   //initialize the model based on the model name specified in the parameter file:
+  modelParamFileName = params->getModelName() + fileSuffix + ".txt";
   if( params->getModelName() == "toriccode" )
   {
     std::cout << "TORIC CODE!" << std::endl;

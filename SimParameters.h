@@ -29,13 +29,6 @@ class SimParameters
     std::string          modelName_;  //name of the Hamiltonian 
                                       //(eg. "ising", "toriccode", etc.)
     
-    //methods to read from input stream:
-    double      readDouble (std::ifstream* fin, char delim);
-    uint        readUint   (std::ifstream* fin, char delim); 
-    ulong       readLongInt(std::ifstream* fin, char delim);
-    std::string readString (std::ifstream* fin, char delim);
-    void        readTList  (std::ifstream* fin, char delim, char startChar, char endChar);
-    
   public:
     SimParameters(std::string fileName);
     virtual ~SimParameters();

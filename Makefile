@@ -1,12 +1,15 @@
 CC = c++ -Wall -funroll-loops #-pg #-xHOST # -O3
 
 PROG = classicalmc
-HDRS = MersenneTwister.h Hypercube.h IntegerSpins.h IsingSpins.h Lattice.h SimParameters.h
-SRCS = Main.cpp Hypercube.cpp IntegerSpins.cpp IsingSpins.cpp Lattice.cpp SimParameters.cpp
-OBJS = Main.o Hypercube.o IntegerSpins.o IsingSpins.o Lattice.o SimParameters.o
+HDRS = MersenneTwister.h FileReading.h Hypercube.h IntegerSpins.h IsingSpins.h Lattice.h SimParameters.h
+SRCS = Main.cpp FileReading.cpp Hypercube.cpp IntegerSpins.cpp IsingSpins.cpp Lattice.cpp SimParameters.cpp
+OBJS = Main.o FileReading.o Hypercube.o IntegerSpins.o IsingSpins.o Lattice.o SimParameters.o
 
 $(PROG): $(OBJS)
 	$(CC) $(OBJS) -o $(PROG)
+	
+FileReading.o: FileReading.cpp $(HDRS)
+	$(CC) -c FileReading.cpp -o FileReading.o
 
 Hypercube.o: Hypercube.cpp $(HDRS)
 	$(CC) -c Hypercube.cpp -o Hypercube.o
