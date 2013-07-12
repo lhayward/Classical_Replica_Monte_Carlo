@@ -32,13 +32,14 @@ SimParameters::SimParameters(std::string fileName)
   
   if( fin.is_open() )
   {
-    TList_           = FileReading::readDoubleList(&fin, EQUALS_CHAR, LIST_START_CHAR, LIST_END_CHAR);
-    seed_            = FileReading::readLongInt(&fin, EQUALS_CHAR);
-    numWarmUpSweeps_ = FileReading::readUint   (&fin, EQUALS_CHAR);
-    sweepsPerMeas_   = FileReading::readUint   (&fin, EQUALS_CHAR);
-    measPerBin_      = FileReading::readUint   (&fin, EQUALS_CHAR);
-    numBins_         = FileReading::readUint   (&fin, EQUALS_CHAR);
-    modelName_       = FileReading::readString (&fin, EQUALS_CHAR);
+    TList_           = FileReading::readDoubleVec(&fin, EQUALS_CHAR, LIST_START_CHAR, 
+                                                  LIST_END_CHAR);
+    seed_            = FileReading::readLongInt  (&fin, EQUALS_CHAR);
+    numWarmUpSweeps_ = FileReading::readUint     (&fin, EQUALS_CHAR);
+    sweepsPerMeas_   = FileReading::readUint     (&fin, EQUALS_CHAR);
+    measPerBin_      = FileReading::readUint     (&fin, EQUALS_CHAR);
+    numBins_         = FileReading::readUint     (&fin, EQUALS_CHAR);
+    modelName_       = FileReading::readString   (&fin, EQUALS_CHAR);
   }
   else{ std::cout << "Could not find file \"" << fileName << "\"" << std::endl; }
   

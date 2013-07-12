@@ -79,10 +79,10 @@ std::string FileReading::readString(std::ifstream* fin, char delim)
   return result;
 }
 
-/******* readDoubleList(std::ifstream* fin, char delim, char startChar, char endChar); ********
+/******** readDoubleVec(std::ifstream* fin, char delim, char startChar, char endChar); ********
 * This method reads in and parses a vector of doubles from the given input stream.
 **********************************************************************************************/
-std::vector<double>* FileReading::readDoubleList(std::ifstream* fin, char delim, 
+std::vector<double>* FileReading::readDoubleVec(std::ifstream* fin, char delim, 
                                                   char startChar, char endChar)
 {
   std::vector<double>* result = new std::vector<double>;
@@ -113,4 +113,4 @@ std::vector<double>* FileReading::readDoubleList(std::ifstream* fin, char delim,
   result->push_back( strtod( currLine.c_str(), NULL) );
   
   return result;
-} //readDoubleList method
+} //readDoubleVec method
