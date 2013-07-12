@@ -37,6 +37,7 @@ SimParameters::SimParameters(std::string fileName)
     sweepsPerMeas_   = readInt    (&fin, EQUALS_CHAR);
     measPerBin_      = readInt    (&fin, EQUALS_CHAR);
     numBins_         = readInt    (&fin, EQUALS_CHAR);
+    modelName_       = readString (&fin, EQUALS_CHAR);
   }
   else{ std::cout << "Could not find file \"" << fileName << "\"" << std::endl; }
   
@@ -80,6 +81,29 @@ ulong SimParameters::readLongInt(std::ifstream* fin, char delim)
   return strtoul( (currLine.substr(index+1)).c_str(), NULL, 0);
 } //readLongInt method
 
+/************************ readString(std::ifstream* fin, char delim) *************************/
+std::string SimParameters::readString(std::ifstream* fin, char delim)
+{
+  std::string currLine;
+  std::string result;
+  uint        index;
+  
+  //cut off the part of the line up to and including the delim character:
+  getline(*fin, currLine);
+  index = currLine.find_last_of(delim);
+  currLine = currLine.substr(index+1);
+  
+  //trim the leading whitespace:
+  index = currLine.find_first_not_of(" \t\n");
+  currLine = currLine.substr(index);
+  
+  //trim the trailing whitespace:
+  index = currLine.find_last_not_of(" \t\n");
+  currLine = currLine.substr(0,index+1);
+  
+  return currLine;
+}
+
 /********** readTList(std::ifstream* fin, char delim, char startChar, char endChar) ***********
 * This method gets the next line from the passed fin and parses it as a list of doubles, which
 * it stores as the temperatures in the TList_ vector.
@@ -113,4 +137,25 @@ void SimParameters::readTList(std::ifstream* fin, char delim, char startChar, ch
 /****************************************** print() ******************************************/
 void SimParameters::print()
 {
+  std::cout << "Simulation Parameters:\n"
+            << "           Temperature List: [ ";
+  
+  //print the list of temperatures:
+  for( uint i=0; i<(TList_->size() - 1); i++ )
+  { std::cout << TList_->at(i) << ", "; }
+  
+  //print the last temperature element:
+  if( TList_->size() > 0 )
+  { std::cout << TList_->at(TList_->size() - 1); }
+  std::cout << " ]\n";
+  
+  //print the rest of the parameters:
+  std::cout << "                       Seed: " << seed_ << "\n"
+            << "   Number of Warm-up Sweeps: " << numWarmUpSweeps_ << "\n"
+            << "     Sweeps per Measurement: " << sweepsPerMeas_ << "\n"
+            << "       Measurements per Bin: " << measPerBin_ << "\n"
+            << "             Number of Bins: " << numBins_ << "\n"
+            << "                 Model Name: " << modelName_ << "\n"
+            << std::endl;
+  
 } //print method

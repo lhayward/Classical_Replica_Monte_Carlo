@@ -27,13 +27,14 @@ int main(int argc, char** argv)
 {
   MTRand randomGen;
   
+  std::cout.precision(8);
   std::cout << "\n***STARTING SIMULATION***\n" << std::endl;
   
   SimParameters* params = new SimParameters("sim_params.txt");
   params->print();
   
-  IsingSpins* spins = new IsingSpins(1,5);
-  spins->print();
+  //IsingSpins* spins = new IsingSpins(1,5);
+  //spins->print();
   //Hypercube* cube = new Hypercube(2,3);
   //cube->print();
   
