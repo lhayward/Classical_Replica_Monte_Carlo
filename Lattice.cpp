@@ -3,23 +3,19 @@
 **********************************************************************************************
 * Lauren Hayward
 **********************************************************************************************
-* File:   IsingSpins.h 
+* File:   Lattice.cpp (Abstract Class)
 *********************************************************************************************/
 
-#ifndef ISINGSPINS_H
-#define ISINGSPINS_H
+#include <iostream>
+#include "Lattice.h"
 
-#include "IntegerSpins.h"
-#include "MersenneTwister.h"
-
-class IsingSpins: public IntegerSpins
+/************************** Lattice::Lattice(int L) (constructor) ***************************/
+Lattice::Lattice(int L)
 {
-  public:
-    IsingSpins(int alpha, int N);
-    virtual ~IsingSpins();
-    
-    virtual void randomize(MTRand* randomGen);
-    virtual void randomize(MTRand* randomGen, bool* regionA);
-};
+  L_ = L;
+  neighbours_ = NULL;
+}
 
-#endif  // ISINGSPINS_H
+/***************************** Lattice::~Lattice() (destructor) *****************************/
+Lattice::~Lattice()
+{ }

@@ -1,5 +1,5 @@
 /*********************************************************************************************
-************************************ CLASSICAL MONTE CODE ************************************
+******************************** CLASSICAL REPLICA MONTE CODE ********************************
 **********************************************************************************************
 * Lauren Hayward
 **********************************************************************************************
@@ -15,24 +15,20 @@
 *********************************************************************************************/
 IntegerSpins::IntegerSpins(int alpha, int N)
 {
-  int a; 
-  
-  this->alpha_ = alpha;
-  this->N_     = N;
+  alpha_ = alpha;
+  N_     = N;
   
   spins_ = new spin_type*[alpha_];
-  for( a=0; a<alpha_; a++ )
+  for( int a=0; a<alpha_; a++ )
   { spins_[a] = new spin_type[N_]; }
   
-  this->polarize(); //Initially, all spins have value +1
+  polarize(); //Initially, all spins have value +1
 }
 
 /************************ IntegerSpins::~IntegerSpins() (destructor) ************************/
 IntegerSpins::~IntegerSpins()
 { 
-  int a;
-  
-  for(a=0; a<alpha_; a++)
+  for(int a=0; a<alpha_; a++)
   {delete[] spins_[a]; }
   delete[] spins_;
 }
@@ -42,11 +38,9 @@ IntegerSpins::~IntegerSpins()
 *********************************************************************************************/
 void IntegerSpins::polarize()
 {
-  int a,i;
-  
-  for( a=0; a<alpha_; a++ )
+  for( int a=0; a<alpha_; a++ )
   {
-    for( i=0; i<N_; i++ )
+    for( int i=0; i<N_; i++ )
     { spins_[a][i] = 1; }
   }
 }
@@ -55,12 +49,10 @@ void IntegerSpins::polarize()
 /********************************** IntegerSpins::print() ***********************************/
 void IntegerSpins::print()
 {
-  int a, i;
-  
-  for(a=0; a<alpha_; a++)
+  for(int a=0; a<alpha_; a++)
   {
     std::cout << "Replica #" << (a+1) << ":" << std::endl;
-    for(i=0; i<N_; i++)
+    for(int i=0; i<N_; i++)
     { 
       std::cout.width(2);
       std::cout << spins_[a][i] << " "; 

@@ -1,5 +1,5 @@
 /*********************************************************************************************
-************************************ CLASSICAL MONTE CODE ************************************
+******************************** CLASSICAL REPLICA MONTE CODE ********************************
 **********************************************************************************************
 * Lauren Hayward
 **********************************************************************************************
@@ -16,6 +16,7 @@
 #include <sstream>
 #include "MersenneTwister.h"
 #include "IsingSpins.h"
+#include "Hypercube.h"
 
 typedef unsigned long ulong;
 
@@ -25,23 +26,12 @@ typedef unsigned long ulong;
 int main(int argc, char** argv) 
 {
   MTRand randomGen;
-  int N=4;
-  
-  bool* regA = new bool[4];
-  
-  for (int i=0; i<4; i++ )
-  { regA[i] = 1; }
-  regA[3]=0;
   
   std::cout << "\n***STARTING SIMULATION***\n" << std::endl;
   
-  //randomGen.seed(12345);
-  IsingSpins* spins  = new IsingSpins(2,N);
-  
-  spins->randomize(&randomGen, regA);
-  spins->print();
-  
-  delete spins;
+  //IsingSpins* spins = new IsingSpins(1,5);
+  Hypercube* cube = new Hypercube(2,3);
+  cube->print();
   
   std::cout << "\n***END OF SIMULATION***\n" << std::endl;
   return 0;

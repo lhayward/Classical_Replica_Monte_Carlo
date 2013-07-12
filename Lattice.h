@@ -3,23 +3,24 @@
 **********************************************************************************************
 * Lauren Hayward
 **********************************************************************************************
-* File:   IsingSpins.h 
+* File:   Lattice.h (Abstract Class)
 *********************************************************************************************/
 
-#ifndef ISINGSPINS_H
-#define ISINGSPINS_H
+#ifndef LATTICE_H
+#define LATTICE_H
 
-#include "IntegerSpins.h"
-#include "MersenneTwister.h"
-
-class IsingSpins: public IntegerSpins
-{
-  public:
-    IsingSpins(int alpha, int N);
-    virtual ~IsingSpins();
+class Lattice 
+{ 
+  protected: 
+    int   L_; //linear size of lattice
+    int   N_; //total number of lattice sites
+    int** neighbours_; //coordinates of each vertex's neighbours (no double counting)
     
-    virtual void randomize(MTRand* randomGen);
-    virtual void randomize(MTRand* randomGen, bool* regionA);
+  public:
+    Lattice(int L);
+    virtual ~Lattice();
+    
+    virtual void print() = 0;
 };
 
-#endif  // ISINGSPINS_H
+#endif  // LATTICE_H
