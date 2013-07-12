@@ -29,8 +29,9 @@ class SimParameters
     std::string          modelName_;  //name of the Hamiltonian 
                                       //(eg. "ising", "toriccode", etc.)
     
+    //methods to read from input stream:
     double      readDouble (std::ifstream* fin, char delim);
-    uint        readInt    (std::ifstream* fin, char delim); 
+    uint        readUint   (std::ifstream* fin, char delim); 
     ulong       readLongInt(std::ifstream* fin, char delim);
     std::string readString (std::ifstream* fin, char delim);
     void        readTList  (std::ifstream* fin, char delim, char startChar, char endChar);
@@ -40,6 +41,14 @@ class SimParameters
     virtual ~SimParameters();
     
     void print();
+    
+    //getter methods:
+    double      getTemperature    (uint i);
+    uint        getNumWarmUpSweeps();
+    uint        getSweepsPerMeas  ();
+    uint        getMeasPerBin     ();
+    uint        getNumBins        ();
+    std::string getModelName      ();
 };
 
 #endif  // SIM_PARAMETERS_H

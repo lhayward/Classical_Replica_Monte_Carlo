@@ -9,7 +9,7 @@
 #include <iostream>
 #include "Lattice.h"
 
-/******************************* Lattice(int L) (constructor) ********************************/
+/******************************** Lattice(int L) (constructor) *******************************/
 Lattice::Lattice(int L)
 {
   L_ = L;

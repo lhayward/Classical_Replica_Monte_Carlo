@@ -25,7 +25,7 @@ IntegerSpins::IntegerSpins(int alpha, int N)
   polarize(); //Initially, all spins have value +1
 }
 
-/******************************* ~IntegerSpins() (destructor) ********************************/
+/******************************** ~IntegerSpins() (destructor) *******************************/
 IntegerSpins::~IntegerSpins()
 { 
   for(int a=0; a<alpha_; a++)

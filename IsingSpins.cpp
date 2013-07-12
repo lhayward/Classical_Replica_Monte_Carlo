@@ -11,12 +11,12 @@
 #include "IsingSpins.h"
 #include "MersenneTwister.h"
 
-/************************ IsingSpins(int alpha, int N) (constructor) *************************/
+/************************* IsingSpins(int alpha, int N) (constructor) ************************/
 IsingSpins::IsingSpins(int alpha, int N)
   : IntegerSpins(alpha, N)
 { }
 
-/******************************** ~IsingSpins() (destructor) *********************************/
+/********************************* ~IsingSpins() (destructor) ********************************/
 IsingSpins::~IsingSpins(){ } 
 
 /******************************** randomize(MTRand* randomGen) ********************************
