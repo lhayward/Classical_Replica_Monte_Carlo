@@ -29,10 +29,12 @@ int main(int argc, char** argv)
   MTRand randomGen;
   Model* model;     
   
-  //variables related to input file names:
-  std::string fileSuffix = getFileSuffix( argc, argv );
+  //variables related to input data from files:
+  std::string fileSuffix       = getFileSuffix( argc, argv );
   std::string simParamFileName = "simParams" + fileSuffix + ".txt";
-  std::string modelParamFileName;
+  std::string simParamStr      = "SIMULATION PARAMETERS";
+  std::string latticeParamStr  = "LATTICE PARAMETERS";
+  std::string modelParamStr    = "MODEL PARAMETERS";
   
   std::cout.precision(8);
   std::cout << "\n***STARTING SIMULATION***\n" << std::endl;

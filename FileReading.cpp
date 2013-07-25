@@ -21,7 +21,7 @@ typedef FileReading::ulong ulong;
 double FileReading::readDouble(std::ifstream* fin, char delim)
 {
   std::string currLine;
-  uint index;
+  std::size_t index;
   
   getline(*fin, currLine);
   index = currLine.find_last_of(delim);
@@ -36,10 +36,10 @@ std::vector<double>* FileReading::readDoubleVec(std::ifstream* fin, char delim,
 {
   std::vector<double>* result = new std::vector<double>;
   std::string          currLine;
-  uint                 delimIndex;
-  uint                 startIndex;
-  uint                 endIndex;
-  uint                 commaIndex;
+  std::size_t          delimIndex;
+  std::size_t          startIndex;
+  std::size_t          endIndex;
+  std::size_t          commaIndex;
   
   //cut off the part of the line up to and including the delim character:
   getline(*fin, currLine);
@@ -70,7 +70,7 @@ std::vector<double>* FileReading::readDoubleVec(std::ifstream* fin, char delim,
 uint FileReading::readUint(std::ifstream* fin, char delim)
 {
   std::string currLine;
-  uint index;
+  std::size_t index;
   
   getline(*fin, currLine);
   index = currLine.find_last_of(delim);
@@ -83,7 +83,7 @@ uint FileReading::readUint(std::ifstream* fin, char delim)
 ulong FileReading::readLongInt(std::ifstream* fin, char delim)
 {
   std::string currLine;
-  uint index;
+  std::size_t index;
   
   getline(*fin, currLine);
   index = currLine.find_last_of(delim);
@@ -97,7 +97,7 @@ std::string FileReading::readString(std::ifstream* fin, char delim)
 {
   std::string currLine;
   std::string result;
-  uint        index;
+  std::size_t index;
   
   //cut off the part of the line up to and including the delim character:
   getline(*fin, currLine);
@@ -114,3 +114,22 @@ std::string FileReading::readString(std::ifstream* fin, char delim)
   
   return result;
 } //readString method
+
+/***************** readUntilFound(std::ifstream* fin, std::string searchStr) ******************
+* This method reads lines from a file until it either reaches the end of the file or finds a 
+* that contains the given std::string searchStr. 
+**********************************************************************************************/
+void FileReading::readUntilFound(std::ifstream* fin, std::string searchStr)
+{ 
+  std::string currLine;
+  bool        doneReading = false;
+  std::size_t index;
+  
+  while( !doneReading )
+  {
+    getline(*fin, currLine);
+    index = currLine.find(searchStr);
+    if( index != std::string::npos || fin->eof() )
+    { doneReading = true; }
+  }
+}
