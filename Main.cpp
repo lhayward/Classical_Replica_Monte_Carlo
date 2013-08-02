@@ -25,6 +25,7 @@ typedef unsigned long ulong;
 
 std::string getFileSuffix(int argc, char** argv);
 Lattice* readLattice(std::string latticeName, std::string fileName, std::string startStr);
+Model* readModel(std::string modelName, std::string fileName, std::string startStr);
 
 /**********************************************************************************************
 ******************************************** main *********************************************
@@ -53,7 +54,9 @@ int main(int argc, char** argv)
   lattice = readLattice(params->getLatticeType(), paramFileName, latticeParamStr);
   lattice->print();
   
-  model = new Model(paramFileName,modelParamStr);
+  model = readModel(params->getModelName(), paramFileName, modelParamStr);
+  
+  //model = new Model(paramFileName,modelParamStr);
   model->print();
   
   /*
@@ -91,4 +94,16 @@ Lattice* readLattice(std::string latticeName, std::string fileName, std::string 
   { FileReading::readUntilFound(&fin, startStr); }
   
   return new Hypercube(&fin);
+}
+
+/******** readModel(std::string modelName, std::string fileName, std::string startStr) *******/
+Model* readModel(std::string modelName, std::string fileName, std::string startStr)
+{
+  std::ifstream fin;
+  fin.open(fileName.c_str());
+  
+  if( fin.is_open() )
+  { FileReading::readUntilFound(&fin, startStr); }
+  
+  return new Model(&fin);
 }

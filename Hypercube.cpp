@@ -18,11 +18,13 @@ Hypercube::Hypercube(int L, int D)
   initNAndNeighbours();
 }
 
+/************************ Hypercube(std::ifstream* fin) (constructor) ************************/
 Hypercube::Hypercube(std::ifstream* fin)
   : Lattice(fin)
 {
   const char EQUALS_CHAR = '=';
   
+  //read in D from the file:
   if( fin!=NULL && fin->is_open() )
   { D_ = FileReading::readUint(fin, EQUALS_CHAR); }
   else
@@ -30,8 +32,8 @@ Hypercube::Hypercube(std::ifstream* fin)
     std::cout << "Error in Hypercube constructor: could not read from file" << std::endl;
     D_=1;
   }
+  
   initNAndNeighbours();
-  //N_ = intPower(L_,D_);
 }
 
 /********************************* ~Hypercube() (destructor) *********************************/
@@ -88,9 +90,9 @@ int Hypercube::intPower(int base, int exp)
 void Hypercube::print()
 {
   std::cout << "Hypercube with:\n"
-            << "  L = " << L_ << "\n"
-            << "  D = " << D_ << "\n"
-            << "  N = " << N_ << "\n"
+            << "           Lattice Length L = " << L_ << "\n"
+            << "                Dimension D = " << D_ << "\n"
+            << "  Number of Lattice Sites N = " << N_ << "\n"
             << "  Neighbours list:" << std::endl;
   
   //print the neighbours_ array:
