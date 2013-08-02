@@ -26,11 +26,13 @@ class SimParameters
     uint                 sweepsPerMeas_;
     uint                 measPerBin_;
     uint                 numBins_;
+    std::string          latticeType_;  //type of lattice on which to perform the simulation
+                                        //(eg. "hypercube", "kagome", etc.)
     std::string          modelName_;  //name of the Hamiltonian 
                                       //(eg. "ising", "toriccode", etc.)
     
   public:
-    SimParameters(std::string fileName);
+    SimParameters(std::string fileName, std::string startStr);
     virtual ~SimParameters();
     
     void print();
@@ -41,6 +43,7 @@ class SimParameters
     uint        getSweepsPerMeas  ();
     uint        getMeasPerBin     ();
     uint        getNumBins        ();
+    std::string getLatticeType    ();
     std::string getModelName      ();
 };
 

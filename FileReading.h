@@ -24,7 +24,7 @@ class FileReading
     static std::vector<double>* readDoubleVec (std::ifstream* fin, char delim, char startChar, 
                                                char endChar);
     static uint                 readUint      (std::ifstream* fin, char delim); 
-    static ulong                readLongInt   (std::ifstream* fin, char delim);
+    static ulong                readULong     (std::ifstream* fin, char delim);
     static std::string          readString    (std::ifstream* fin, char delim);
     static void                 readUntilFound(std::ifstream* fin, std::string searchStr);
 };

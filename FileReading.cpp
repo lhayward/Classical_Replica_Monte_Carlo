@@ -7,6 +7,7 @@
 **********************************************************************************************/
 
 #include <fstream>
+#include <iostream>
 #include <string>
 #include <vector>
 #include "FileReading.h"
@@ -22,10 +23,16 @@ double FileReading::readDouble(std::ifstream* fin, char delim)
 {
   std::string currLine;
   std::size_t index;
+  double result=0;
   
-  getline(*fin, currLine);
-  index = currLine.find_last_of(delim);
-  return strtod( (currLine.substr(index+1)).c_str(), NULL);
+  if( fin!=NULL && fin->is_open() )
+  {
+    getline(*fin, currLine);
+    index = currLine.find_last_of(delim);
+    result = strtod( (currLine.substr(index+1)).c_str(), NULL);
+  }
+  
+  return result;
 } //readDouble method
 
 /******** readDoubleVec(std::ifstream* fin, char delim, char startChar, char endChar); ********
@@ -41,25 +48,28 @@ std::vector<double>* FileReading::readDoubleVec(std::ifstream* fin, char delim,
   std::size_t          endIndex;
   std::size_t          commaIndex;
   
-  //cut off the part of the line up to and including the delim character:
-  getline(*fin, currLine);
-  delimIndex = currLine.find_last_of(delim);
-  currLine = currLine.substr(delimIndex+1);
-  
-  //cut off the characters that indicate the start and end of the list:
-  startIndex = currLine.find_first_of(startChar);
-  endIndex = currLine.find_last_of(endChar);
-  currLine = currLine.substr(startIndex+1, (endIndex - startIndex - 1) );
-  
-  //read in the doubles in the list and store them in TList_:
-  commaIndex = currLine.find_first_of(",");
-  while( commaIndex<currLine.size() )
+  if( fin!=NULL && fin->is_open() )
   {
-    result->push_back( strtod( (currLine.substr(0, commaIndex)).c_str(), NULL) );
-    currLine = currLine.substr(commaIndex+1);
+    //cut off the part of the line up to and including the delim character:
+    getline(*fin, currLine);
+    delimIndex = currLine.find_last_of(delim);
+    currLine = currLine.substr(delimIndex+1);
+  
+    //cut off the characters that indicate the start and end of the list:
+    startIndex = currLine.find_first_of(startChar);
+    endIndex = currLine.find_last_of(endChar);
+    currLine = currLine.substr(startIndex+1, (endIndex - startIndex - 1) );
+  
+    //read in the doubles in the list and store them in TList_:
     commaIndex = currLine.find_first_of(",");
+    while( commaIndex<currLine.size() )
+    {
+      result->push_back( strtod( (currLine.substr(0, commaIndex)).c_str(), NULL) );
+      currLine = currLine.substr(commaIndex+1);
+      commaIndex = currLine.find_first_of(",");
+    }
+    result->push_back( strtod( currLine.c_str(), NULL) );
   }
-  result->push_back( strtod( currLine.c_str(), NULL) );
   
   return result;
 } //readDoubleVec method
@@ -71,23 +81,35 @@ uint FileReading::readUint(std::ifstream* fin, char delim)
 {
   std::string currLine;
   std::size_t index;
+  uint result = 0;
   
-  getline(*fin, currLine);
-  index = currLine.find_last_of(delim);
-  return strtol( (currLine.substr(index+1)).c_str(), NULL, 0);
+  if( fin!=NULL && fin->is_open() )
+  {
+    getline(*fin, currLine);
+    index = currLine.find_last_of(delim);
+    result = (uint)strtoul( (currLine.substr(index+1)).c_str(), NULL, 0);
+  }
+  
+  return result;
 } //readUint method
 
-/************************ readLongInt(std::ifstream* fin, char delim) *************************
+/************************* readULong(std::ifstream* fin, char delim) **************************
 * This method reads in and parses an unsigned long integer from the given input stream.
 **********************************************************************************************/
-ulong FileReading::readLongInt(std::ifstream* fin, char delim)
+ulong FileReading::readULong(std::ifstream* fin, char delim)
 {
   std::string currLine;
   std::size_t index;
+  ulong result = 0;
   
-  getline(*fin, currLine);
-  index = currLine.find_last_of(delim);
-  return strtoul( (currLine.substr(index+1)).c_str(), NULL, 0);
+  if( fin!=NULL && fin->is_open() )
+  {
+    getline(*fin, currLine);
+    index = currLine.find_last_of(delim);
+    result = strtoul( (currLine.substr(index+1)).c_str(), NULL, 0);
+  }
+  
+  return result;
 } //readLongInt method
 
 /************************* readString(std::ifstream* fin, char delim) *************************
@@ -96,21 +118,24 @@ ulong FileReading::readLongInt(std::ifstream* fin, char delim)
 std::string FileReading::readString(std::ifstream* fin, char delim)
 {
   std::string currLine;
-  std::string result;
+  std::string result = "";
   std::size_t index;
   
-  //cut off the part of the line up to and including the delim character:
-  getline(*fin, currLine);
-  index = currLine.find_last_of(delim);
-  currLine = currLine.substr(index+1);
+  if( fin!=NULL && fin->is_open() )
+  {
+    //cut off the part of the line up to and including the delim character:
+    getline(*fin, currLine);
+    index = currLine.find_last_of(delim);
+    currLine = currLine.substr(index+1);
   
-  //trim the leading whitespace:
-  index = currLine.find_first_not_of(" \t\n");
-  currLine = currLine.substr(index);
+    //trim the leading whitespace:
+    index = currLine.find_first_not_of(" \t\n");
+    currLine = currLine.substr(index);
   
-  //trim the trailing whitespace:
-  index = currLine.find_last_not_of(" \t\n");
-  result = currLine.substr(0,index+1);
+    //trim the trailing whitespace:
+    index = currLine.find_last_not_of(" \t\n");
+    result = currLine.substr(0,index+1);
+  }
   
   return result;
 } //readString method
@@ -122,14 +147,19 @@ std::string FileReading::readString(std::ifstream* fin, char delim)
 void FileReading::readUntilFound(std::ifstream* fin, std::string searchStr)
 { 
   std::string currLine;
-  bool        doneReading = false;
+  bool        doneReading;
   std::size_t index;
   
-  while( !doneReading )
+  if( fin!=NULL )
   {
-    getline(*fin, currLine);
-    index = currLine.find(searchStr);
-    if( index != std::string::npos || fin->eof() )
-    { doneReading = true; }
-  }
+    doneReading = fin->eof();
+    
+    while( !doneReading )
+    {
+      getline(*fin, currLine);
+      index = currLine.find(searchStr);
+      if( index != std::string::npos || fin->eof() )
+      { doneReading = true; }
+    } //while
+  } //if
 }

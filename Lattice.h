@@ -18,6 +18,7 @@ class Lattice
     
   public:
     Lattice(int L);
+    Lattice(std::ifstream* fin);
     virtual ~Lattice();
     
     //pure virtual method:

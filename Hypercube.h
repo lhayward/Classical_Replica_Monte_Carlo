@@ -18,6 +18,7 @@
 #ifndef HYPERCUBE_H 
 #define HYPERCUBE_H
 
+#include <fstream>
 #include "Lattice.h"
 
 class Hypercube: public Lattice
@@ -25,10 +26,12 @@ class Hypercube: public Lattice
   private:
     int   D_; //dimension
     
-    int intPower(int base, int exp);
+    int  intPower(int base, int exp);
+    void initNAndNeighbours();
     
   public:
     Hypercube(int L, int D);
+    Hypercube(std::ifstream* fin);
     virtual ~Hypercube();
     
     virtual void print();
