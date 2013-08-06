@@ -22,7 +22,7 @@ Number of Bins = 100
 Lattice Type = hypercube  
 Model Name = toriccode  
 
-\#LATTICE PARAMETERS: 
+\#LATTICE PARAMETERS:  
 Lattice Length L = 3  
 Lattice Dimension D = 2  
 
