@@ -12,23 +12,23 @@ The simulation parameters are stored in:
 
 An example of a valid parameter file is:
 
-#SIMULATION PARAMETERS:
+\#SIMULATION PARAMETERS:  
 Temperature List = [2.5, 2, 1.3, 1.0]  
 Random Generator Seed = 20140802  
 Number of Warm-up Sweeps = 100  
 Number of Sweeps per Energy Measurement = 1  
 Number of Measurements per Bin = 1000  
 Number of Bins = 100  
-Lattice Type = hypercube 
-Model Name = toriccode 
+Lattice Type = hypercube  
+Model Name = toriccode  
 
-#LATTICE PARAMETERS: 
-Lattice Length L = 3
-Lattice Dimension D = 2
+\#LATTICE PARAMETERS: 
+Lattice Length L = 3  
+Lattice Dimension D = 2  
 
-#MODEL PARAMETERS:
-Coupling J = 1
-Number of Replicas alpha = 2 
-Fraction of Columns in Region A = 0.5   
+\#MODEL PARAMETERS:  
+Coupling J = 1  
+Number of Replicas alpha = 2  
+Fraction of Columns in Region A = 0.5  
 
 
