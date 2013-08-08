@@ -9,28 +9,22 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <typeinfo>
 #include "FileReading.h"
 #include "ToricCode_q1_GeneralD.h"
-
-/***************** ToricCode_q1_GeneralD(std::string fileName) (constructor) *****************/
-/*ToricCode_q1_GeneralD::ToricCode_q1_GeneralD(std::ifstream* fin, Hypercube* lattice)
-  : Model(fin)
-{
-  std::cout << "TC Constructor, Hypercube" << std::endl;
-}*/
-
 
 /***************** ToricCode_q1_GeneralD(std::string fileName) (constructor) *****************/
 ToricCode_q1_GeneralD::ToricCode_q1_GeneralD(std::ifstream* fin, Lattice* lattice)
   : Model(fin)
 {
-  lattice = dynamic_cast<Hypercube *>(lattice);
-  if(!lattice)
+  lattice_ = dynamic_cast<Hypercube *>(lattice);
+  if(!lattice_)
   {
-    std::cout << "Could not convert to Hypercube." << std::endl;
+    std::cout << "ERROR in ToricCode_q1_GeneralD constructor:\n" 
+              << "  A lattice of type Hypercube is required.\n"
+              << "  A lattice of type " << typeid(*lattice).name() << " was given.\n" 
+              << std::endl;
   }
-  else
-  { std::cout <<"YAY!" << std::endl; }
 }
 
 /*************************** ~ToricCode_q1_GeneralD() (destructor) ***************************/
@@ -40,7 +34,7 @@ ToricCode_q1_GeneralD::~ToricCode_q1_GeneralD()
 /****************************************** print() ******************************************/
 void ToricCode_q1_GeneralD::print()
 {
-  std::cout << "(1,D-1) Toric Code with:\n"
+  std::cout << "(1,D-1) Toric Code Parameters:\n"
             << "                        Coupling J: " << J_ << "\n"
             << "          Number of Replicas alpha: " << alpha_ << "\n"
             << "   Fraction of Columns in Region A: " << fracA_ << "\n"

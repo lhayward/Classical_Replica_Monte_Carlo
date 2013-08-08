@@ -50,7 +50,7 @@ int main(int argc, char** argv)
   std::cout.precision(8);
   std::cout << "\n***STARTING SIMULATION***\n" << std::endl;
   
-  std::cout << "Parameter File: " << paramFileName << std::endl;
+  std::cout << "Parameter File: " << paramFileName << "\n" << std::endl;
   
   params = new SimParameters(paramFileName, simParamStr);
   params->print();
@@ -104,11 +104,6 @@ Model* readModel(std::string modelName, std::string fileName, std::string startS
 {
   std::ifstream fin;
   fin.open(fileName.c_str());
-  
-  Hypercube* test = new Hypercube(2,3);
-  
-  std::cout << "TYPE ID OF LATTICE: " << typeid(*lattice).name() << std::endl;
-  std::cout << "TYPE ID OF TEST   : " << typeid(*test).name() << std::endl;
   
   if( fin.is_open() )
   { FileReading::readUntilFound(&fin, startStr); }

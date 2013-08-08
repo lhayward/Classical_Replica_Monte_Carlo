@@ -20,7 +20,6 @@ class ToricCode_q1_GeneralD : public Model
     Hypercube* lattice_; //the hypercubic lattice on which the d.o.f. live
     
   public:
-    //ToricCode_q1_GeneralD(std::ifstream* fin, Hypercube* lattice);
     ToricCode_q1_GeneralD(std::ifstream* fin, Lattice* lattice);
     virtual ~ToricCode_q1_GeneralD();
     

@@ -87,7 +87,7 @@ uint Hypercube::uintPower(uint base, uint exp)
 /****************************************** print() ******************************************/
 void Hypercube::print()
 {
-  std::cout << "Hypercube with:\n"
+  std::cout << "Hypercube Parameters:\n"
             << "           Lattice Length L = " << L_ << "\n"
             << "                Dimension D = " << D_ << "\n"
             << "  Number of Lattice Sites N = " << N_ << "\n"
