@@ -3,29 +3,28 @@
 ***********************************************************************************************
 * Lauren Hayward
 ***********************************************************************************************
-* File:   Model.h (Abstract Class)
+* File:   ToricCode_q1_GeneralD.h
 **********************************************************************************************/
 
-#ifndef MODEL_H
-#define MODEL_H
+#ifndef TORICCODE_H
+#define TORICCODE_H
 
 #include <string>
+#include "Hypercube.h"
 #include "IntegerSpins.h"
-#include "Lattice.h"
+#include "Model.h"
 
-class Model 
+class ToricCode_q1_GeneralD : public Model
 { 
-  protected:
-    double        J_;     //coupling 
-    int           alpha_; //the number of replicas
-    double        fracA_; //the fractions of spins in region A (only relevant for alpha_ >= 2)
-    IntegerSpins* spins_; //the degrees of freedom (d.o.f.) for the model
+  private:
+    Hypercube* lattice_; //the hypercubic lattice on which the d.o.f. live
     
   public:
-    Model(std::ifstream* fin);
-    virtual ~Model();
+    //ToricCode_q1_GeneralD(std::ifstream* fin, Hypercube* lattice);
+    ToricCode_q1_GeneralD(std::ifstream* fin, Lattice* lattice);
+    virtual ~ToricCode_q1_GeneralD();
     
-    virtual void print() = 0;
+    virtual void print();
 };
 
-#endif  // MODEL_H
+#endif  // TORICCODE_H

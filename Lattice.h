@@ -11,18 +11,22 @@
 
 class Lattice 
 { 
+  public:
+    typedef unsigned int  uint;
+  
   protected: 
-    int   L_; //linear size of lattice
-    int   N_; //total number of lattice sites
-    int** neighbours_; //coordinates of each vertex's neighbours (no double counting)
+    uint   L_; //linear size of lattice
+    uint   N_; //total number of lattice sites
+    uint** neighbours_; //coordinates of each vertex's neighbours (no double counting)
     
   public:
-    Lattice(int L);
+    Lattice(uint L);
     Lattice(std::ifstream* fin);
     virtual ~Lattice();
     
     //pure virtual method:
     virtual void print() = 0;
+    //virtual uint getNeighbour(uint i, uint j) = 0;
 };
 
 #endif  // LATTICE_H

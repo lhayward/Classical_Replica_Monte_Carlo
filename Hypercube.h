@@ -21,20 +21,26 @@
 #include <fstream>
 #include "Lattice.h"
 
-class Hypercube: public Lattice
+class Hypercube : public Lattice
 { 
-  private:
-    int   D_; //dimension
+  public:
+    typedef unsigned int  uint;
     
-    int  intPower(int base, int exp);
+  private:
+    uint   D_; //dimension
+    
+    uint uintPower(uint base, uint exp);
     void initNAndNeighbours();
     
   public:
-    Hypercube(int L, int D);
+    Hypercube(uint L, uint D);
     Hypercube(std::ifstream* fin);
     virtual ~Hypercube();
     
     virtual void print();
+    
+    //getter methods:
+    uint getD();
 };
 
 #endif  // HYPERCUBE_H

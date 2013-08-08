@@ -10,8 +10,11 @@
 #include "FileReading.h"
 #include "Hypercube.h"
 
+//typdefs needed because uint and ulong are return types:
+typedef Hypercube::uint uint;
+
 /*************************** Hypercube(int L, int D) (constructor) ***************************/
-Hypercube::Hypercube(int L, int D)
+Hypercube::Hypercube(uint L, uint D)
   : Lattice(L)
 {
   D_ = D;
@@ -40,7 +43,7 @@ Hypercube::Hypercube(std::ifstream* fin)
 Hypercube::~Hypercube()
 {
   //delete the neighbours_ array:
-  for(int i=0; i<N_; i++)
+  for(uint i=0; i<N_; i++)
   { 
     if( neighbours_[i] != NULL )
     { delete[] neighbours_[i]; }
@@ -54,37 +57,32 @@ Hypercube::~Hypercube()
 /************************************ initNAndNeighbours() ***********************************/
 void Hypercube::initNAndNeighbours()
 {
-  N_ = intPower(L_,D_);
+  N_ = uintPower(L_,D_);
   
-  //initialize the neighbours_ array (Note periodic boundary conditions):
-  neighbours_ = new int*[N_];
-  for( int i=0; i<N_; i++ )
+  //initialize the neighbours_ array (note periodic boundary conditions):
+  neighbours_ = new uint*[N_];
+  for( uint i=0; i<N_; i++ )
   { 
-    neighbours_[i] = new int[D_];
-    for( int j=0; j<D_; j++ ) 
+    neighbours_[i] = new uint[D_];
+    for( uint j=0; j<D_; j++ ) 
     {
-      neighbours_[i][j] = i + intPower(L_,j);
+      neighbours_[i][j] = i + uintPower(L_,j);
       //fix at the boundaries:
-      if( neighbours_[i][j]%intPower(L_,(j+1)) < intPower(L_,j) )
-      { neighbours_[i][j] -= intPower(L_,(j+1)); }
+      if( neighbours_[i][j]%uintPower(L_,(j+1)) < uintPower(L_,j) )
+      { neighbours_[i][j] -= uintPower(L_,(j+1)); }
     } //j
   } //i
 }
 
-/******************************** intPower(int base, int exp) ********************************/
-int Hypercube::intPower(int base, int exp)
+/******************************** uintPower(int base, int exp) *******************************/
+uint Hypercube::uintPower(uint base, uint exp)
 {
-  int result=0;
-  
-  if( exp >= 0 )
-  {
-    result = 1;
-    for(int i=exp; i>=1; i--)
-    { result *= base; } 
-  }
+  uint result = 1;
+  for(uint i=1; i<=exp; i++)
+  { result *= base; } 
   
   return result;
-} //intPower method
+} //uintPower method
 
 /****************************************** print() ******************************************/
 void Hypercube::print()
@@ -96,15 +94,19 @@ void Hypercube::print()
             << "  Neighbours list:" << std::endl;
   
   //print the neighbours_ array:
-  for( int i=0; i<N_; i++ )
+  for( uint i=0; i<N_; i++ )
   {
     std::cout.width(4);
     std::cout << "    " << i << ": ";
-    for( int j=0; j<D_; j++ )
+    for( uint j=0; j<D_; j++ )
     {
       std::cout.width(4);
       std::cout << neighbours_[i][j] << " ";
     } //j
     std::cout << std::endl;
   } //i 
+  std::cout << std::endl;
 } //print method
+
+/*********************************** Public Getter Methods: **********************************/
+uint Hypercube::getD(){ return D_; }

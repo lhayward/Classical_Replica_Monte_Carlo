@@ -14,18 +14,21 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <typeinfo>
 #include "FileReading.h"
 #include "Hypercube.h"
 #include "MersenneTwister.h"
 #include "Lattice.h"
 #include "Model.h"
 #include "SimParameters.h"
+#include "ToricCode_q1_GeneralD.h"
 
 typedef unsigned long ulong;
 
 std::string getFileSuffix(int argc, char** argv);
 Lattice* readLattice(std::string latticeName, std::string fileName, std::string startStr);
-Model* readModel(std::string modelName, std::string fileName, std::string startStr);
+Model* readModel(std::string modelName, std::string fileName, std::string startStr, 
+                 Lattice* lattice);
 
 /**********************************************************************************************
 ******************************************** main *********************************************
@@ -46,6 +49,7 @@ int main(int argc, char** argv)
   
   std::cout.precision(8);
   std::cout << "\n***STARTING SIMULATION***\n" << std::endl;
+  
   std::cout << "Parameter File: " << paramFileName << std::endl;
   
   params = new SimParameters(paramFileName, simParamStr);
@@ -54,9 +58,7 @@ int main(int argc, char** argv)
   lattice = readLattice(params->getLatticeType(), paramFileName, latticeParamStr);
   lattice->print();
   
-  model = readModel(params->getModelName(), paramFileName, modelParamStr);
-  
-  //model = new Model(paramFileName,modelParamStr);
+  model = readModel(params->getModelName(), paramFileName, modelParamStr, lattice);
   model->print();
   
   /*
@@ -97,13 +99,19 @@ Lattice* readLattice(std::string latticeName, std::string fileName, std::string 
 }
 
 /******** readModel(std::string modelName, std::string fileName, std::string startStr) *******/
-Model* readModel(std::string modelName, std::string fileName, std::string startStr)
+Model* readModel(std::string modelName, std::string fileName, std::string startStr, 
+                 Lattice* lattice)
 {
   std::ifstream fin;
   fin.open(fileName.c_str());
   
+  Hypercube* test = new Hypercube(2,3);
+  
+  std::cout << "TYPE ID OF LATTICE: " << typeid(*lattice).name() << std::endl;
+  std::cout << "TYPE ID OF TEST   : " << typeid(*test).name() << std::endl;
+  
   if( fin.is_open() )
   { FileReading::readUntilFound(&fin, startStr); }
   
-  return new Model(&fin);
+  return new ToricCode_q1_GeneralD(&fin, lattice);
 }

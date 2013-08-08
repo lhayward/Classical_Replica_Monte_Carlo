@@ -60,15 +60,6 @@ SimParameters::~SimParameters()
   TList_ = NULL; 
 }
 
-/*********************************** Public Getter Methods: **********************************/
-double       SimParameters::getTemperature    (uint i){ return TList_->at(i); }
-uint         SimParameters::getNumWarmUpSweeps()      { return numWarmUpSweeps_; }
-uint         SimParameters::getSweepsPerMeas  ()      { return sweepsPerMeas_; }
-uint         SimParameters::getMeasPerBin     ()      { return measPerBin_; }
-uint         SimParameters::getNumBins        ()      { return numBins_; }
-std::string  SimParameters::getLatticeType    ()      { return latticeType_; }
-std::string  SimParameters::getModelName      ()      { return modelName_; }
-
 /****************************************** print() ******************************************/
 void SimParameters::print()
 {
@@ -95,3 +86,12 @@ void SimParameters::print()
             << std::endl;
   
 } //print method
+
+/*********************************** Public Getter Methods: **********************************/
+double       SimParameters::getTemperature    (uint i){ return TList_->at(i); }
+uint         SimParameters::getNumWarmUpSweeps()      { return numWarmUpSweeps_; }
+uint         SimParameters::getSweepsPerMeas  ()      { return sweepsPerMeas_; }
+uint         SimParameters::getMeasPerBin     ()      { return measPerBin_; }
+uint         SimParameters::getNumBins        ()      { return numBins_; }
+std::string  SimParameters::getLatticeType    ()      { return latticeType_; }
+std::string  SimParameters::getModelName      ()      { return modelName_; }

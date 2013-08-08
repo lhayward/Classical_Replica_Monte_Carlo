@@ -11,7 +11,7 @@
 #include "Lattice.h"
 
 /******************************** Lattice(int L) (constructor) *******************************/
-Lattice::Lattice(int L)
+Lattice::Lattice(uint L)
 {
   L_ = L;
   neighbours_ = NULL;

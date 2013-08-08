@@ -12,7 +12,7 @@
 #include "FileReading.h"
 #include "Model.h"
 
-/************** Model(std::string fileName, std::string startStr) (constructor) **************/
+/************************* Model(std::string fileName) (constructor) *************************/
 Model::Model(std::ifstream* fin)
 { 
   const char EQUALS_CHAR = '=';
@@ -32,12 +32,3 @@ Model::Model(std::ifstream* fin)
 /*********************************** ~Model() (destructor) ***********************************/
 Model::~Model()
 { }
-
-/****************************************** print() ******************************************/
-void Model::print()
-{
-  std::cout << "                        Coupling J: " << J_ << "\n"
-            << "          Number of Replicas alpha: " << alpha_ << "\n"
-            << "   Fraction of Columns in Region A: " << fracA_ << "\n"
-            << std::endl;
-}
