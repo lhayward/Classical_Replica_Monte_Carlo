@@ -10,7 +10,7 @@
 #include "FileReading.h"
 #include "Hypercube.h"
 
-//typdefs needed because uint and ulong are return types:
+//typdef needed because uint is a return types:
 typedef Hypercube::uint uint;
 
 /*************************** Hypercube(int L, int D) (constructor) ***************************/

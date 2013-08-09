@@ -17,6 +17,7 @@
 #include <typeinfo>
 #include "FileReading.h"
 #include "Hypercube.h"
+#include "IsingModel.h"
 #include "MersenneTwister.h"
 #include "Lattice.h"
 #include "Model.h"
@@ -102,11 +103,17 @@ Lattice* readLattice(std::string latticeName, std::string fileName, std::string 
 Model* readModel(std::string modelName, std::string fileName, std::string startStr, 
                  Lattice* lattice)
 {
+  Model* result=NULL;
   std::ifstream fin;
   fin.open(fileName.c_str());
   
   if( fin.is_open() )
   { FileReading::readUntilFound(&fin, startStr); }
   
-  return new ToricCode_q1_GeneralD(&fin, lattice);
+  if( modelName == "isingmodel" )
+  { result = new IsingModel(&fin, lattice); }
+  else if( modelName == "toriccode" )
+  { result = new ToricCode_q1_GeneralD(&fin, lattice); }
+  
+  return result;
 }

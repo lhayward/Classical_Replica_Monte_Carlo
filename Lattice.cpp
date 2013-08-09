@@ -10,6 +10,9 @@
 #include "FileReading.h"
 #include "Lattice.h"
 
+//typdef needed because uint is a return types:
+typedef Lattice::uint uint;
+
 /******************************** Lattice(int L) (constructor) *******************************/
 Lattice::Lattice(uint L)
 {
@@ -35,5 +38,5 @@ Lattice::~Lattice()
 { }
 
 /*********************************** Public Getter Methods: **********************************/
-uint SimParameters::getN(){ return N_; }
-uint SimParameters::getZ(){ return z_; }
+uint Lattice::getN(){ return N_; }
+uint Lattice::getZ(){ return z_; }
