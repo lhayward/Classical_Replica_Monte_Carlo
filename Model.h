@@ -22,7 +22,9 @@ class Model
     Model(std::ifstream* fin);
     virtual ~Model();
     
-    virtual void print() = 0;
+    virtual double calculateEnergy() = 0;
+    virtual void   print() = 0;
+    virtual void   singleSpinUpdate() = 0;
 };
 
 #endif  // MODEL_H

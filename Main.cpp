@@ -62,16 +62,6 @@ int main(int argc, char** argv)
   model = readModel(params->getModelName(), paramFileName, modelParamStr, lattice);
   model->print();
   
-  /*
-  //initialize the model based on the model name specified in the parameter file:
-  if( params->getModelName() == "toriccode" )
-  {
-    std::cout << "TORIC CODE!" << std::endl;
-    model = new Model(modelParamFileName);
-    model->print();
-  }
-  */
-  
   std::cout << "\n***END OF SIMULATION***\n" << std::endl;
   return 0;
 } //closes main

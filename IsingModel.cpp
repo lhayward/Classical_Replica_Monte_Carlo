@@ -24,6 +24,12 @@ IsingModel::IsingModel(std::ifstream* fin, Lattice* lattice)
 IsingModel::~IsingModel()
 { }
 
+/************************************* calculateEnergy() *************************************/
+double IsingModel::calculateEnergy()
+{
+  return 0;
+}
+
 /****************************************** print() ******************************************/
 void IsingModel::print()
 {
@@ -32,4 +38,9 @@ void IsingModel::print()
             << "          Number of Replicas alpha: " << alpha_ << "\n"
             << "   Fraction of Columns in Region A: " << fracA_ << "\n"
             << std::endl;
+}
+
+/************************************* singleSpinUpdate() ************************************/
+void IsingModel::singleSpinUpdate()
+{
 }

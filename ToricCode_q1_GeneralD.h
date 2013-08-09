@@ -24,7 +24,9 @@ class ToricCode_q1_GeneralD : public Model
     ToricCode_q1_GeneralD(std::ifstream* fin, Lattice* lattice);
     virtual ~ToricCode_q1_GeneralD();
     
+    virtual double calculateEnergy();
     virtual void print();
+    virtual void singleSpinUpdate();
 };
 
 #endif  // TORICCODE_H

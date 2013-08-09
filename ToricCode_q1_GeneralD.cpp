@@ -31,6 +31,12 @@ ToricCode_q1_GeneralD::ToricCode_q1_GeneralD(std::ifstream* fin, Lattice* lattic
 ToricCode_q1_GeneralD::~ToricCode_q1_GeneralD()
 { }
 
+/************************************* calculateEnergy() *************************************/
+double ToricCode_q1_GeneralD::calculateEnergy()
+{
+  return 0;
+}
+
 /****************************************** print() ******************************************/
 void ToricCode_q1_GeneralD::print()
 {
@@ -39,4 +45,9 @@ void ToricCode_q1_GeneralD::print()
             << "          Number of Replicas alpha: " << alpha_ << "\n"
             << "   Fraction of Columns in Region A: " << fracA_ << "\n"
             << std::endl;
+}
+
+/************************************* singleSpinUpdate() ************************************/
+void ToricCode_q1_GeneralD::singleSpinUpdate()
+{
 }

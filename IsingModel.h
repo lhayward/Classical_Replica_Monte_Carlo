@@ -24,7 +24,9 @@ class IsingModel : public Model
     IsingModel(std::ifstream* fin, Lattice* lattice);
     virtual ~IsingModel();
     
-    virtual void print();
+    virtual double calculateEnergy();
+    virtual void   print();
+    virtual void   singleSpinUpdate();
 };
 
 #endif  // ISINGMODEL_H
