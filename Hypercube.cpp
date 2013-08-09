@@ -33,7 +33,7 @@ Hypercube::Hypercube(std::ifstream* fin)
   { D_ = FileReading::readUint(fin, EQUALS_CHAR); }
   else
   {
-    std::cout << "Error in Hypercube constructor: could not read from file" << std::endl;
+    std::cout << "ERROR in Hypercube constructor: could not read from file\n" << std::endl;
     D_=1;
   }
   

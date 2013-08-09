@@ -45,8 +45,8 @@ SimParameters::SimParameters(std::string fileName, std::string startStr)
   }
   else
   { 
-    std::cout << "Error in SimParameters constructor: could not find file \"" << fileName << "\"" 
-              << std::endl; 
+    std::cout << "ERROR in SimParameters constructor: could not find file \"" << fileName 
+              << "\"\n" << std::endl; 
   }
   
   fin.close();

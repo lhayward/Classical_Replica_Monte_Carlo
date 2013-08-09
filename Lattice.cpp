@@ -28,7 +28,7 @@ Lattice::Lattice(std::ifstream* fin)
   { L_ = FileReading::readUint(fin, EQUALS_CHAR); }
   else
   {
-    std::cout << "Error in Lattice constructor: could not read from file" << std::endl;
+    std::cout << "ERROR in Lattice constructor: could not read from file\n" << std::endl;
     L_=0;
   }
 }

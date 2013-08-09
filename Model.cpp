@@ -25,7 +25,7 @@ Model::Model(std::ifstream* fin)
   }
   else
   { 
-    std::cout << "Error in Model constructor: could not read from file" << std::endl; 
+    std::cout << "ERROR in Model constructor: could not read from file\n" << std::endl; 
   }
   
   //initialize the temperature (should be changed by user to desired temperature before
