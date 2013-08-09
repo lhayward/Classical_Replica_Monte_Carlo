@@ -17,6 +17,7 @@ class Lattice
   protected: 
     uint   L_; //linear size of lattice
     uint   N_; //total number of lattice sites
+    uint   z_; //number of nearest neighbouring sites for each site
     uint** neighbours_; //coordinates of each vertex's neighbours (no double counting)
     
   public:
@@ -27,6 +28,10 @@ class Lattice
     //pure virtual method:
     virtual void print() = 0;
     //virtual uint getNeighbour(uint i, uint j) = 0;
+    
+    //getter methods:
+    uint getN();
+    uint getZ();
 };
 
 #endif  // LATTICE_H

@@ -33,3 +33,7 @@ Lattice::Lattice(std::ifstream* fin)
 /********************************** ~Lattice() (destructor) **********************************/
 Lattice::~Lattice()
 { }
+
+/*********************************** Public Getter Methods: **********************************/
+uint SimParameters::getN(){ return N_; }
+uint SimParameters::getZ(){ return z_; }

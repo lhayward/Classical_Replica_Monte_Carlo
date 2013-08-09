@@ -18,6 +18,7 @@ Hypercube::Hypercube(uint L, uint D)
   : Lattice(L)
 {
   D_ = D;
+  z_ = 2*D;
   initNAndNeighbours();
 }
 
@@ -36,6 +37,7 @@ Hypercube::Hypercube(std::ifstream* fin)
     D_=1;
   }
   
+  z_ = 2*D_;
   initNAndNeighbours();
 }
 

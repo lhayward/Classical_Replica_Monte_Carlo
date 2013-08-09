@@ -3,28 +3,28 @@
 ***********************************************************************************************
 * Lauren Hayward
 ***********************************************************************************************
-* File:   ToricCode_q1_GeneralD.h
+* File:   IsingModel.h
 **********************************************************************************************/
 
-#ifndef TORICCODE_H
-#define TORICCODE_H
+#ifndef ISINGMODEL_H
+#define ISINGMODEL_H
 
 #include <string>
 #include "Hypercube.h"
 #include "IsingSpins.h"
 #include "Model.h"
 
-class ToricCode_q1_GeneralD : public Model
+class IsingModel : public Model
 { 
   private:
-    Hypercube* lattice_; //the hypercubic lattice on which the d.o.f. live
-    IsingSpins* spins_; //the degrees of freedom (d.o.f.) for the model
+    Lattice* lattice_; //the lattice on which the d.o.f. live
+    Lattice* spins_; //the degrees of freedom (d.o.f.) for the model
     
   public:
-    ToricCode_q1_GeneralD(std::ifstream* fin, Lattice* lattice);
-    virtual ~ToricCode_q1_GeneralD();
+    IsingModel(std::ifstream* fin, Lattice* lattice);
+    virtual ~IsingModel();
     
     virtual void print();
 };
 
-#endif  // TORICCODE_H
+#endif  // ISINGMODEL_H
