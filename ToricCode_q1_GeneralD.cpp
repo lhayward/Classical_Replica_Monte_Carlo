@@ -40,11 +40,8 @@ double ToricCode_q1_GeneralD::calculateEnergy()
 /****************************************** print() ******************************************/
 void ToricCode_q1_GeneralD::print()
 {
-  std::cout << "(1,D-1) Toric Code Parameters:\n"
-            << "                        Coupling J: " << J_ << "\n"
-            << "          Number of Replicas alpha: " << alpha_ << "\n"
-            << "   Fraction of Columns in Region A: " << fracA_ << "\n"
-            << std::endl;
+  std::cout << "(1,D-1) Toric Code Parameters:" << std::endl;
+  Model::print();
 }
 
 /************************************* singleSpinUpdate() ************************************/

@@ -38,6 +38,7 @@ class Hypercube : public Lattice
     virtual ~Hypercube();
     
     virtual void print();
+    virtual void printNeighbours();
     
     //getter methods:
     uint getD();

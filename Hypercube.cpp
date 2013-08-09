@@ -93,7 +93,14 @@ void Hypercube::print()
             << "           Lattice Length L = " << L_ << "\n"
             << "                Dimension D = " << D_ << "\n"
             << "  Number of Lattice Sites N = " << N_ << "\n"
-            << "  Neighbours list:" << std::endl;
+            << std::endl;
+  
+} //print method
+
+/****************************************** printNeighbours() ******************************************/
+void Hypercube::printNeighbours()
+{
+  std::cout << "Hypercube Neighbours list:" << std::endl;
   
   //print the neighbours_ array:
   for( uint i=0; i<N_; i++ )
@@ -108,7 +115,7 @@ void Hypercube::print()
     std::cout << std::endl;
   } //i 
   std::cout << std::endl;
-} //print method
+} //printNeighbours method
 
 /*********************************** Public Getter Methods: **********************************/
 uint Hypercube::getD(){ return D_; }

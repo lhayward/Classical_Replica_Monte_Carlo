@@ -27,8 +27,25 @@ Model::Model(std::ifstream* fin)
   { 
     std::cout << "Error in Model constructor: could not read from file" << std::endl; 
   }
+  
+  //initialize the temperature (should be changed by user to desired temperature before
+  //starting the simulation):
+  T_ = 1.0;
 }
 
 /*********************************** ~Model() (destructor) ***********************************/
 Model::~Model()
 { }
+
+/****************************************** print() ******************************************/
+void Model::print()
+{
+  std::cout << "                        Coupling J: " << J_ << "\n"
+            << "          Number of Replicas alpha: " << alpha_ << "\n"
+            << "   Fraction of Columns in Region A: " << fracA_ << "\n"
+            << std::endl;
+}
+
+/************************************* setT(double newT) *************************************/
+void Model::setT(double newT)
+{ T_ = newT; }

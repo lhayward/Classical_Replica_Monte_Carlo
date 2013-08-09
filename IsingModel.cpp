@@ -33,11 +33,8 @@ double IsingModel::calculateEnergy()
 /****************************************** print() ******************************************/
 void IsingModel::print()
 {
-  std::cout << "Ising Model Parameters:\n"
-            << "                        Coupling J: " << J_ << "\n"
-            << "          Number of Replicas alpha: " << alpha_ << "\n"
-            << "   Fraction of Columns in Region A: " << fracA_ << "\n"
-            << std::endl;
+  std::cout << "Ising Model Parameters:" << std::endl;
+  Model::print();
 }
 
 /************************************* singleSpinUpdate() ************************************/
