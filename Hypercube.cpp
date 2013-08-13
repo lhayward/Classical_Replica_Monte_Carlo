@@ -86,10 +86,24 @@ uint Hypercube::uintPower(uint base, uint exp)
   return result;
 } //uintPower method
 
+/******************************** getNeighbour(uint i, uint j) *******************************/
+uint Hypercube::getNeighbour(uint i, uint j)
+{
+  uint result = 0;
+  
+  if( i<N_ && j<D_ )
+  { result = neighbours_[i][j]; }
+  else
+  { std::cout << "ERROR in Hypercube::getNeighbour: index out of bounds" << std::endl; }
+  
+  return result;
+}
+
 /****************************************** print() ******************************************/
 void Hypercube::print()
 {
   std::cout << "Hypercube Parameters:\n"
+            << "--------------------\n"
             << "           Lattice Length L = " << L_ << "\n"
             << "                Dimension D = " << D_ << "\n"
             << "  Number of Lattice Sites N = " << N_ << "\n"

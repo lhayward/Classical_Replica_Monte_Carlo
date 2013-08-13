@@ -64,7 +64,8 @@ SimParameters::~SimParameters()
 void SimParameters::print()
 {
   std::cout << "Simulation Parameters:\n"
-            << "           Temperature List: [ ";
+            << "---------------------\n"
+            << "           Temperature List = [ ";
   
   //print the list of temperatures:
   for( uint i=0; i<(TList_->size() - 1); i++ )
@@ -76,13 +77,13 @@ void SimParameters::print()
   std::cout << " ]\n";
   
   //print the rest of the parameters:
-  std::cout << "                       Seed: " << seed_ << "\n"
-            << "   Number of Warm-up Sweeps: " << numWarmUpSweeps_ << "\n"
-            << "     Sweeps per Measurement: " << sweepsPerMeas_ << "\n"
-            << "       Measurements per Bin: " << measPerBin_ << "\n"
-            << "             Number of Bins: " << numBins_ << "\n"
-            << "               Lattice Type: " << latticeType_ << "\n"
-            << "                 Model Name: " << modelName_ << "\n"
+  std::cout << "                       Seed = " << seed_ << "\n"
+            << "   Number of Warm-up Sweeps = " << numWarmUpSweeps_ << "\n"
+            << "     Sweeps per Measurement = " << sweepsPerMeas_ << "\n"
+            << "       Measurements per Bin = " << measPerBin_ << "\n"
+            << "             Number of Bins = " << numBins_ << "\n"
+            << "               Lattice Type = " << latticeType_ << "\n"
+            << "                 Model Name = " << modelName_ << "\n"
             << std::endl;
   
 } //print method

@@ -28,7 +28,7 @@ class Lattice
     //pure virtual methods (to be implemented by all child classes):
     virtual void print() = 0;
     virtual void printNeighbours() = 0;
-    //virtual uint getNeighbour(uint i, uint j) = 0;
+    virtual uint getNeighbour(uint i, uint j) = 0;
     
     //getter methods:
     uint getN();

@@ -27,6 +27,7 @@ class IsingModel : public Model
     uint        numProbs_; //number of elements in the singleUpdateProbs array
     uint        z_; //number of nearest neighbours for each spin
                     //NOTE: We assume z_ is an even, positive integer
+    uint        N_; //total number of degrees of freedom
     uint**      allNeighbours_; //coordinates of each site's nearest neighbours (built from the
                                 // given lattice, includes double counting)
     double*     singleUpdateProbs; //the exponentials needed for the single-spin updates 

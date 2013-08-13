@@ -17,6 +17,10 @@
 IsingModel::IsingModel(std::ifstream* fin, Lattice* lattice)
   : Model(fin)
 {
+  //temporary variables:
+  uint currNeigh;
+  
+  //object variables:
   lattice_ = lattice;
   z_ = lattice_->getZ();
   
@@ -29,6 +33,22 @@ IsingModel::IsingModel(std::ifstream* fin, Lattice* lattice)
   {  
     numProbs_ = (z_*alpha_)/2;
     singleUpdateProbs = new double[numProbs_];
+    
+    //initialize the allNeighbours_ array using the neighbours stored in the lattice_:
+    allNeighbours_ = new uint*[N_];
+    for( uint i=0; i<N_; i++ )
+    { 
+      allNeighbours_[i] = new uint[z_];
+      for( uint j=0; j<(z_/2); j++ ) 
+      {
+        currNeigh = lattice_->getNeighbour(i,j);
+        allNeighbours_[i]        [j]         = currNeigh;
+        allNeighbours_[currNeigh][j + (z_/2)] = i;
+      }
+    } //i
+    
+    N_ = lattice_->getN();
+    spins_ = new IsingSpins(alpha_, N_);
   }
 }
 
@@ -45,7 +65,8 @@ double IsingModel::calculateEnergy()
 /****************************************** print() ******************************************/
 void IsingModel::print()
 {
-  std::cout << "Ising Model Parameters:" << std::endl;
+  std::cout << "Ising Model Parameters:\n" 
+            << "----------------------" << std::endl;
   Model::print();
 }
 
