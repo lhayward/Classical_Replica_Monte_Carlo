@@ -10,6 +10,7 @@
 #define MODEL_H
 
 #include <string>
+#include "MersenneTwister.h"
 
 class Model 
 { 
@@ -18,6 +19,7 @@ class Model
     int           alpha_; //the number of replicas
     double        fracA_; //the fractions of spins in region A (only relevant for alpha_ >= 2)
     double        T_;     //current temperature
+    bool*         regionA_;
     
   public:
     Model(std::ifstream* fin);
@@ -29,6 +31,7 @@ class Model
     
     //pure virtual methods (to be implemented by all child classes):
     virtual double calculateEnergy () = 0;
+    virtual void   randomize       (MTRand* randomGen) = 0;
     virtual void   singleSpinUpdate() = 0;
 };
 

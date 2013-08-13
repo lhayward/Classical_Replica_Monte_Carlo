@@ -29,8 +29,9 @@ class Hypercube : public Lattice
   private:
     uint   D_; //dimension
     
-    uint uintPower(uint base, uint exp);
     void initNAndNeighbours();
+    int  round(double num);
+    uint uintPower(uint base, uint exp);
     
   public:
     Hypercube(uint L, uint D);
@@ -38,6 +39,7 @@ class Hypercube : public Lattice
     virtual ~Hypercube();
     
     virtual uint getNeighbour(uint i, uint j);
+    virtual bool* getRegionA(double fracA);
     virtual void print();
     virtual void printNeighbours();
     

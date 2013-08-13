@@ -28,9 +28,13 @@ IntegerSpins::IntegerSpins(int alpha, int N)
 /******************************** ~IntegerSpins() (destructor) *******************************/
 IntegerSpins::~IntegerSpins()
 { 
-  for(int a=0; a<alpha_; a++)
-  {delete[] spins_[a]; }
-  delete[] spins_;
+  if( spins_!=NULL)
+  {
+    for(uint a=0; a<alpha_; a++)
+    {delete[] spins_[a]; }
+    delete[] spins_;
+  }
+  spins_=NULL;
 }
 
 /***************************************** polarize() *****************************************

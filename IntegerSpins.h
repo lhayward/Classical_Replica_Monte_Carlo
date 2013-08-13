@@ -14,7 +14,8 @@
 class IntegerSpins 
 {
   public:
-    typedef int spin_type;  //spins are integers here
+    typedef int          spin_type;  //spins are integers here
+    typedef unsigned int uint;
   
   protected:
     int         alpha_;   //total number of replicas

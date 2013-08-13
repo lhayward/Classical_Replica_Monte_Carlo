@@ -44,6 +44,11 @@ void ToricCode_q1_GeneralD::print()
   Model::print();
 }
 
+/******************************** randomize(MTRand* randomGen) *******************************/
+void ToricCode_q1_GeneralD::randomize(MTRand* randomGen)
+{
+}
+
 /************************************* singleSpinUpdate() ************************************/
 void ToricCode_q1_GeneralD::singleSpinUpdate()
 {

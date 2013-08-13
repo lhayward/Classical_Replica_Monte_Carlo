@@ -76,6 +76,19 @@ void Hypercube::initNAndNeighbours()
   } //i
 }
 
+/******************************************* round ******************************************/
+int Hypercube::round(double num)
+{
+    int result;
+    
+    if( num < 0.0 )
+    { result = (int)ceil(num - 0.5); }
+    else
+    { result = (int)floor(num + 0.5); }
+    
+    return result;
+}
+
 /******************************** uintPower(int base, int exp) *******************************/
 uint Hypercube::uintPower(uint base, uint exp)
 {
@@ -97,6 +110,22 @@ uint Hypercube::getNeighbour(uint i, uint j)
   { std::cout << "ERROR in Hypercube::getNeighbour: index out of bounds" << std::endl; }
   
   return result;
+}
+
+/********************************** getRegionA(double fracA) *********************************/
+bool* Hypercube::getRegionA(double fracA)
+{
+  bool* regionA = new bool[N_];
+  
+  uint NRows = (uint)round(fracA*L_);
+  uint NInA = NRows*L_;
+  
+  for( uint i=0; i<NInA; i++ )
+  { regionA[i] = 1; }
+  for( uint i=NInA; i<N_; i++ )
+  { regionA[i] = 0; }
+  
+  return regionA;
 }
 
 /****************************************** print() ******************************************/

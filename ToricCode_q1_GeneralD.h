@@ -26,6 +26,7 @@ class ToricCode_q1_GeneralD : public Model
     
     virtual double calculateEnergy();
     virtual void print();
+    virtual void randomize       (MTRand* randomGen);
     virtual void singleSpinUpdate();
 };
 
