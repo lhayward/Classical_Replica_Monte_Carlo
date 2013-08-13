@@ -15,7 +15,7 @@
 class IsingSpins: public IntegerSpins
 {
   public:
-    IsingSpins(int alpha, int N);
+    IsingSpins(uint alpha, uint N);
     virtual ~IsingSpins();
     
     virtual void randomize(MTRand* randomGen);

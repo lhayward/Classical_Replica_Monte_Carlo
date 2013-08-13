@@ -19,7 +19,7 @@ IntegerSpins::IntegerSpins(int alpha, int N)
   N_     = N;
   
   spins_ = new spin_type*[alpha_];
-  for( int a=0; a<alpha_; a++ )
+  for( uint a=0; a<alpha_; a++ )
   { spins_[a] = new spin_type[N_]; }
   
   polarize(); //Initially, all spins have value +1
@@ -42,9 +42,9 @@ IntegerSpins::~IntegerSpins()
 **********************************************************************************************/
 void IntegerSpins::polarize()
 {
-  for( int a=0; a<alpha_; a++ )
+  for( uint a=0; a<alpha_; a++ )
   {
-    for( int i=0; i<N_; i++ )
+    for( uint i=0; i<N_; i++ )
     { spins_[a][i] = 1; }
   } //a
 } //polarize method
@@ -56,7 +56,7 @@ void IntegerSpins::print()
   for(int a=0; a<alpha_; a++)
   {
     std::cout << "Replica #" << (a+1) << ":" << std::endl;
-    for(int i=0; i<N_; i++)
+    for(uint i=0; i<N_; i++)
     { 
       std::cout.width(2);
       std::cout << spins_[a][i] << " "; 

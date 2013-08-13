@@ -81,7 +81,23 @@ IsingModel::~IsingModel()
 /************************************* calculateEnergy() *************************************/
 double IsingModel::calculateEnergy()
 {
-  return 0;
+  int    nnSum;
+  double energy=0;
+
+  //***Need to write an access method to get spins_[a][i]:
+  /* 
+  for( uint a=0; a<alpha_; a++ )
+  {
+    for( uint i=0; i<N_; i++ )
+    {   
+      nnSum=0;
+      for( uint j=0; j<(z_/2); j++ )
+      { nnSum += spins_[a][allNeighbours_[i][j]]; } 
+      energy += -J_*spins_[a][i]*nnSum;
+    }
+  }
+  */
+  return energy;
 }
 
 /****************************************** print() ******************************************/
@@ -114,8 +130,7 @@ void IsingModel::printNeighbours()
 
 /******************************** randomize(MTRand* randomGen) *******************************/
 void IsingModel::randomize(MTRand* randomGen)
-{ //spins_->randomize(randomGen, regionA); 
-}
+{ spins_->randomize(randomGen, regionA_); }
 
 /************************************* setT(double newT) *************************************/
 void IsingModel::setT(double newT)

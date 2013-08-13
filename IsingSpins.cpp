@@ -11,8 +11,8 @@
 #include "IsingSpins.h"
 #include "MersenneTwister.h"
 
-/************************* IsingSpins(int alpha, int N) (constructor) ************************/
-IsingSpins::IsingSpins(int alpha, int N)
+/************************ IsingSpins(uint alpha, uint N) (constructor) ***********************/
+IsingSpins::IsingSpins(uint alpha, uint N)
   : IntegerSpins(alpha, N)
 { }
 
@@ -24,9 +24,9 @@ IsingSpins::~IsingSpins(){ }
 **********************************************************************************************/
 void IsingSpins::randomize(MTRand* randomGen)
 {
-  for( int a=0; a<alpha_; a++ )
+  for( uint a=0; a<alpha_; a++ )
   {
-    for( int i=0; i<N_; i++ )
+    for( uint i=0; i<N_; i++ )
     { spins_[a][i] = 2*( randomGen->randInt(1) ) - 1; }
   } //a
 } //randomize method
@@ -41,15 +41,15 @@ void IsingSpins::randomize(MTRand* randomGen)
 void IsingSpins::randomize(MTRand* randomGen, bool* regionA)
 {
   //Give each spin in the first replica a random value (either -1 or +1):
-  for( int i=0; i<N_; i++ )
+  for( uint i=0; i<N_; i++ )
   { spins_[0][i] = 2*( randomGen->randInt(1) ) - 1; }
   
   //For all remaining replicas, each spin in region A must have the same value as its 
   //corresponding spin in the first replica. Spins in region B will have (uncorrelated)
   //random values:
-  for( int a=1; a<alpha_; a++ )
+  for( uint a=1; a<alpha_; a++ )
   {
-    for( int i=0; i<N_; i++ )
+    for( uint i=0; i<N_; i++ )
     {
       if( regionA[i] )
       { spins_[a][i] = spins_[0][i]; }

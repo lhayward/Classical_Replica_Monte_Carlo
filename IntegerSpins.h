@@ -18,8 +18,8 @@ class IntegerSpins
     typedef unsigned int uint;
   
   protected:
-    int         alpha_;   //total number of replicas
-    int         N_;       //number of spins per replica
+    uint         alpha_;   //total number of replicas
+    uint         N_;       //number of spins per replica
     spin_type** spins_;   //multi-dimensional array of the spin degrees of freedom
     
   public:

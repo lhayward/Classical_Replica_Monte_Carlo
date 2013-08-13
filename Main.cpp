@@ -104,6 +104,6 @@ Model* readModel(std::string modelName, std::string fileName, std::string startS
   { result = new IsingModel(&fin, lattice); }
   else if( modelName == "toriccode" )
   { result = new ToricCode_q1_GeneralD(&fin, lattice); }
-  
+  result->calculateEnergy();
   return result;
 }
