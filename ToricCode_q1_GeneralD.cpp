@@ -77,6 +77,7 @@ void ToricCode_q1_GeneralD::print()
 /******************************** randomize(MTRand* randomGen) *******************************/
 void ToricCode_q1_GeneralD::randomize(MTRand* randomGen)
 {
+
 }
 
 /************************************* singleSpinUpdate() ************************************/
