@@ -17,6 +17,7 @@ class Lattice
     typedef unsigned int  uint;
   
   protected: 
+    bool isValid_; //whether or not this is a valid Lattice object
     uint   L_; //linear size of lattice
     uint   N_; //total number of lattice sites
     uint   z_; //number of nearest neighbouring sites for each site
@@ -24,7 +25,7 @@ class Lattice
     
   public:
     Lattice(uint L);
-    Lattice(std::ifstream* fin);
+    Lattice(std::ifstream* fin, std::string fileName);
     virtual ~Lattice();
     
     //pure virtual methods (to be implemented by all child classes):
@@ -34,6 +35,7 @@ class Lattice
     virtual void  printNeighbours() = 0;
     
     //getter methods:
+    bool isValid();
     uint getN();
     uint getZ();
 };

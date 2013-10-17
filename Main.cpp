@@ -56,11 +56,14 @@ int main(int argc, char** argv)
   params = new SimParameters(paramFileName, simParamStr);
   params->print();
   
-  lattice = readLattice(params->getLatticeType(), paramFileName, latticeParamStr);
-  lattice->print();
+  if( params->isValid() )
+  {
+    lattice = readLattice(params->getLatticeType(), paramFileName, latticeParamStr);
+    lattice->print();
   
-  model = readModel(params->getModelName(), paramFileName, modelParamStr, lattice);
-  model->print();
+    model = readModel(params->getModelName(), paramFileName, modelParamStr, lattice);
+    model->print();
+  }
   
   std::cout << "\n***END OF SIMULATION***\n" << std::endl;
   return 0;
@@ -86,7 +89,7 @@ Lattice* readLattice(std::string latticeName, std::string fileName, std::string 
   if( fin.is_open() )
   { FileReading::readUntilFound(&fin, startStr); }
   
-  return new Hypercube(&fin);
+  return new Hypercube(&fin, fileName);
 }
 
 /******** readModel(std::string modelName, std::string fileName, std::string startStr) *******/
@@ -101,9 +104,15 @@ Model* readModel(std::string modelName, std::string fileName, std::string startS
   { FileReading::readUntilFound(&fin, startStr); }
   
   if( modelName == "isingmodel" )
-  { result = new IsingModel(&fin, lattice); }
+  { result = new IsingModel(&fin, fileName, lattice); }
   else if( modelName == "toriccode" )
-  { result = new ToricCode_q1_GeneralD(&fin, lattice); }
-  result->calculateEnergy();
+  { result = new ToricCode_q1_GeneralD(&fin, fileName, lattice); }
+  else
+  {
+    std::cout << "ERROR in readModel(std::string modelName, std::string fileName, std::string "
+              << "startStr, Lattice* lattice): the model name is not valid, so a NULL Model "
+              << "object will be returned\n" << std::endl;
+  }
+  //result->calculateEnergy();
   return result;
 }

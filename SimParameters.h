@@ -20,6 +20,7 @@ class SimParameters
     typedef unsigned long ulong;
     
   private: 
+    bool isValid_; //whether or not this is a valid SimParameters object
     std::vector<double>* TList_;  //list of temperatures
     ulong                seed_;
     uint                 numWarmUpSweeps_;
@@ -38,6 +39,7 @@ class SimParameters
     void print();
     
     //getter methods:
+    bool        isValid           ();
     double      getTemperature    (uint i);
     uint        getNumWarmUpSweeps();
     uint        getSweepsPerMeas  ();

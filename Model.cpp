@@ -12,10 +12,12 @@
 #include "FileReading.h"
 #include "Model.h"
 
-/************************* Model(std::string fileName) (constructor) *************************/
-Model::Model(std::ifstream* fin)
+/*************** Model(std::ifstream* fin, std::string fileName) (constructor) ***************/
+Model::Model(std::ifstream* fin, std::string fileName)
 { 
   const char EQUALS_CHAR = '=';
+  
+  isValid_ = true;  //so far parent is valid
   
   if( fin!=NULL && fin->is_open() )
   {
@@ -25,7 +27,9 @@ Model::Model(std::ifstream* fin)
   }
   else
   { 
-    std::cout << "ERROR in Model constructor: could not read from file\n" << std::endl; 
+    std::cout << "ERROR in Model constructor: could not read from file \"" << fileName 
+              << "\"\n" << std::endl; 
+    isValid_ = false;
   }
   
   regionA_=NULL;
@@ -45,10 +49,17 @@ Model::~Model()
 /****************************************** print() ******************************************/
 void Model::print()
 {
-  std::cout << "                       Coupling J = " << J_ << "\n"
-            << "         Number of Replicas alpha = " << alpha_ << "\n"
-            << "  Fraction of Columns in Region A: " << fracA_ << "\n"
-            << std::endl;
+  if( isValid_ )
+  {
+    std::cout << "                       Coupling J = " << J_ << "\n"
+              << "         Number of Replicas alpha = " << alpha_ << "\n"
+              << "  Fraction of Columns in Region A = " << fracA_ << "\n"
+              << std::endl;
+  }
+  else
+  {
+    std::cout << "ERROR in Model::print(): the Model object is not valid\n" << std::endl;
+  }
 }
 
 /************************************* setT(double newT) *************************************/

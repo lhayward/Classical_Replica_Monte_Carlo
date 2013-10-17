@@ -24,6 +24,7 @@ SimParameters::SimParameters(std::string fileName, std::string startStr)
   const char LIST_START_CHAR = '[';
   const char LIST_END_CHAR = ']';
   
+  isValid_=true;
   TList_ = new std::vector<double>;
   
   std::ifstream fin;
@@ -47,6 +48,7 @@ SimParameters::SimParameters(std::string fileName, std::string startStr)
   { 
     std::cout << "ERROR in SimParameters constructor: could not find file \"" << fileName 
               << "\"\n" << std::endl; 
+    isValid_=false;
   }
   
   fin.close();
@@ -63,32 +65,41 @@ SimParameters::~SimParameters()
 /****************************************** print() ******************************************/
 void SimParameters::print()
 {
-  std::cout << "Simulation Parameters:\n"
-            << "---------------------\n"
-            << "           Temperature List = [ ";
+  if( isValid_ )
+  {
+      std::cout << "Simulation Parameters:\n"
+                << "---------------------\n"
+                << "           Temperature List = [ ";
   
-  //print the list of temperatures:
-  for( uint i=0; i<(TList_->size() - 1); i++ )
-  { std::cout << TList_->at(i) << ", "; }
+      //print the list of temperatures:
+      for( uint i=0; i<(TList_->size() - 1); i++ )
+      { std::cout << TList_->at(i) << ", "; }
   
-  //print the last temperature element:
-  if( TList_->size() > 0 )
-  { std::cout << TList_->at(TList_->size() - 1); }
-  std::cout << " ]\n";
+      //print the last temperature element:
+      if( TList_->size() > 0 )
+      { std::cout << TList_->at(TList_->size() - 1); }
+      std::cout << " ]\n";
   
-  //print the rest of the parameters:
-  std::cout << "                       Seed = " << seed_ << "\n"
-            << "   Number of Warm-up Sweeps = " << numWarmUpSweeps_ << "\n"
-            << "     Sweeps per Measurement = " << sweepsPerMeas_ << "\n"
-            << "       Measurements per Bin = " << measPerBin_ << "\n"
-            << "             Number of Bins = " << numBins_ << "\n"
-            << "               Lattice Type = " << latticeType_ << "\n"
-            << "                 Model Name = " << modelName_ << "\n"
-            << std::endl;
+      //print the rest of the parameters:
+      std::cout << "                       Seed = " << seed_ << "\n"
+                << "   Number of Warm-up Sweeps = " << numWarmUpSweeps_ << "\n"
+                << "     Sweeps per Measurement = " << sweepsPerMeas_ << "\n"
+                << "       Measurements per Bin = " << measPerBin_ << "\n"
+                << "             Number of Bins = " << numBins_ << "\n"
+                << "               Lattice Type = " << latticeType_ << "\n"
+                << "                 Model Name = " << modelName_ << "\n"
+                << std::endl;   
+  }
+  else
+  {
+    std::cout << "ERROR in SimParameters::print(): could not print because the SimParameters "
+              << "object is not valid\n" << std::endl;
+  }
   
 } //print method
 
 /*********************************** Public Getter Methods: **********************************/
+bool         SimParameters::isValid           ()      { return isValid_; }
 double       SimParameters::getTemperature    (uint i){ return TList_->at(i); }
 uint         SimParameters::getNumWarmUpSweeps()      { return numWarmUpSweeps_; }
 uint         SimParameters::getSweepsPerMeas  ()      { return sweepsPerMeas_; }

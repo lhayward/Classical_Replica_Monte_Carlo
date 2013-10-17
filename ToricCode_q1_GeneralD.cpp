@@ -13,17 +13,37 @@
 #include "FileReading.h"
 #include "ToricCode_q1_GeneralD.h"
 
-/***************** ToricCode_q1_GeneralD(std::string fileName) (constructor) *****************/
-ToricCode_q1_GeneralD::ToricCode_q1_GeneralD(std::ifstream* fin, Lattice* lattice)
-  : Model(fin)
+/************** ToricCode_q1_GeneralD(std::ifstream* fin, std::string fileName, ***************
+********************************* ... Lattice* lattice) (constructor) ************************/
+ToricCode_q1_GeneralD::ToricCode_q1_GeneralD(std::ifstream* fin, std::string fileName,
+                                             Lattice* lattice)
+  : Model(fin, fileName)
 {
-  lattice_ = dynamic_cast<Hypercube *>(lattice);
-  if(!lattice_)
+  if( isValid_ )  //check that parent is valid (read from file correctly)
   {
-    std::cout << "ERROR in ToricCode_q1_GeneralD constructor:\n" 
-              << "  A lattice of type Hypercube is required.\n"
-              << "  A lattice of type " << typeid(*lattice).name() << " was given.\n" 
-              << std::endl;
+    if( lattice != NULL && lattice->isValid() )
+    {
+      lattice_ = dynamic_cast<Hypercube *>(lattice);
+      if(!lattice_)
+      {
+        std::cout << "ERROR in ToricCode_q1_GeneralD constructor:\n" 
+                  << "  A lattice of type Hypercube is required.\n"
+                  << "  A lattice of type " << typeid(*lattice).name() << " was given.\n" 
+                  << std::endl;
+        isValid_ = false;
+      }
+    }
+    else
+    {
+      std::cout << "ERROR in ToricCode_q1_GeneralD constructor: The passed Lattice object is "
+                << "not valid\n" << std::endl; 
+      isValid_ = false;
+    }
+  } 
+  else
+  {
+    std::cout << "ERROR in ToricCode_q1_GeneralD constructor: the parent Model object is not "
+              << "valid\n" << std::endl;
   }
 }
 
@@ -40,8 +60,16 @@ double ToricCode_q1_GeneralD::calculateEnergy()
 /****************************************** print() ******************************************/
 void ToricCode_q1_GeneralD::print()
 {
-  std::cout << "(1,D-1) Toric Code Parameters:" << std::endl;
-  Model::print();
+  if( isValid_ )
+  {
+    std::cout << "(1,D-1) Toric Code Parameters:" << std::endl;
+    Model::print();
+  }
+  else
+  {
+    std::cout << "ERROR in ToricCode_q1_GeneralD::print(): the ToricCode_q1_GeneralD object " 
+              << "is not valid\n" << std::endl;
+  }
 }
 
 /******************************** randomize(MTRand* randomGen) *******************************/

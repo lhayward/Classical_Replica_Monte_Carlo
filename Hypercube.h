@@ -35,7 +35,7 @@ class Hypercube : public Lattice
     
   public:
     Hypercube(uint L, uint D);
-    Hypercube(std::ifstream* fin);
+    Hypercube(std::ifstream* fin, std::string fileName);
     virtual ~Hypercube();
     
     virtual uint getNeighbour(uint i, uint j);

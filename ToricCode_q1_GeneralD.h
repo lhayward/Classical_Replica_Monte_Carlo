@@ -21,7 +21,7 @@ class ToricCode_q1_GeneralD : public Model
     IsingSpins* spins_; //the degrees of freedom (d.o.f.) for the model
     
   public:
-    ToricCode_q1_GeneralD(std::ifstream* fin, Lattice* lattice);
+    ToricCode_q1_GeneralD(std::ifstream* fin, std::string fileName, Lattice* lattice);
     virtual ~ToricCode_q1_GeneralD();
     
     virtual double calculateEnergy();

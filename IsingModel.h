@@ -36,7 +36,7 @@ class IsingModel : public Model
     Lattice*    lattice_; //the lattice on which the d.o.f. live
     
   public:
-    IsingModel(std::ifstream* fin, Lattice* lattice);
+    IsingModel(std::ifstream* fin, std::string fileName, Lattice* lattice);
     virtual ~IsingModel();
     
     virtual double calculateEnergy ();

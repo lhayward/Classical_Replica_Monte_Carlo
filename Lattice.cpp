@@ -19,9 +19,12 @@ Lattice::Lattice(uint L)
   L_ = L;
   N_ = 0;
   neighbours_ = NULL;
+  isValid_ = false; //must be a member of one of the child classes and have the neighbours
+                    //array not NULL to be a valid Lattice object
 }
 
-Lattice::Lattice(std::ifstream* fin)
+/************** Lattice(std::ifstream* fin, std::string fileName) (constructor) **************/
+Lattice::Lattice(std::ifstream* fin, std::string fileName)
 {
   const char EQUALS_CHAR = '=';
   
@@ -29,12 +32,15 @@ Lattice::Lattice(std::ifstream* fin)
   { L_ = FileReading::readUint(fin, EQUALS_CHAR); }
   else
   {
-    std::cout << "ERROR in Lattice constructor: could not read from file\n" << std::endl;
+    std::cout << "ERROR in Lattice constructor: could not read from file \"" << fileName 
+              << "\"\n" << std::endl;
     L_=0;
   }
   
   N_ = 0;
   neighbours_ = NULL;
+  isValid_ = false; //must be a member of one of the child classes and have the neighbours
+                    //array not NULL to be a valid Lattice object
 }
 
 /********************************** ~Lattice() (destructor) **********************************/
@@ -50,5 +56,6 @@ Lattice::~Lattice()
 }
 
 /*********************************** Public Getter Methods: **********************************/
-uint Lattice::getN(){ return N_; }
-uint Lattice::getZ(){ return z_; }
+bool Lattice::isValid(){ return isValid_; }
+uint Lattice::getN()   { return N_; }
+uint Lattice::getZ()   { return z_; }
