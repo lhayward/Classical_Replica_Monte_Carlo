@@ -55,6 +55,7 @@ ToricCode_q1_GeneralD::~ToricCode_q1_GeneralD()
 double ToricCode_q1_GeneralD::calculateEnergy()
 {
   double energy=0;
+  
   return energy;
 }
 
