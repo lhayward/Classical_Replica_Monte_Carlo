@@ -30,11 +30,12 @@ class Model
     virtual ~Model();
     
     //methods that can be overwritten by child classes:
-    virtual void print();
+    virtual void printParams();
     virtual void setT (double newT);
     
     //pure virtual methods (to be implemented by all child classes):
     virtual double calculateEnergy () = 0;
+    virtual void   printSpins      () = 0;
     virtual void   randomize       (MTRand* randomGen) = 0;
     virtual void   singleSpinUpdate() = 0;
 };

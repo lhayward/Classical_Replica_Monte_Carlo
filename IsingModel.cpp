@@ -78,37 +78,40 @@ double IsingModel::calculateEnergy()
   double energy=0;
   int    nnSum;
 
-  //***Need to write an access method to get spins_[a][i]:
-  /* 
   for( uint a=0; a<alpha_; a++ )
   {
     for( uint i=0; i<N_; i++ )
     {   
       nnSum=0;
       for( uint j=0; j<(z_/2); j++ )
-      { nnSum += spins_[a][allNeighbours_[i][j]]; } 
-      energy += -J_*spins_[a][i]*nnSum;
+      { nnSum += spins_->getSpin(a, lattice_->getNeighbour(i,j)); } 
+      energy += -J_*spins_->getSpin(a,i)*nnSum;
     }
   }
-  */
   
   return energy;
 }
 
-/****************************************** print() ******************************************/
-void IsingModel::print()
+/*************************************** printParams() ***************************************/
+void IsingModel::printParams()
 {
   if( isValid_ )
   {
     std::cout << "Ising Model Parameters:\n" 
               << "----------------------" << std::endl;
-    Model::print();
+    Model::printParams();
   }
   else
   {
-    std::cout << "ERROR in IsingModel::print(): the IsingModel object is not valid\n" 
+    std::cout << "ERROR in IsingModel::printParams(): the IsingModel object is not valid\n" 
               << std::endl;
   }
+}
+
+/**************************************** printSpins() ***************************************/
+void IsingModel::printSpins()
+{
+  spins_->print();
 }
 
 /******************************** randomize(MTRand* randomGen) *******************************/

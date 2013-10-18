@@ -38,7 +38,8 @@ class IsingModel : public Model
     virtual ~IsingModel();
     
     virtual double calculateEnergy ();
-    virtual void   print           ();
+    virtual void   printParams     ();
+    virtual void   printSpins      ();
     virtual void   randomize       (MTRand* randomGen);
     virtual void   setT            (double newT);
     virtual void   singleSpinUpdate();

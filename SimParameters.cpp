@@ -43,6 +43,8 @@ SimParameters::SimParameters(std::string fileName, std::string startStr)
     numBins_         = FileReading::readUint     (&fin, EQUALS_CHAR);
     latticeType_     = FileReading::readString   (&fin, EQUALS_CHAR);
     modelName_       = FileReading::readString   (&fin, EQUALS_CHAR);
+    
+    randomGen_       = new MTRand(seed_);
   }
   else
   { 
@@ -101,6 +103,7 @@ void SimParameters::print()
 /*********************************** Public Getter Methods: **********************************/
 bool         SimParameters::isValid           ()      { return isValid_; }
 double       SimParameters::getTemperature    (uint i){ return TList_->at(i); }
+MTRand*      SimParameters::getRandomGen      ()      { return randomGen_; }
 uint         SimParameters::getNumWarmUpSweeps()      { return numWarmUpSweeps_; }
 uint         SimParameters::getSweepsPerMeas  ()      { return sweepsPerMeas_; }
 uint         SimParameters::getMeasPerBin     ()      { return measPerBin_; }

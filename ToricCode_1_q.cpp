@@ -23,8 +23,17 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
   {
     if( lattice != NULL && lattice->isValid() )
     {
-      lattice_ = dynamic_cast<Hypercube *>(lattice);
-      if(!lattice_)
+      hcube_ = dynamic_cast<Hypercube *>(lattice);
+      if(hcube_)
+      {
+        D_  = hcube_->getD();
+        N0_ = hcube_->getN();
+        N1_ = D_*N0_;
+        N2_ = (D_*(D_-1))/2*N0_;
+        
+        spins_ = new IsingSpins(alpha_, N1_);
+      }
+      else
       {
         std::cout << "ERROR in ToricCode_1_q constructor:\n" 
                   << "  A lattice of type Hypercube is required.\n"
@@ -59,19 +68,25 @@ double ToricCode_1_q::calculateEnergy()
   return energy;
 }
 
-/****************************************** print() ******************************************/
-void ToricCode_1_q::print()
+/*************************************** printParams() ***************************************/
+void ToricCode_1_q::printParams()
 {
   if( isValid_ )
   {
     std::cout << "(1,D-1) Toric Code Parameters:" << std::endl;
-    Model::print();
+    Model::printParams();
   }
   else
   {
-    std::cout << "ERROR in ToricCode_1_q::print(): the ToricCode_1_q object is not valid\n" 
-              << std::endl;
+    std::cout << "ERROR in ToricCode_1_q::printParams(): the ToricCode_1_q object is not "
+              << "valid\n" << std::endl;
   }
+}
+
+/**************************************** printSpins() ***************************************/
+void ToricCode_1_q::printSpins()
+{
+  spins_->print();
 }
 
 /******************************** randomize(MTRand* randomGen) *******************************/

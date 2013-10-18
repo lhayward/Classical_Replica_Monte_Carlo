@@ -9,6 +9,9 @@
 #include <iostream>
 #include "IntegerSpins.h"
 
+//typdefs needed because spin_type is a return types:
+typedef IntegerSpins::spin_type spin_type;
+
 /************************ IntegerSpins(int alpha, int N) (constructor) ************************
 * Input: alpha (number of replicas), N (number of spins per replica)
 * This constructor initializes the array of spin degrees of freedom 
@@ -37,14 +40,30 @@ IntegerSpins::~IntegerSpins()
   spins_=NULL;
 }
 
+/*********************************** getSpin(int a, int i) ***********************************/
+spin_type IntegerSpins::getSpin(int a, int i)
+{
+  spin_type result = 0;
+  
+  if( (spins_ != NULL) && a<alpha_ && i<N_ )
+  { result = spins_[a][i]; }
+  else
+  { 
+    std::cout << "ERROR in IntegerSpins::getSpin(int a, int i): NULL spins_ array or index "
+              << "out of bounds" << std::endl; 
+  }
+  
+  return result;
+}
+
 /***************************************** polarize() *****************************************
 * This method gives each spin the value +1 so that the lattice is polarized.
 **********************************************************************************************/
 void IntegerSpins::polarize()
 {
-  for( uint a=0; a<alpha_; a++ )
+  for(uint a=0; a<alpha_; a++)
   {
-    for( uint i=0; i<N_; i++ )
+    for(uint i=0; i<N_; i++)
     { spins_[a][i] = 1; }
   } //a
 } //polarize method
@@ -53,7 +72,7 @@ void IntegerSpins::polarize()
 /****************************************** print() ******************************************/
 void IntegerSpins::print()
 {
-  for(int a=0; a<alpha_; a++)
+  for(uint a=0; a<alpha_; a++)
   {
     std::cout << "Replica #" << (a+1) << ":" << std::endl;
     for(uint i=0; i<N_; i++)

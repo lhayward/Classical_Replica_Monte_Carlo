@@ -40,7 +40,7 @@ class Hypercube : public Lattice
     
     virtual uint getNeighbour(uint i, uint j);
     virtual bool* getRegionA(double fracA);
-    virtual void print();
+    virtual void printParams();
     virtual void printNeighbours();
     
     //getter methods:

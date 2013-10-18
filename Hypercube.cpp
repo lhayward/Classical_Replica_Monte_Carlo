@@ -126,7 +126,10 @@ uint Hypercube::getNeighbour(uint i, uint j)
   if( (neighbours_ != NULL) && i<N_ && j<(2*D_) )
   { result = neighbours_[i][j]; }
   else
-  { std::cout << "ERROR in Hypercube::getNeighbour: index out of bounds" << std::endl; }
+  { 
+    std::cout << "ERROR in Hypercube::getNeighbour(uint i, uint j): NULL neighbours_ array or "
+              << "index out of bounds" << std::endl; 
+  }
   
   return result;
 }
@@ -147,8 +150,8 @@ bool* Hypercube::getRegionA(double fracA)
   return regionA;
 }
 
-/****************************************** print() ******************************************/
-void Hypercube::print()
+/*************************************** printParams() ***************************************/
+void Hypercube::printParams()
 {
   if( isValid_ )
   {
@@ -161,11 +164,11 @@ void Hypercube::print()
   }
   else
   {
-    std::cout << "ERROR in Hypercube::print(): the Hypercube object is not valid\n" 
+    std::cout << "ERROR in Hypercube::printParams(): the Hypercube object is not valid\n" 
              << std::endl;
   }
   
-} //print method
+} //printParams method
 
 /****************************************** printNeighbours() ******************************************/
 void Hypercube::printNeighbours()

@@ -58,11 +58,16 @@ int main(int argc, char** argv)
   
   if( params->isValid() )
   {
-    lattice = readLattice(params->getLatticeType(), paramFileName, latticeParamStr);
-    lattice->print();
+    lattice = readLattice( params->getLatticeType(), paramFileName, latticeParamStr );
+    lattice->printParams();
   
-    model = readModel(params->getModelName(), paramFileName, modelParamStr, lattice);
-    model->print();
+    model = readModel( params->getModelName(), paramFileName, modelParamStr, lattice );
+    model->printParams();
+    
+    model->randomize( params->getRandomGen() );
+    model->printSpins();
+    std::cout << "Energy = " << model->calculateEnergy() << std::endl;
+    
   }
   
   std::cout << "\n***END OF SIMULATION***\n" << std::endl;

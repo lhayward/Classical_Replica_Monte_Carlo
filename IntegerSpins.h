@@ -26,6 +26,7 @@ class IntegerSpins
     IntegerSpins(int alpha, int N);
     virtual ~IntegerSpins();
     
+    spin_type getSpin(int a, int i);
     void polarize();
     void print();
     

@@ -12,6 +12,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include "MersenneTwister.h"
 
 class SimParameters 
 { 
@@ -31,6 +32,7 @@ class SimParameters
                                         //(eg. "hypercube", "kagome", etc.)
     std::string          modelName_;  //name of the Hamiltonian 
                                       //(eg. "ising", "toriccode", etc.)
+    MTRand*              randomGen_;  //random number generator
     
   public:
     SimParameters(std::string fileName, std::string startStr);
@@ -41,6 +43,7 @@ class SimParameters
     //getter methods:
     bool        isValid           ();
     double      getTemperature    (uint i);
+    MTRand*     getRandomGen      ();
     uint        getNumWarmUpSweeps();
     uint        getSweepsPerMeas  ();
     uint        getMeasPerBin     ();

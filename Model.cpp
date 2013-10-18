@@ -46,8 +46,8 @@ Model::~Model()
   regionA_ = NULL; 
 }
 
-/****************************************** print() ******************************************/
-void Model::print()
+/*************************************** printParams() ***************************************/
+void Model::printParams()
 {
   if( isValid_ )
   {
@@ -58,7 +58,7 @@ void Model::print()
   }
   else
   {
-    std::cout << "ERROR in Model::print(): the Model object is not valid\n" << std::endl;
+    std::cout << "ERROR in Model::printParams(): the Model object is not valid\n" << std::endl;
   }
 }
 
