@@ -3,7 +3,7 @@
 ***********************************************************************************************
 * Lauren Hayward
 ***********************************************************************************************
-* File:   ToricCode_q1_GeneralD.cpp
+* File:   ToricCode_1_q.cpp
 **********************************************************************************************/
 
 #include <fstream>
@@ -11,11 +11,11 @@
 #include <string>
 #include <typeinfo>
 #include "FileReading.h"
-#include "ToricCode_q1_GeneralD.h"
+#include "ToricCode_1_q.h"
 
-/************** ToricCode_q1_GeneralD(std::ifstream* fin, std::string fileName, ***************
+/************** ToricCode_1_q(std::ifstream* fin, std::string fileName, ***************
 ********************************* ... Lattice* lattice) (constructor) ************************/
-ToricCode_q1_GeneralD::ToricCode_q1_GeneralD(std::ifstream* fin, std::string fileName,
+ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
                                              Lattice* lattice)
   : Model(fin, fileName)
 {
@@ -26,7 +26,7 @@ ToricCode_q1_GeneralD::ToricCode_q1_GeneralD(std::ifstream* fin, std::string fil
       lattice_ = dynamic_cast<Hypercube *>(lattice);
       if(!lattice_)
       {
-        std::cout << "ERROR in ToricCode_q1_GeneralD constructor:\n" 
+        std::cout << "ERROR in ToricCode_1_q constructor:\n" 
                   << "  A lattice of type Hypercube is required.\n"
                   << "  A lattice of type " << typeid(*lattice).name() << " was given.\n" 
                   << std::endl;
@@ -35,24 +35,24 @@ ToricCode_q1_GeneralD::ToricCode_q1_GeneralD(std::ifstream* fin, std::string fil
     }
     else
     {
-      std::cout << "ERROR in ToricCode_q1_GeneralD constructor: The passed Lattice object is "
-                << "not valid\n" << std::endl; 
+      std::cout << "ERROR in ToricCode_1_q constructor: The passed Lattice object is not "
+                << "valid\n" << std::endl; 
       isValid_ = false;
     }
   } 
   else
   {
-    std::cout << "ERROR in ToricCode_q1_GeneralD constructor: the parent Model object is not "
-              << "valid\n" << std::endl;
+    std::cout << "ERROR in ToricCode_1_q constructor: the parent Model object is not valid\n"
+              << std::endl;
   }
 }
 
-/*************************** ~ToricCode_q1_GeneralD() (destructor) ***************************/
-ToricCode_q1_GeneralD::~ToricCode_q1_GeneralD()
+/*************************** ~ToricCode_1_q() (destructor) ***************************/
+ToricCode_1_q::~ToricCode_1_q()
 { }
 
 /************************************* calculateEnergy() *************************************/
-double ToricCode_q1_GeneralD::calculateEnergy()
+double ToricCode_1_q::calculateEnergy()
 {
   double energy=0;
   
@@ -60,7 +60,7 @@ double ToricCode_q1_GeneralD::calculateEnergy()
 }
 
 /****************************************** print() ******************************************/
-void ToricCode_q1_GeneralD::print()
+void ToricCode_1_q::print()
 {
   if( isValid_ )
   {
@@ -69,17 +69,17 @@ void ToricCode_q1_GeneralD::print()
   }
   else
   {
-    std::cout << "ERROR in ToricCode_q1_GeneralD::print(): the ToricCode_q1_GeneralD object " 
+    std::cout << "ERROR in ToricCode_1_q::print(): the ToricCode_1_q object " 
               << "is not valid\n" << std::endl;
   }
 }
 
 /******************************** randomize(MTRand* randomGen) *******************************/
-void ToricCode_q1_GeneralD::randomize(MTRand* randomGen)
+void ToricCode_1_q::randomize(MTRand* randomGen)
 {
 }
 
 /************************************* singleSpinUpdate() ************************************/
-void ToricCode_q1_GeneralD::singleSpinUpdate()
+void ToricCode_1_q::singleSpinUpdate()
 {
 }

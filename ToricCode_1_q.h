@@ -3,26 +3,26 @@
 ***********************************************************************************************
 * Lauren Hayward
 ***********************************************************************************************
-* File:   ToricCode_q1_GeneralD.h
+* File:   ToricCode_1_q.h
 **********************************************************************************************/
 
-#ifndef TORICCODE_H
-#define TORICCODE_H
+#ifndef TORICCODE_1_Q_H
+#define TORICCODE_1_Q_H
 
 #include <string>
 #include "Hypercube.h"
 #include "IsingSpins.h"
 #include "Model.h"
 
-class ToricCode_q1_GeneralD : public Model
+class ToricCode_1_q : public Model
 { 
   private:
     Hypercube* lattice_; //the hypercubic lattice on which the d.o.f. live
     IsingSpins* spins_; //the degrees of freedom (d.o.f.) for the model
     
   public:
-    ToricCode_q1_GeneralD(std::ifstream* fin, std::string fileName, Lattice* lattice);
-    virtual ~ToricCode_q1_GeneralD();
+    ToricCode_1_q(std::ifstream* fin, std::string fileName, Lattice* lattice);
+    virtual ~ToricCode_1_q();
     
     virtual double calculateEnergy();
     virtual void print();
@@ -30,4 +30,4 @@ class ToricCode_q1_GeneralD : public Model
     virtual void singleSpinUpdate();
 };
 
-#endif  // TORICCODE_H
+#endif  // TORICCODE_1_Q_H

@@ -22,7 +22,7 @@
 #include "Lattice.h"
 #include "Model.h"
 #include "SimParameters.h"
-#include "ToricCode_q1_GeneralD.h"
+#include "ToricCode_1_q.h"
 
 typedef unsigned long ulong;
 
@@ -106,7 +106,7 @@ Model* readModel(std::string modelName, std::string fileName, std::string startS
   if( modelName == "isingmodel" )
   { result = new IsingModel(&fin, fileName, lattice); }
   else if( modelName == "toriccode" )
-  { result = new ToricCode_q1_GeneralD(&fin, fileName, lattice); }
+  { result = new ToricCode_1_q(&fin, fileName, lattice); }
   else
   {
     std::cout << "ERROR in readModel(std::string modelName, std::string fileName, std::string "

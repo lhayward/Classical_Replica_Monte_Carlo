@@ -42,11 +42,8 @@ Hypercube::Hypercube(std::ifstream* fin, std::string fileName)
     isValid_ = false;
   }
   
-  if( isValid_ )
-  {
-    z_ = 2*D_;
-    initNAndNeighbours();
-  }
+  z_ = 2*D_;
+  initNAndNeighbours();
 }
 
 /********************************* ~Hypercube() (destructor) *********************************/
@@ -74,14 +71,20 @@ void Hypercube::initNAndNeighbours()
     //initialize the neighbours_ array (note periodic boundary conditions):
     neighbours_ = new uint*[N_];
     for( uint i=0; i<N_; i++ )
+    { neighbours_[i] = new uint[2*D_]; }
+    for( uint i=0; i<N_; i++ )
     { 
-      neighbours_[i] = new uint[D_];
       for( uint j=0; j<D_; j++ ) 
       {
         neighbours_[i][j] = i + uintPower(L_,j);
         //fix at the boundaries:
         if( neighbours_[i][j]%uintPower(L_,(j+1)) < uintPower(L_,j) )
         { neighbours_[i][j] -= uintPower(L_,(j+1)); }
+        
+        //initialize the corresponding neighbour (note that this information is redundant for a
+        //hypercube, but we include it since some Model classes won't assume a hypercubic 
+        //lattice)
+        neighbours_[ neighbours_[i][j] ] [j + D_] = i;
       } //j
     } //i
   }
@@ -122,7 +125,7 @@ uint Hypercube::getNeighbour(uint i, uint j)
   
   if( isValid_ )
   {
-    if( i<N_ && j<D_ )
+    if( i<N_ && j<(2*D_) )
     { result = neighbours_[i][j]; }
     else
     { std::cout << "ERROR in Hypercube::getNeighbour: index out of bounds" << std::endl; }
@@ -190,7 +193,7 @@ void Hypercube::printNeighbours()
     {
       std::cout.width(4);
       std::cout << "    " << i << ": ";
-      for( uint j=0; j<D_; j++ )
+      for( uint j=0; j<(2*D_); j++ )
       {
         std::cout.width(4);
         std::cout << neighbours_[i][j] << " ";
