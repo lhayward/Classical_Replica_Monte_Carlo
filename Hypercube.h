@@ -29,7 +29,7 @@ class Hypercube : public Lattice
   private:
     uint   D_; //dimension
     
-    void initNAndNeighbours();
+    void init_N_and_neighbours();
     int  round(double num);
     uint uintPower(uint base, uint exp);
     

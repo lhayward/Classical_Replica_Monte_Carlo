@@ -20,7 +20,7 @@ Hypercube::Hypercube(uint L, uint D)
   isValid_=true;
   D_ = D;
   z_ = 2*D;
-  initNAndNeighbours();
+  init_N_and_neighbours();
 }
 
 /************* Hypercube(std::ifstream* fin, std::string fileName) (constructor) *************/
@@ -43,7 +43,7 @@ Hypercube::Hypercube(std::ifstream* fin, std::string fileName)
   }
   
   z_ = 2*D_;
-  initNAndNeighbours();
+  init_N_and_neighbours();
 }
 
 /********************************* ~Hypercube() (destructor) *********************************/
@@ -61,8 +61,8 @@ Hypercube::~Hypercube()
   neighbours_ = NULL;
 } // ~Hypercube
 
-/************************************ initNAndNeighbours() ***********************************/
-void Hypercube::initNAndNeighbours()
+/********************************** init_N_and_neighbours() **********************************/
+void Hypercube::init_N_and_neighbours()
 {
   if( isValid_ )
   {
@@ -90,7 +90,7 @@ void Hypercube::initNAndNeighbours()
   }
   else
   {
-    std::cout << "ERROR in Hypercube::initNAndNeighbours(): the Hypercube object is not "
+    std::cout << "ERROR in Hypercube::init_N_and_neighbours(): the Hypercube object is not "
               << "valid\n" << std::endl;
   }
 }

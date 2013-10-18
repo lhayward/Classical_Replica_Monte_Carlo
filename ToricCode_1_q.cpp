@@ -60,6 +60,14 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
 ToricCode_1_q::~ToricCode_1_q()
 { }
 
+/************************************* init_plaqArrays() *************************************/
+void ToricCode_1_q::init_plaqArrays()
+{
+  for( uint zeroCell=0; zeroCell<N0_; zeroCell++ )
+  {
+  } //closes loop over 0-cells
+}
+
 /************************************* calculateEnergy() *************************************/
 double ToricCode_1_q::calculateEnergy()
 {

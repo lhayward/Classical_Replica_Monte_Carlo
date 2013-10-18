@@ -27,6 +27,13 @@ class ToricCode_1_q : public Model
     uint        N2_;  //number of 2-cells (plaquettes)
     Hypercube*  hcube_; //the hypercubic lattice on which the d.o.f. live
     IsingSpins* spins_; //the degrees of freedom (d.o.f.) for the model
+    uint**      plaqSpins_; //plaqSpins_[i] stores the indices of the 4 spins touching 
+                            //plaquette i
+    uint**      neighPlaqs_;  //neighPlaqs_[i] stores the indices of the 2(D-1) plaquettes
+                              //touching spin i
+    
+    void init_plaqArrays();
+    
     
   public:
     ToricCode_1_q(std::ifstream* fin, std::string fileName, Lattice* lattice);
