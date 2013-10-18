@@ -49,7 +49,7 @@ ToricCode_q1_GeneralD::ToricCode_q1_GeneralD(std::ifstream* fin, std::string fil
 
 /*************************** ~ToricCode_q1_GeneralD() (destructor) ***************************/
 ToricCode_q1_GeneralD::~ToricCode_q1_GeneralD()
-{  }
+{ }
 
 /************************************* calculateEnergy() *************************************/
 double ToricCode_q1_GeneralD::calculateEnergy()
@@ -77,7 +77,6 @@ void ToricCode_q1_GeneralD::print()
 /******************************** randomize(MTRand* randomGen) *******************************/
 void ToricCode_q1_GeneralD::randomize(MTRand* randomGen)
 {
-
 }
 
 /************************************* singleSpinUpdate() ************************************/
