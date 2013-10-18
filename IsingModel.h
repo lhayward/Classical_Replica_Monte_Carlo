@@ -28,8 +28,6 @@ class IsingModel : public Model
     uint        z_; //number of nearest neighbours for each spin
                     //NOTE: We assume z_ is an even, positive integer
     uint        N_; //total number of degrees of freedom
-    //uint**      allNeighbours_; //coordinates of each site's nearest neighbours (built from the
-                                // given lattice, includes double counting)
     double*     singleUpdateProbs_; //the exponentials needed for the single-spin updates 
                                    //(pre-computed to save time)
     IsingSpins* spins_; //the degrees of freedom (d.o.f.) for the model
@@ -41,7 +39,6 @@ class IsingModel : public Model
     
     virtual double calculateEnergy ();
     virtual void   print           ();
-            //void   printNeighbours ();
     virtual void   randomize       (MTRand* randomGen);
     virtual void   setT            (double newT);
     virtual void   singleSpinUpdate();

@@ -123,31 +123,17 @@ uint Hypercube::getNeighbour(uint i, uint j)
 {
   uint result = 0;
   
-  if( isValid_ )
-  {
-    if( i<N_ && j<(2*D_) )
-    { result = neighbours_[i][j]; }
-    else
-    { std::cout << "ERROR in Hypercube::getNeighbour: index out of bounds" << std::endl; }
-  }
+  if( (neighbours_ != NULL) && i<N_ && j<(2*D_) )
+  { result = neighbours_[i][j]; }
   else
-  {
-    std::cout << "ERROR in Hypercube::getNeighbour(uint i, uint j): the Hypercube object is "
-              << "not valid\n" << std::endl;
-  }
+  { std::cout << "ERROR in Hypercube::getNeighbour: index out of bounds" << std::endl; }
   
   return result;
 }
 
 /********************************** getRegionA(double fracA) *********************************/
 bool* Hypercube::getRegionA(double fracA)
-{
-  if( !isValid_ )
-  {
-    std::cout << "WARNING in Hypercube::getRegionA(double fracA): the Hypercube object is not "
-              << "valid\n" << std::endl;
-  }
-  
+{ 
   bool* regionA = new bool[N_];
   
   uint NRows = (uint)round(fracA*L_);
