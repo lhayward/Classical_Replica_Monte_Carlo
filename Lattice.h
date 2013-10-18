@@ -21,7 +21,7 @@ class Lattice
     uint   L_; //linear size of lattice
     uint   N_; //total number of lattice sites
     uint   z_; //number of nearest neighbouring sites for each site
-    uint** neighbours_; //coordinates of each vertex's nearest neighbours (no double counting)
+    uint** neighbours_; //coordinates of each vertex's nearest neighbours
     
   public:
     Lattice(uint L);

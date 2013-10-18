@@ -23,7 +23,7 @@ IsingModel::IsingModel(std::ifstream* fin, std::string fileName, Lattice* lattic
     if( lattice != NULL && lattice->isValid() )
     {
       //temporary variables:
-      uint currNeigh;
+      //uint currNeigh;
   
       //object variables:
       lattice_ = lattice;
@@ -41,7 +41,7 @@ IsingModel::IsingModel(std::ifstream* fin, std::string fileName, Lattice* lattic
         { singleUpdateProbs_[i] = 0; }
     
         //initialize the allNeighbours_ array using the neighbours list stored in the lattice_:
-        allNeighbours_ = new uint*[N_];
+        /*allNeighbours_ = new uint*[N_];
         for( uint i=0; i<N_; i++ )
         { allNeighbours_[i] = new uint[z_]; }
         for( uint i=0; i<N_; i++ )
@@ -52,7 +52,7 @@ IsingModel::IsingModel(std::ifstream* fin, std::string fileName, Lattice* lattic
             allNeighbours_[i]        [j]          = currNeigh;
             allNeighbours_[currNeigh][j + (z_/2)] = i;
           } //j
-        } //i
+        } //i*/
     
         spins_ = new IsingSpins(alpha_, N_);
       } 
@@ -80,13 +80,13 @@ IsingModel::IsingModel(std::ifstream* fin, std::string fileName, Lattice* lattic
 /********************************* ~IsingModel() (destructor) ********************************/
 IsingModel::~IsingModel()
 {
-  if( allNeighbours_ != NULL )
+  /*if( allNeighbours_ != NULL )
   {
     for(uint i=0; i<N_; i++)
     { delete[] allNeighbours_[i]; }
     delete[] allNeighbours_; 
   }
-  allNeighbours_ = NULL; 
+  allNeighbours_ = NULL; */
   
   if(singleUpdateProbs_!=NULL)
   { delete[] singleUpdateProbs_; }
@@ -146,7 +146,7 @@ void IsingModel::print()
 }
 
 /************************************* printNeighbours() *************************************/
-void IsingModel::printNeighbours()
+/*void IsingModel::printNeighbours()
 {
   if( isValid_ )
   {
@@ -171,7 +171,7 @@ void IsingModel::printNeighbours()
     std::cout << "ERROR in IsingModel::printNeighbours(): the IsingModel object is not valid\n" 
               << std::endl;
   }
-} //printNeighbours method
+} //printNeighbours method */
 
 /******************************** randomize(MTRand* randomGen) *******************************/
 void IsingModel::randomize(MTRand* randomGen)

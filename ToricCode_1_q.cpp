@@ -13,8 +13,8 @@
 #include "FileReading.h"
 #include "ToricCode_1_q.h"
 
-/************** ToricCode_1_q(std::ifstream* fin, std::string fileName, ***************
-********************************* ... Lattice* lattice) (constructor) ************************/
+/********* ToricCode_1_q(std::ifstream* fin, std::string fileName, Lattice* lattice) **********
+**************************************** (constructor) ***************************************/
 ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
                                              Lattice* lattice)
   : Model(fin, fileName)
@@ -47,7 +47,7 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
   }
 }
 
-/*************************** ~ToricCode_1_q() (destructor) ***************************/
+/******************************* ~ToricCode_1_q() (destructor) *******************************/
 ToricCode_1_q::~ToricCode_1_q()
 { }
 
@@ -69,8 +69,8 @@ void ToricCode_1_q::print()
   }
   else
   {
-    std::cout << "ERROR in ToricCode_1_q::print(): the ToricCode_1_q object " 
-              << "is not valid\n" << std::endl;
+    std::cout << "ERROR in ToricCode_1_q::print(): the ToricCode_1_q object is not valid\n" 
+              << std::endl;
   }
 }
 
