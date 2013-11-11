@@ -49,6 +49,12 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
         //create and initialize the regionA_ array:
         regionA_ = new bool[N1_];
         init_regionA();
+        
+        //initialize the singleUpdateProbs_ array:
+        numProbs_ = (D_-1)*alpha_;
+        singleUpdateProbs_ = new double[numProbs_];
+        for( uint i=0; i<numProbs_; i++ )
+        { singleUpdateProbs_[i] = 0; }
       }
       else
       {
@@ -229,20 +235,22 @@ void ToricCode_1_q::printRegionA()
 void ToricCode_1_q::printSpins()
 {
   spins_->print();
-  
-  /*std::cout << "Region A:\n";
-  for(uint i=0; i<N1_; i++)
-  { 
-    std::cout.width(2);
-    std::cout << regionA_[i] << " "; 
-  }
-  std::cout << std::endl;*/
 }
 
 /******************************** randomize(MTRand* randomGen) *******************************/
 void ToricCode_1_q::randomize(MTRand* randomGen)
 {
   spins_->randomize(randomGen, regionA_);
+}
+
+/************************************* setT(double newT) *************************************/
+void ToricCode_1_q::setT(double newT)
+{ 
+  Model::setT(newT); 
+
+  //update the singleUpdateProbs_ array:
+  for( uint i=0; i<numProbs_; i++ )
+  { singleUpdateProbs_[i] = exp(-abs(J_)*2*(2*(i+1))/T_); }
 }
 
 /****************************************** sweep() ******************************************/

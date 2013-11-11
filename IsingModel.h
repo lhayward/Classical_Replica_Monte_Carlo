@@ -24,12 +24,13 @@ class IsingModel : public Model
     typedef unsigned int  uint;
     
   private:
-    uint        numProbs_; //number of elements in the singleUpdateProbs array
     uint        z_; //number of nearest neighbours for each spin
                     //NOTE: We assume z_ is an even, positive integer
     uint        N_; //total number of degrees of freedom
+    
+    uint        numProbs_; //number of elements in the singleUpdateProbs array
     double*     singleUpdateProbs_; //the exponentials needed for the single-spin updates 
-                                   //(pre-computed to save time)
+                                    //(pre-computed to save time)
     IsingSpins* spins_; //the degrees of freedom (d.o.f.) for the model
     Lattice*    lattice_; //the lattice on which the d.o.f. live
     

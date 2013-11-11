@@ -27,6 +27,10 @@ class ToricCode_1_q : public Model
     uint        N1_;  //number of 1-cells (bonds), i.e. the number of d.o.f. since the spins
                       //live on the bonds
     uint        N2_;  //number of 2-cells (plaquettes)
+    
+    uint        numProbs_; //number of elements in the singleUpdateProbs array
+    double*     singleUpdateProbs_; //the exponentials needed for the single-spin updates 
+                                    //(pre-computed to save time)
     uint        plaqsPerSpin_;  //number of plaquettes touching each spin
     Hypercube*  hcube_; //the hypercubic lattice on which the d.o.f. live
     IsingSpins* spins_; //the degrees of freedom (d.o.f.) for the model
@@ -49,6 +53,7 @@ class ToricCode_1_q : public Model
     virtual void   printRegionA   ();
     virtual void   printSpins     ();
     virtual void   randomize      (MTRand* randomGen);
+    virtual void   setT           (double newT);
     virtual void   sweep          ();
 };  
 
