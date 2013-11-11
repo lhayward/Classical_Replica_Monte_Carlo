@@ -44,7 +44,6 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
         { neighPlaqs_[i] = new uint[plaqsPerSpin_]; }
         
         init_plaqArrays();
-        printPlaqs();
       }
       else
       {
@@ -104,19 +103,30 @@ ToricCode_1_q::~ToricCode_1_q()
 void ToricCode_1_q::init_plaqArrays()
 { 
   uint plaqNum=0; //counter for the plaquette number
+  uint spin0, spin1, spin2, spin3;  //locations of the four spins on each plaquette
   
   //loop to calculate the four 1-cells associated with each plaquette:
   for( uint zeroCell=0; zeroCell<N0_; zeroCell++ )
   {
     //loop over the (D choose 2) plaquettes associated to each 0-cell:
-    for( uint i=0; i<D_; i++ )
+    for( uint i=0; i<(D_-1); i++ )
     {
       for( uint j=(i+1); j<D_; j++ )
       {
-        plaqSpins_[plaqNum][0] = D_*zeroCell + i;
-        plaqSpins_[plaqNum][1] = D_*zeroCell + j;
-        plaqSpins_[plaqNum][2] = D_*hcube_->getNeighbour(zeroCell,j) + i;
-        plaqSpins_[plaqNum][3] = D_*hcube_->getNeighbour(zeroCell,i) + j;
+        spin0 = D_*zeroCell + i;
+        spin1 = D_*zeroCell + j;
+        spin2 = D_*hcube_->getNeighbour(zeroCell,j) + i;
+        spin3 = D_*hcube_->getNeighbour(zeroCell,i) + j;
+        
+        plaqSpins_[plaqNum][0] = spin0;
+        plaqSpins_[plaqNum][1] = spin1;
+        plaqSpins_[plaqNum][2] = spin2;
+        plaqSpins_[plaqNum][3] = spin3;
+        
+        neighPlaqs_[spin0][j-1]        = plaqNum;
+        neighPlaqs_[spin1][i]          = plaqNum;
+        neighPlaqs_[spin2][j-1 + D_-1] = plaqNum;
+        neighPlaqs_[spin3][i + D_-1]   = plaqNum;
         
         plaqNum++;
         //plaqSpins_
@@ -140,6 +150,10 @@ void ToricCode_1_q::printParams()
   {
     std::cout << "(1," << (D_-1) << ") Toric Code Parameters:" << std::endl;
     Model::printParams();
+    std::cout << "                Number of 0-cells = " << N0_ << "\n"
+              << "                Number of 1-cells = " << N1_ << "\n"
+              << "                Number of 2-cells = " << N2_ << "\n"
+              << std::endl;
   }
   else
   {
@@ -158,6 +172,16 @@ void ToricCode_1_q::printPlaqs()
     std::cout << "  Plaquette " << i << ": [ ";
     for( uint j=0; j<SPINS_PER_PLAQ_; j++)
     { std::cout << plaqSpins_[i][j] << " "; }
+    std::cout << "]\n";
+  }
+  std::cout << std::endl;
+  
+  std::cout << "Plaquettes Connected to Each Spin:" << std::endl;
+  for( uint i=0; i<N1_; i++ )
+  {
+    std::cout << "  Spin " << i << ": [ ";
+    for( uint j=0; j<plaqsPerSpin_; j++ )
+    { std::cout << neighPlaqs_[i][j] << " "; }
     std::cout << "]\n";
   }
   std::cout << std::endl;

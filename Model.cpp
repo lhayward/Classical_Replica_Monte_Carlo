@@ -53,8 +53,7 @@ void Model::printParams()
   {
     std::cout << "                       Coupling J = " << J_ << "\n"
               << "         Number of Replicas alpha = " << alpha_ << "\n"
-              << "  Fraction of Columns in Region A = " << fracA_ << "\n"
-              << std::endl;
+              << "  Fraction of Columns in Region A = " << fracA_ << "\n";
   }
   else
   {
