@@ -37,12 +37,12 @@ class IsingModel : public Model
     IsingModel(std::ifstream* fin, std::string fileName, Lattice* lattice);
     virtual ~IsingModel();
     
-    virtual double calculateEnergy ();
-    virtual void   printParams     ();
-    virtual void   printSpins      ();
-    virtual void   randomize       (MTRand* randomGen);
-    virtual void   setT            (double newT);
-    virtual void   singleSpinUpdate();
+    virtual double calculateEnergy();
+    virtual void   printParams    ();
+    virtual void   printSpins     ();
+    virtual void   randomize      (MTRand* randomGen);
+    virtual void   setT           (double newT);
+    virtual void   sweep          ();
 };
 
 #endif  // ISINGMODEL_H

@@ -130,7 +130,7 @@ void IsingModel::setT(double newT)
   { singleUpdateProbs_[i] = exp(-abs(J_)*2*(2*(i+1))/T_); }
 }
 
-/************************************* singleSpinUpdate() ************************************/
-void IsingModel::singleSpinUpdate()
+/****************************************** sweep() ******************************************/
+void IsingModel::sweep()
 {
 }

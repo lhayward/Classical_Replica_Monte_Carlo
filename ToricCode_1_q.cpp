@@ -231,7 +231,7 @@ void ToricCode_1_q::randomize(MTRand* randomGen)
 {
 }
 
-/************************************* singleSpinUpdate() ************************************/
-void ToricCode_1_q::singleSpinUpdate()
+/****************************************** sweep() ******************************************/
+void ToricCode_1_q::sweep()
 {
 }

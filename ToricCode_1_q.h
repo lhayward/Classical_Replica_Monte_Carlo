@@ -44,11 +44,11 @@ class ToricCode_1_q : public Model
     ToricCode_1_q(std::ifstream* fin, std::string fileName, Lattice* lattice);
     virtual ~ToricCode_1_q();
     
-    virtual double calculateEnergy ();
-    virtual void   printParams     ();
-    virtual void   printSpins      ();
-    virtual void   randomize       (MTRand* randomGen);
-    virtual void   singleSpinUpdate();
+    virtual double calculateEnergy();
+    virtual void   printParams    ();
+    virtual void   printSpins     ();
+    virtual void   randomize      (MTRand* randomGen);
+    virtual void   sweep          ();
 };  
 
 #endif  // TORICCODE_1_Q_H
