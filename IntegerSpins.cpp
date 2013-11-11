@@ -82,4 +82,5 @@ void IntegerSpins::print()
     }
     std::cout << std::endl;
   } //a
+  std::cout << std::endl;
 } //print method

@@ -100,12 +100,25 @@ void IsingModel::printParams()
     std::cout << "Ising Model Parameters:\n" 
               << "----------------------" << std::endl;
     Model::printParams();
+    std::cout << std::endl;
   }
   else
   {
     std::cout << "ERROR in IsingModel::printParams(): the IsingModel object is not valid\n" 
               << std::endl;
   }
+}
+
+/*************************************** printRegionA() **************************************/
+void IsingModel::printRegionA()
+{
+  std::cout << "Region A:\n";
+  for( uint i=0; i<N_; i++ )
+  { 
+    std::cout.width(2);
+    std::cout << regionA_[i] << " "; 
+  }
+  std::cout << "\n" << std::endl;
 }
 
 /**************************************** printSpins() ***************************************/

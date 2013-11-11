@@ -66,6 +66,7 @@ int main(int argc, char** argv)
     
     model->randomize( params->getRandomGen() );
     model->printSpins();
+    model->printRegionA();
     std::cout << "Energy = " << model->calculateEnergy() << std::endl;
     
   }

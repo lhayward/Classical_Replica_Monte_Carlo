@@ -213,22 +213,36 @@ void ToricCode_1_q::printPlaqs()
   std::cout << std::endl;
 }
 
+/*************************************** printRegionA() **************************************/
+void ToricCode_1_q::printRegionA()
+{
+  std::cout << "Region A:\n";
+  for( uint i=0; i<N1_; i++ )
+  { 
+    std::cout.width(2);
+    std::cout << regionA_[i] << " "; 
+  }
+  std::cout << "\n" << std::endl;
+}
+
 /**************************************** printSpins() ***************************************/
 void ToricCode_1_q::printSpins()
 {
   spins_->print();
   
+  /*std::cout << "Region A:\n";
   for(uint i=0; i<N1_; i++)
   { 
     std::cout.width(2);
     std::cout << regionA_[i] << " "; 
   }
-  std::cout << std::endl;
+  std::cout << std::endl;*/
 }
 
 /******************************** randomize(MTRand* randomGen) *******************************/
 void ToricCode_1_q::randomize(MTRand* randomGen)
 {
+  spins_->randomize(randomGen, regionA_);
 }
 
 /****************************************** sweep() ******************************************/

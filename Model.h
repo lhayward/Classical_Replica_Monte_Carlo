@@ -35,6 +35,7 @@ class Model
     
     //pure virtual methods (to be implemented by all child classes):
     virtual double calculateEnergy() = 0;
+    virtual void   printRegionA   () = 0;
     virtual void   printSpins     () = 0;
     virtual void   randomize      (MTRand* randomGen) = 0;
     virtual void   sweep          () = 0;

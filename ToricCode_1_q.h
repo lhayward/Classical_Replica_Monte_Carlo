@@ -46,6 +46,7 @@ class ToricCode_1_q : public Model
     
     virtual double calculateEnergy();
     virtual void   printParams    ();
+    virtual void   printRegionA   ();
     virtual void   printSpins     ();
     virtual void   randomize      (MTRand* randomGen);
     virtual void   sweep          ();
