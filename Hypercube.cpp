@@ -139,8 +139,9 @@ bool* Hypercube::getRegionA(double fracA)
 { 
   bool* regionA = new bool[N_];
   
-  uint NRows = (uint)round(fracA*L_);
-  uint NInA = NRows*L_;
+  uint NInLastDim = (uint)round(fracA*L_);  //number of spins from the L spins in the Dth
+                                            //dimension that will be in region A
+  uint NInA       = NInLastDim*uintPower(L_,D_-1);  //total number of spins in region A
   
   for( uint i=0; i<NInA; i++ )
   { regionA[i] = 1; }

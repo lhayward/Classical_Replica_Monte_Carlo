@@ -43,7 +43,12 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
         for( uint i=0; i<N1_; i++ )
         { neighPlaqs_[i] = new uint[plaqsPerSpin_]; }
         
+        //initialize the plaqSpins_ and neighPlaqs_ arrays:
         init_plaqArrays();
+        
+        //create and initialize the regionA_ array:
+        regionA_ = new bool[N1_];
+        init_regionA();
       }
       else
       {
@@ -99,6 +104,14 @@ ToricCode_1_q::~ToricCode_1_q()
   
 }
 
+/************************************* calculateEnergy() *************************************/
+double ToricCode_1_q::calculateEnergy()
+{
+  double energy=0;
+  
+  return energy;
+}
+
 /************************************* init_plaqArrays() *************************************/
 void ToricCode_1_q::init_plaqArrays()
 { 
@@ -106,6 +119,7 @@ void ToricCode_1_q::init_plaqArrays()
   uint spin0, spin1, spin2, spin3;  //locations of the four spins on each plaquette
   
   //loop to calculate the four 1-cells associated with each plaquette:
+  //loop over all 0-cells (vertices of the hypercube) first:
   for( uint zeroCell=0; zeroCell<N0_; zeroCell++ )
   {
     //loop over the (D choose 2) plaquettes associated to each 0-cell:
@@ -135,12 +149,24 @@ void ToricCode_1_q::init_plaqArrays()
   } //closes loop over 0-cells
 }
 
-/************************************* calculateEnergy() *************************************/
-double ToricCode_1_q::calculateEnergy()
+/*************************************** init_regionA() **************************************/
+void ToricCode_1_q::init_regionA()
 {
-  double energy=0;
+  bool* cubeRegionA = hcube_->getRegionA(fracA_);
   
-  return energy;
+  //loop over all 0-cells (vertices of the hypercube):
+  for( uint i=0; i<N0_; i++ )
+  {
+    //the D 1-cells associated with this 0-cell will be in region A iff the 0-cell is in 
+    //region A:
+    regionA_[D_*i]     = cubeRegionA[i];
+    regionA_[D_*i + 1] = cubeRegionA[i];
+    regionA_[D_*i + 2] = cubeRegionA[i];
+  }
+  
+  if(cubeRegionA!=NULL)
+  { delete[] cubeRegionA; }
+  cubeRegionA = NULL; 
 }
 
 /*************************************** printParams() ***************************************/
@@ -191,6 +217,13 @@ void ToricCode_1_q::printPlaqs()
 void ToricCode_1_q::printSpins()
 {
   spins_->print();
+  
+  for(uint i=0; i<N1_; i++)
+  { 
+    std::cout.width(2);
+    std::cout << regionA_[i] << " "; 
+  }
+  std::cout << std::endl;
 }
 
 /******************************** randomize(MTRand* randomGen) *******************************/

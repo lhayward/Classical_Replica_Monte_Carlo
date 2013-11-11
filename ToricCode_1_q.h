@@ -36,6 +36,8 @@ class ToricCode_1_q : public Model
                               //touching spin i
     
     void init_plaqArrays();
+    void init_regionA   ();
+    void printPlaqs     ();
     
     
   public:
@@ -44,7 +46,6 @@ class ToricCode_1_q : public Model
     
     virtual double calculateEnergy ();
     virtual void   printParams     ();
-    void           printPlaqs      ();
     virtual void   printSpins      ();
     virtual void   randomize       (MTRand* randomGen);
     virtual void   singleSpinUpdate();
