@@ -25,6 +25,7 @@
 #include "ToricCode_1_q.h"
 
 typedef unsigned long ulong;
+typedef unsigned int  uint;
 
 std::string getFileSuffix(int argc, char** argv);
 Lattice* readLattice(std::string latticeName, std::string fileName, std::string startStr);
@@ -39,8 +40,9 @@ int main(int argc, char** argv)
   MTRand randomGen;
   SimParameters* params;
   Lattice* lattice;
-  Model* model;     
-  
+  Model* model;
+  double T; //current temperature
+    
   //variables related to input data from files:
   std::string fileSuffix      = getFileSuffix( argc, argv );
   std::string paramFileName   = "params" + fileSuffix + ".txt";
@@ -67,7 +69,15 @@ int main(int argc, char** argv)
     model->randomize( params->randomGen_ );
     model->printSpins();
     model->printRegionA();
-    std::cout << "Energy = " << model->calculateEnergy() << std::endl;
+    
+    for( uint TIndex=0; TIndex<(params->TList_->size()); TIndex++)
+    {
+      T = params->TList_->at(TIndex);
+      std::cout << "******** T = " << T << " (Temperature #" << (TIndex+1) << ") ********" 
+                << std::endl;
+      model->setT(T);
+    }
+    //std::cout << "Energy = " << model->calculateEnergy() << std::endl;
     
   }
   

@@ -251,6 +251,7 @@ void ToricCode_1_q::setT(double newT)
   //update the singleUpdateProbs_ array:
   for( uint i=0; i<numProbs_; i++ )
   { singleUpdateProbs_[i] = exp(-abs(J_)*2*(2*(i+1))/T_); }
+  std::cout << "--> T = " << newT << std::endl;
 }
 
 /****************************************** sweep() ******************************************/
