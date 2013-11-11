@@ -100,13 +100,8 @@ void SimParameters::print()
   
 } //print method
 
-/*********************************** Public Getter Methods: **********************************/
-bool         SimParameters::isValid           ()      { return isValid_; }
-double       SimParameters::getTemperature    (uint i){ return TList_->at(i); }
-MTRand*      SimParameters::getRandomGen      ()      { return randomGen_; }
-uint         SimParameters::getNumWarmUpSweeps()      { return numWarmUpSweeps_; }
-uint         SimParameters::getSweepsPerMeas  ()      { return sweepsPerMeas_; }
-uint         SimParameters::getMeasPerBin     ()      { return measPerBin_; }
-uint         SimParameters::getNumBins        ()      { return numBins_; }
-std::string  SimParameters::getLatticeType    ()      { return latticeType_; }
-std::string  SimParameters::getModelName      ()      { return modelName_; }
+/***************************************** isValid() ******************************************
+* Public getter methods for the isValid_ parameter
+**********************************************************************************************/
+bool SimParameters::isValid()      
+{ return isValid_; }

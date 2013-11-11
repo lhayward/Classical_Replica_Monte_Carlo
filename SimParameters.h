@@ -22,6 +22,8 @@ class SimParameters
     
   private: 
     bool isValid_; //whether or not this is a valid SimParameters object
+    
+  public:
     std::vector<double>* TList_;  //list of temperatures
     ulong                seed_;
     uint                 numWarmUpSweeps_;
@@ -34,7 +36,7 @@ class SimParameters
                                       //(eg. "ising", "toriccode", etc.)
     MTRand*              randomGen_;  //random number generator
     
-  public:
+  //public:
     SimParameters(std::string fileName, std::string startStr);
     virtual ~SimParameters();
     
@@ -42,14 +44,14 @@ class SimParameters
     
     //getter methods:
     bool        isValid           ();
-    double      getTemperature    (uint i);
+    /*double      getTemperature    (uint i);
     MTRand*     getRandomGen      ();
     uint        getNumWarmUpSweeps();
     uint        getSweepsPerMeas  ();
     uint        getMeasPerBin     ();
     uint        getNumBins        ();
     std::string getLatticeType    ();
-    std::string getModelName      ();
+    std::string getModelName      ();*/
 };
 
 #endif  // SIM_PARAMETERS_H
