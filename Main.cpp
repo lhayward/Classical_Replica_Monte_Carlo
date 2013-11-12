@@ -73,7 +73,7 @@ int main(int argc, char** argv)
     for( uint TIndex=0; TIndex<(params->TList_->size()); TIndex++)
     {
       T = params->TList_->at(TIndex);
-      std::cout << "******** T = " << T << " (Temperature #" << (TIndex+1) << ") ********" 
+      std::cout << "******** T = " << T << " (Temperature #" << (TIndex+1) << ") ********"
                 << std::endl;
       model->setT(T);
     }

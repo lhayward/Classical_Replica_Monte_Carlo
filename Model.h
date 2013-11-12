@@ -18,7 +18,7 @@ class Model
     typedef unsigned int  uint;
     
   protected:
-    bool isValid_; //whether or not this is a valid Model object
+    bool          isValid_; //whether or not this is a valid Model object
     double        J_;       //coupling 
     uint          alpha_;   //the number of replicas
     double        fracA_;   //the fractions of spins in region A (only relevant for alpha_>=2)

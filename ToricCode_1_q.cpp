@@ -50,11 +50,18 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
         regionA_ = new bool[N1_];
         init_regionA();
         
-        //initialize the singleUpdateProbs_ array:
+        //create the singleUpdateProbs_ array:
         numProbs_ = (D_-1)*alpha_;
         singleUpdateProbs_ = new double[numProbs_];
         for( uint i=0; i<numProbs_; i++ )
         { singleUpdateProbs_[i] = 0; }
+        
+        //create and initialize the plaqProds_ array:
+        plaqProds_ = new int*[alpha_];
+        for( uint a=0; a<alpha_; a++ )
+        { plaqProds_[a] = new int[N2_]; }
+        updateAllPlaqProds(); //initialize the plaqProds_ array based on the current spin
+                              //configuration
       }
       else
       {
@@ -175,6 +182,11 @@ void ToricCode_1_q::init_regionA()
   cubeRegionA = NULL; 
 }
 
+/*************************************** localUpdate() ***************************************/
+void ToricCode_1_q::localUpdate()
+{
+}
+
 /*************************************** printParams() ***************************************/
 void ToricCode_1_q::printParams()
 {
@@ -241,6 +253,7 @@ void ToricCode_1_q::printSpins()
 void ToricCode_1_q::randomize(MTRand* randomGen)
 {
   spins_->randomize(randomGen, regionA_);
+  updateAllPlaqProds();
 }
 
 /************************************* setT(double newT) *************************************/
@@ -251,10 +264,30 @@ void ToricCode_1_q::setT(double newT)
   //update the singleUpdateProbs_ array:
   for( uint i=0; i<numProbs_; i++ )
   { singleUpdateProbs_[i] = exp(-abs(J_)*2*(2*(i+1))/T_); }
-  std::cout << "--> T = " << newT << std::endl;
 }
 
 /****************************************** sweep() ******************************************/
 void ToricCode_1_q::sweep()
 {
+  uint numSpins = alpha_*N1_;
+  
+  for( uint i=0; i<numSpins; i++ )
+  { localUpdate(); }
+}
+
+/************************************ updateAllPlaqProds() ***********************************/
+void ToricCode_1_q::updateAllPlaqProds()
+{
+  //loop over replicas:
+  for( uint a=0; a<alpha_; a++ )
+  {
+    //loop over plaquettes:
+    for( uint i=0; i<N2_; i++ )
+    {
+      plaqProds_[a][i] = 1;
+      //loop over the spins on this plaquette:
+      for( uint j=0; j<SPINS_PER_PLAQ_; j++ )
+      { plaqProds_[a][i] *= spins_->getSpin(a, plaqSpins_[i][j]); }
+    }
+  }
 }

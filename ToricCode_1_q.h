@@ -38,10 +38,14 @@ class ToricCode_1_q : public Model
                             //plaquette i
     uint**      neighPlaqs_;  //neighPlaqs_[i] stores the indices of the 2(D-1) plaquettes
                               //touching spin i
+    int**       plaqProds_; //plaqProds_[a][i] stores the product of all spins on plaquette i 
+                            //in replica a
     
-    void init_plaqArrays();
-    void init_regionA   ();
-    void printPlaqs     ();
+    void init_plaqArrays   ();
+    void init_regionA      ();
+    void localUpdate       ();
+    void printPlaqs        ();
+    void updateAllPlaqProds();
     
     
   public:
