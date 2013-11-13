@@ -43,7 +43,8 @@ class ToricCode_1_q : public Model
     
     void init_plaqArrays   ();
     void init_regionA      ();
-    void localUpdate       ();
+    void localUpdate       (MTRand* randomGen);
+    void printPlaqProds    ();
     void printPlaqs        ();
     void updateAllPlaqProds();
     
@@ -58,7 +59,7 @@ class ToricCode_1_q : public Model
     virtual void   printSpins     ();
     virtual void   randomize      (MTRand* randomGen);
     virtual void   setT           (double newT);
-    virtual void   sweep          ();
+    virtual void   sweep          (MTRand* randomGen);
 };  
 
 #endif  // TORICCODE_1_Q_H

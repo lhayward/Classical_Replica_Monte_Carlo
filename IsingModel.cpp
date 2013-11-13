@@ -143,7 +143,7 @@ void IsingModel::setT(double newT)
   { singleUpdateProbs_[i] = exp(-abs(J_)*2*(2*(i+1))/T_); }
 }
 
-/****************************************** sweep() ******************************************/
-void IsingModel::sweep()
+/********************************** sweep(MTRand* randomGen) *********************************/
+void IsingModel::sweep(MTRand* randomGen)
 {
 }

@@ -38,7 +38,7 @@ class Model
     virtual void   printRegionA   () = 0;
     virtual void   printSpins     () = 0;
     virtual void   randomize      (MTRand* randomGen) = 0;
-    virtual void   sweep          () = 0;
+    virtual void   sweep          (MTRand* randomGen) = 0;
 };
 
 #endif  // MODEL_H

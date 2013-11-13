@@ -182,9 +182,17 @@ void ToricCode_1_q::init_regionA()
   cubeRegionA = NULL; 
 }
 
-/*************************************** localUpdate() ***************************************/
-void ToricCode_1_q::localUpdate()
+/******************************* localUpdate(MTRand* randomGen) ******************************/
+void ToricCode_1_q::localUpdate(MTRand* randomGen)
 {
+  uint latticeSite; //randomly selected spin location
+  uint replica; //randomly selected replica (if the latticeSite is in region B)
+  
+  latticeSite = randomGen->randInt(N1_-1);
+  replica = 0;
+  //if the spin is in region B, we must choose the replica in which to attempt the update:
+  if( !regionA_[latticeSite] )
+  { replica = randomGen->randInt(alpha_-1); }
 }
 
 /*************************************** printParams() ***************************************/
@@ -204,6 +212,23 @@ void ToricCode_1_q::printParams()
     std::cout << "ERROR in ToricCode_1_q::printParams(): the ToricCode_1_q object is not "
               << "valid\n" << std::endl;
   }
+}
+
+/************************************** printPlaqProds() *************************************/
+void ToricCode_1_q::printPlaqProds()
+{
+  std::cout << "Plaquette Products:\n";
+  for(uint a=0; a<alpha_; a++)
+  {
+    std::cout << "  Replica #" << (a+1) << ":" << std::endl;
+    for(uint i=0; i<N2_; i++)
+    { 
+      std::cout.width(2);
+      std::cout << plaqProds_[a][i] << " "; 
+    }
+    std::cout << std::endl;
+  } //a
+  std::cout << std::endl;
 }
 
 /**************************************** printPlaqs() ***************************************/
@@ -266,13 +291,13 @@ void ToricCode_1_q::setT(double newT)
   { singleUpdateProbs_[i] = exp(-abs(J_)*2*(2*(i+1))/T_); }
 }
 
-/****************************************** sweep() ******************************************/
-void ToricCode_1_q::sweep()
+/********************************** sweep(MTRand* randomGen) *********************************/
+void ToricCode_1_q::sweep(MTRand* randomGen)
 {
   uint numSpins = alpha_*N1_;
   
   for( uint i=0; i<numSpins; i++ )
-  { localUpdate(); }
+  { localUpdate(randomGen); }
 }
 
 /************************************ updateAllPlaqProds() ***********************************/

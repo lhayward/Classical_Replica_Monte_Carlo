@@ -44,7 +44,7 @@ class IsingModel : public Model
     virtual void   printSpins     ();
     virtual void   randomize      (MTRand* randomGen);
     virtual void   setT           (double newT);
-    virtual void   sweep          ();
+    virtual void   sweep          (MTRand* randomGen);
 };
 
 #endif  // ISINGMODEL_H
