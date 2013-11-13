@@ -234,7 +234,8 @@ void ToricCode_1_q::printParams()
 {
   if( isValid_ )
   {
-    std::cout << "(1," << (D_-1) << ") Toric Code Parameters:" << std::endl;
+    std::cout << "(1," << (D_-1) << ") Toric Code Parameters:\n"
+              << "---------------------------" << std::endl;
     Model::printParams();
     std::cout << "                Number of 0-cells = " << N0_ << "\n"
               << "                Number of 1-cells = " << N1_ << "\n"

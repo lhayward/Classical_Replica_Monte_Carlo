@@ -51,9 +51,7 @@ int main(int argc, char** argv)
   std::string modelParamStr   = "MODEL PARAMETERS";
   
   std::cout.precision(8);
-  std::cout << "\n***STARTING SIMULATION***\n" << std::endl;
-  
-  std::cout << "Parameter File: " << paramFileName << "\n" << std::endl;
+  std::cout << "\nParameter File: " << paramFileName << "\n" << std::endl;
   
   params = new SimParameters(paramFileName, simParamStr);
   params->print();
@@ -66,6 +64,8 @@ int main(int argc, char** argv)
     model = readModel( params->modelName_, paramFileName, modelParamStr, lattice );
     model->printParams();
     
+    std::cout << "\n***STARTING SIMULATION***\n" << std::endl;
+    //loop over the different temperatures:
     for( uint TIndex=0; TIndex<(params->TList_->size()); TIndex++)
     {
       T = params->TList_->at(TIndex);
@@ -73,8 +73,25 @@ int main(int argc, char** argv)
                 << std::endl;
       model->setT(T);
       model->randomize( params->randomGen_ );
-    }
-    //std::cout << "Energy = " << model->calculateEnergy() << std::endl;
+      
+      //equilibrate:
+      for( uint i=0; i<params->numWarmUpSweeps_; i++ )
+      { model->sweep( params->randomGen_ ); }
+      
+      //loop over Monte Carlo bins:
+      for( uint i=0; i<params->numBins_; i++ )
+      {
+        //perform the measurements for one bin:
+        for( uint j=0; j<params->measPerBin_; j++ )
+        {
+          //perform the sweeps for one measurement:
+          for( uint k=0; k<params->sweepsPerMeas_; k++ )
+          { model->sweep( params->randomGen_ ); }
+        }
+        std::cout << (i+1) << " Bins Complete" << std::endl;
+      } //loop over bins
+      std::cout << std::endl;
+    } //temperature loop
     
   }
   
@@ -126,6 +143,5 @@ Model* readModel(std::string modelName, std::string fileName, std::string startS
               << "startStr, Lattice* lattice): the model name is not valid, so a NULL Model "
               << "object will be returned\n" << std::endl;
   }
-  //result->calculateEnergy();
   return result;
 }
