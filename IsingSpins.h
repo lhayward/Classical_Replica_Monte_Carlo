@@ -20,6 +20,8 @@ class IsingSpins: public IntegerSpins
     
     virtual void randomize(MTRand* randomGen);
     virtual void randomize(MTRand* randomGen, bool* regionA);
+    
+    void flip(uint latticeSite, uint replicaStart, uint replicaEnd);
 };
 
 #endif  // ISING_SPINS_H

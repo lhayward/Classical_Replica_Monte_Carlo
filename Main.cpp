@@ -66,16 +66,13 @@ int main(int argc, char** argv)
     model = readModel( params->modelName_, paramFileName, modelParamStr, lattice );
     model->printParams();
     
-    model->randomize( params->randomGen_ );
-    model->printSpins();
-    model->printRegionA();
-    
     for( uint TIndex=0; TIndex<(params->TList_->size()); TIndex++)
     {
       T = params->TList_->at(TIndex);
       std::cout << "******** T = " << T << " (Temperature #" << (TIndex+1) << ") ********"
                 << std::endl;
       model->setT(T);
+      model->randomize( params->randomGen_ );
     }
     //std::cout << "Energy = " << model->calculateEnergy() << std::endl;
     

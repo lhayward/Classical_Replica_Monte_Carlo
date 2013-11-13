@@ -31,6 +31,13 @@ void IsingSpins::randomize(MTRand* randomGen)
   } //a
 } //randomize method
 
+/***************** flip(uint latticeSite, uint replicaStart, uint replicaEnd) ****************/
+void IsingSpins::flip(uint latticeSite, uint replicaStart, uint replicaEnd)
+{
+  for( uint a=replicaStart; a<=replicaEnd; a++ )
+  { spins_[a][latticeSite] *= -1; }
+}
+
 /************************ randomize(MTRand* randomGen, bool* regionA) *************************
 * This method gives each spin in every replica a random value (either -1 or +1) with the
 * constraint that all spins in region A (as determined from the input regionA array) must have

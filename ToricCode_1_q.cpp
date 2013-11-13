@@ -50,11 +50,11 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
         regionA_ = new bool[N1_];
         init_regionA();
         
-        //create the singleUpdateProbs_ array:
+        //create the localUpdateProbs_ array:
         numProbs_ = (D_-1)*alpha_;
-        singleUpdateProbs_ = new double[numProbs_];
+        localUpdateProbs_ = new double[numProbs_];
         for( uint i=0; i<numProbs_; i++ )
-        { singleUpdateProbs_[i] = 0; }
+        { localUpdateProbs_[i] = 0; }
         
         //create and initialize the plaqProds_ array:
         plaqProds_ = new int*[alpha_];
@@ -186,13 +186,47 @@ void ToricCode_1_q::init_regionA()
 void ToricCode_1_q::localUpdate(MTRand* randomGen)
 {
   uint latticeSite; //randomly selected spin location
-  uint replica; //randomly selected replica (if the latticeSite is in region B)
+  uint replicaStart; //replica where the attempted local update starts
+  uint replicaEnd;   //replica where the attempted local update ends
+  int  nnPlaqSum;   //sum of the plaquette products on the plaquettes neighbouring latticeSite
   
   latticeSite = randomGen->randInt(N1_-1);
-  replica = 0;
-  //if the spin is in region B, we must choose the replica in which to attempt the update:
-  if( !regionA_[latticeSite] )
-  { replica = randomGen->randInt(alpha_-1); }
+  
+  //if the spin is in region A, we must consider flipping spins in all replicas: 
+  if( regionA_[latticeSite] )
+  {
+    replicaStart = 0;
+    replicaEnd   = alpha_ - 1;
+  }
+  //if the spin is in region B, we must choose one replica in which to attempt the update:
+  else
+  { 
+    replicaStart = randomGen->randInt(alpha_-1); 
+    replicaEnd   = replicaStart;
+  }
+  
+  //loop to calculate the sum for the energy difference:
+  nnPlaqSum=0;
+  for( uint a=replicaStart; a<=replicaEnd; a++ )
+  {
+    for( uint i=0; i<plaqsPerSpin_; i++ )
+    { nnPlaqSum += plaqProds_[a][ neighPlaqs_[latticeSite][i] ]; }
+  }
+  
+  //check if we will flip the spin:
+  if( (J_*nnPlaqSum <= 0) || 
+      (randomGen->randDblExc() < localUpdateProbs_[(abs(nnPlaqSum)/2)-1]) )
+  {
+    //flip the spin:
+    spins_->flip(latticeSite, replicaStart, replicaEnd);
+    
+    //update the plaqProds_ array:
+    for( uint a=replicaStart; a<=replicaEnd; a++ )
+    {
+      for( uint i=0; i<plaqsPerSpin_; i++ )
+      { plaqProds_[a][ neighPlaqs_[latticeSite][i] ] *= -1; }
+    }
+  } //if
 }
 
 /*************************************** printParams() ***************************************/
@@ -286,9 +320,9 @@ void ToricCode_1_q::setT(double newT)
 { 
   Model::setT(newT); 
 
-  //update the singleUpdateProbs_ array:
+  //update the localUpdateProbs_ array:
   for( uint i=0; i<numProbs_; i++ )
-  { singleUpdateProbs_[i] = exp(-abs(J_)*2*(2*(i+1))/T_); }
+  { localUpdateProbs_[i] = exp(-abs(J_)*2*(2*(i+1))/T_); }
 }
 
 /********************************** sweep(MTRand* randomGen) *********************************/

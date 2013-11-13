@@ -29,8 +29,8 @@ class ToricCode_1_q : public Model
     uint        N2_;  //number of 2-cells (plaquettes)
     
     uint        numProbs_; //number of elements in the singleUpdateProbs array
-    double*     singleUpdateProbs_; //the exponentials needed for the single-spin updates 
-                                    //(pre-computed to save time)
+    double*     localUpdateProbs_; //the exponentials needed for the single-spin updates 
+                                   //(pre-computed to save time)
     uint        plaqsPerSpin_;  //number of plaquettes touching each spin
     Hypercube*  hcube_; //the hypercubic lattice on which the d.o.f. live
     IsingSpins* spins_; //the degrees of freedom (d.o.f.) for the model
