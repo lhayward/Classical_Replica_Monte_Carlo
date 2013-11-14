@@ -218,6 +218,9 @@ void ToricCode_1_q::localUpdate(MTRand* randomGen)
       for( uint i=0; i<plaqsPerSpin_; i++ )
       { plaqProds_[a][ neighPlaqs_[latticeSite][i] ] *= -1; }
     }
+    
+    //update the energy:
+    energy_ += 2*J_*nnPlaqSum;
   } //if
 }
 

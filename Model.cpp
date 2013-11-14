@@ -33,6 +33,7 @@ Model::Model(std::ifstream* fin, std::string fileName)
   }
   
   regionA_=NULL;
+  energy_=0;
   //initialize the temperature (should be changed by user to desired temperature before
   //starting the simulation):
   T_ = 1.0;
@@ -64,3 +65,6 @@ void Model::printParams()
 /************************************* setT(double newT) *************************************/
 void Model::setT(double newT)
 { T_ = newT; }
+
+/*********************************** Public Getter Methods: **********************************/
+double Model::getEnergy(){ return energy_; }

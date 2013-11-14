@@ -30,6 +30,9 @@ class Model
     Model(std::ifstream* fin, std::string fileName);
     virtual ~Model();
     
+    //methods implemented in Model class:
+    double getEnergy();
+    
     //methods that can be overwritten by child classes:
     virtual void printParams();
     virtual void setT (double newT);
