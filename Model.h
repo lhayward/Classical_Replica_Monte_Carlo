@@ -24,6 +24,7 @@ class Model
     double        fracA_;   //the fractions of spins in region A (only relevant for alpha_>=2)
     double        T_;       //current temperature
     bool*         regionA_; //indicates whether or not each spin is in region A
+    double        energy_;  //current energy
     
   public:
     Model(std::ifstream* fin, std::string fileName);
@@ -34,11 +35,11 @@ class Model
     virtual void setT (double newT);
     
     //pure virtual methods (to be implemented by all child classes):
-    virtual double calculateEnergy() = 0;
     virtual void   printRegionA   () = 0;
     virtual void   printSpins     () = 0;
     virtual void   randomize      (MTRand* randomGen) = 0;
     virtual void   sweep          (MTRand* randomGen) = 0;
+    virtual void   updateEnergy   () = 0;
 };
 
 #endif  // MODEL_H

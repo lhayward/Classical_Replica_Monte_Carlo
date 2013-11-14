@@ -72,26 +72,6 @@ IsingModel::~IsingModel()
   spins_ = NULL;
 }
 
-/************************************* calculateEnergy() *************************************/
-double IsingModel::calculateEnergy()
-{
-  double energy=0;
-  int    nnSum;
-
-  for( uint a=0; a<alpha_; a++ )
-  {
-    for( uint i=0; i<N_; i++ )
-    {   
-      nnSum=0;
-      for( uint j=0; j<(z_/2); j++ )
-      { nnSum += spins_->getSpin(a, lattice_->getNeighbour(i,j)); } 
-      energy += -J_*spins_->getSpin(a,i)*nnSum;
-    }
-  }
-  
-  return energy;
-}
-
 /*************************************** printParams() ***************************************/
 void IsingModel::printParams()
 {
@@ -146,4 +126,22 @@ void IsingModel::setT(double newT)
 /********************************** sweep(MTRand* randomGen) *********************************/
 void IsingModel::sweep(MTRand* randomGen)
 {
+}
+
+/*************************************** updateEnergy() **************************************/
+void IsingModel::updateEnergy()
+{
+  int    nnSum;
+
+  energy_=0;
+  for( uint a=0; a<alpha_; a++ )
+  {
+    for( uint i=0; i<N_; i++ )
+    {   
+      nnSum=0;
+      for( uint j=0; j<(z_/2); j++ )
+      { nnSum += spins_->getSpin(a, lattice_->getNeighbour(i,j)); } 
+      energy_ += -J_*spins_->getSpin(a,i)*nnSum;
+    }
+  } //for loop over replicas
 }

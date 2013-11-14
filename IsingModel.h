@@ -38,13 +38,13 @@ class IsingModel : public Model
     IsingModel(std::ifstream* fin, std::string fileName, Lattice* lattice);
     virtual ~IsingModel();
     
-    virtual double calculateEnergy();
     virtual void   printParams    ();
     virtual void   printRegionA   ();
     virtual void   printSpins     ();
     virtual void   randomize      (MTRand* randomGen);
     virtual void   setT           (double newT);
     virtual void   sweep          (MTRand* randomGen);
+    virtual void   updateEnergy   ();
 };
 
 #endif  // ISINGMODEL_H

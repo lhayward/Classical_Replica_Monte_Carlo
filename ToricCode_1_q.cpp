@@ -60,8 +60,8 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
         plaqProds_ = new int*[alpha_];
         for( uint a=0; a<alpha_; a++ )
         { plaqProds_[a] = new int[N2_]; }
-        updateAllPlaqProds(); //initialize the plaqProds_ array based on the current spin
-                              //configuration
+        updateAllPlaqProds(); //initialize the plaqProds_ array and energy_ based on the
+                              //current spin configuration
       }
       else
       {
@@ -115,14 +115,6 @@ ToricCode_1_q::~ToricCode_1_q()
   { delete[] neighPlaqs_; }
   neighPlaqs_ = NULL;
   
-}
-
-/************************************* calculateEnergy() *************************************/
-double ToricCode_1_q::calculateEnergy()
-{
-  double energy=0;
-  
-  return energy;
 }
 
 /************************************* init_plaqArrays() *************************************/
@@ -349,5 +341,18 @@ void ToricCode_1_q::updateAllPlaqProds()
       for( uint j=0; j<SPINS_PER_PLAQ_; j++ )
       { plaqProds_[a][i] *= spins_->getSpin(a, plaqSpins_[i][j]); }
     }
+  } //loop over replicas
+  updateEnergy();
+}
+
+/*************************************** updateEnergy() **************************************/
+void ToricCode_1_q::updateEnergy()
+{
+  energy_=0;
+  for( uint a=0; a<alpha_; a++ )
+  {
+    for( uint i=0; i<N2_; i++ )
+    { energy_ += plaqProds_[a][i]; }
   }
+  energy_ *= -J_;
 }
