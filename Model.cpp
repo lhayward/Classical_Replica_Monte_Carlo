@@ -12,8 +12,8 @@
 #include "FileReading.h"
 #include "Model.h"
 
-/*************** Model(std::ifstream* fin, std::string fileName) (constructor) ***************/
-Model::Model(std::ifstream* fin, std::string fileName)
+/************** Model(std::ifstream* fin, std::string outFileName) (constructor) *************/
+Model::Model(std::ifstream* fin, std::string outFileName)
 { 
   const char EQUALS_CHAR = '=';
   
@@ -27,11 +27,11 @@ Model::Model(std::ifstream* fin, std::string fileName)
   }
   else
   { 
-    std::cout << "ERROR in Model constructor: could not read from file \"" << fileName 
-              << "\"\n" << std::endl; 
+    std::cout << "ERROR in Model constructor: could not read from input file\n" << std::endl; 
     isValid_ = false;
   }
   
+  fout.open(outFileName.c_str());
   regionA_=NULL;
   energy_=0;
   //initialize the temperature (should be changed by user to desired temperature before
@@ -46,6 +46,8 @@ Model::Model(std::ifstream* fin, std::string fileName)
 /*********************************** ~Model() (destructor) ***********************************/
 Model::~Model()
 {
+  fout.close();
+  
   if(regionA_!=NULL)
   { delete[] regionA_; }
   regionA_ = NULL; 

@@ -13,10 +13,10 @@
 #include "FileReading.h"
 #include "IsingModel.h"
 
-/*********** IsingModel(std::ifstream* fin, std::string fileName, Lattice* lattice) ***********
+/********* IsingModel(std::ifstream* fin, std::string outFileName, Lattice* lattice) **********
 **************************************** (constructor) ***************************************/
-IsingModel::IsingModel(std::ifstream* fin, std::string fileName, Lattice* lattice)
-  : Model(fin, fileName)
+IsingModel::IsingModel(std::ifstream* fin, std::string outFileName, Lattice* lattice)
+  : Model(fin, outFileName)
 {
   if( isValid_ )  //check that parent is valid (read from file correctly)
   {

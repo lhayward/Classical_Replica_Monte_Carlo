@@ -50,7 +50,7 @@ class ToricCode_1_q : public Model
     
     
   public:
-    ToricCode_1_q(std::ifstream* fin, std::string fileName, Lattice* lattice);
+    ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattice* lattice);
     virtual ~ToricCode_1_q();
     
     virtual void   printParams    ();

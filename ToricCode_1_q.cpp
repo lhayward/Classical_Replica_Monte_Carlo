@@ -13,11 +13,10 @@
 #include "FileReading.h"
 #include "ToricCode_1_q.h"
 
-/********* ToricCode_1_q(std::ifstream* fin, std::string fileName, Lattice* lattice) **********
+/******** ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattice* lattice) ********
 **************************************** (constructor) ***************************************/
-ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string fileName,
-                                             Lattice* lattice)
-  : Model(fin, fileName)
+ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattice* lattice)
+  : Model(fin, outFileName)
 {
   if( isValid_ )  //check that parent is valid (read from file correctly)
   {

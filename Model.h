@@ -27,9 +27,10 @@ class Model
     bool*         regionA_; //indicates whether or not each spin is in region A
     double        energy_;  //current energy
     Measure       measures;
+    std::ofstream fout;
     
   public:
-    Model(std::ifstream* fin, std::string fileName);
+    Model(std::ifstream* fin, std::string outFileName);
     virtual ~Model();
     
     //methods implemented in Model class:

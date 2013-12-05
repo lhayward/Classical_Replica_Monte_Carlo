@@ -29,8 +29,8 @@ typedef unsigned int  uint;
 
 std::string getFileSuffix(int argc, char** argv);
 Lattice* readLattice(std::string latticeName, std::string fileName, std::string startStr);
-Model* readModel(std::string modelName, std::string fileName, std::string startStr, 
-                 Lattice* lattice);
+Model* readModel(std::string modelName, std::string inFileName, std::string startStr, 
+                 std::string outFileName, Lattice* lattice);
 
 /**********************************************************************************************
 ******************************************** main *********************************************
@@ -43,12 +43,13 @@ int main(int argc, char** argv)
   Model* model;
   double T; //current temperature
     
-  //variables related to input data from files:
+  //variables related to input/output data from/to files:
   std::string fileSuffix      = getFileSuffix( argc, argv );
   std::string paramFileName   = "params" + fileSuffix + ".txt";
   std::string simParamStr     = "SIMULATION PARAMETERS";
   std::string latticeParamStr = "LATTICE PARAMETERS";
   std::string modelParamStr   = "MODEL PARAMETERS";
+  std::string outFileName     = "bins" + fileSuffix + ".txt";
   
   std::cout.precision(8);
   std::cout << "\nParameter File: " << paramFileName << "\n" << std::endl;
@@ -58,10 +59,10 @@ int main(int argc, char** argv)
   
   if( params->isValid() )
   {
-    lattice = readLattice( params->latticeType_, paramFileName, latticeParamStr );
+    lattice = readLattice(params->latticeType_, paramFileName, latticeParamStr);
     lattice->printParams();
   
-    model = readModel( params->modelName_, paramFileName, modelParamStr, lattice );
+    model = readModel(params->modelName_, paramFileName, modelParamStr, outFileName, lattice);
     model->printParams();
     
     std::cout << "\n***STARTING SIMULATION***\n" << std::endl;
@@ -123,26 +124,27 @@ Lattice* readLattice(std::string latticeName, std::string fileName, std::string 
   return new Hypercube(&fin, fileName);
 }
 
-/******** readModel(std::string modelName, std::string fileName, std::string startStr) *******/
-Model* readModel(std::string modelName, std::string fileName, std::string startStr, 
-                 Lattice* lattice)
+/********* readModel(std::string modelName, std::string inFileName, ...               *********
+**********           std::string startStr, std::string outFileName, Lattice* lattice) ********/
+Model* readModel(std::string modelName, std::string inFileName, std::string startStr, 
+                 std::string outFileName, Lattice* lattice)
 {
   Model* result=NULL;
   std::ifstream fin;
-  fin.open(fileName.c_str());
+  fin.open(inFileName.c_str());
   
   if( fin.is_open() )
   { FileReading::readUntilFound(&fin, startStr); }
   
   if( modelName == "isingmodel" )
-  { result = new IsingModel(&fin, fileName, lattice); }
+  { result = new IsingModel(&fin, outFileName, lattice); }
   else if( modelName == "toriccode" )
-  { result = new ToricCode_1_q(&fin, fileName, lattice); }
+  { result = new ToricCode_1_q(&fin, outFileName, lattice); }
   else
   {
-    std::cout << "ERROR in readModel(std::string modelName, std::string fileName, std::string "
-              << "startStr, Lattice* lattice): the model name is not valid, so a NULL Model "
-              << "object will be returned\n" << std::endl;
+    std::cout << "ERROR in readModel(std::string modelName, std::string inFileName, "
+              << "std::string startStr, Lattice* lattice): the model name is not valid, so a "
+              << "NULL Model object will be returned\n" << std::endl;
   }
   return result;
 }
