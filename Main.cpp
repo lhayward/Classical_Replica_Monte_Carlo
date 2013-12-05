@@ -90,6 +90,7 @@ int main(int argc, char** argv)
           for( uint k=0; k<params->sweepsPerMeas_; k++ )
           { model->sweep( params->randomGen_ ); }
         }
+        model->writeBin((i+1), params->measPerBin_);
         std::cout << (i+1) << " Bins Complete" << std::endl;
       } //loop over bins
       std::cout << std::endl;

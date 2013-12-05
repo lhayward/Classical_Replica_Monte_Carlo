@@ -53,13 +53,14 @@ class ToricCode_1_q : public Model
     ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattice* lattice);
     virtual ~ToricCode_1_q();
     
-    virtual void   printParams    ();
-    virtual void   printRegionA   ();
-    virtual void   printSpins     ();
-    virtual void   randomize      (MTRand* randomGen);
-    virtual void   setT           (double newT);
-    virtual void   sweep          (MTRand* randomGen);
-    virtual void   updateEnergy   ();
+    virtual void printParams    ();
+    virtual void printRegionA   ();
+    virtual void printSpins     ();
+    virtual void randomize      (MTRand* randomGen);
+    virtual void setT           (double newT);
+    virtual void sweep          (MTRand* randomGen);
+    virtual void updateEnergy   ();
+    virtual void writeBin       (int binNum, int numMeas);
 };  
 
 #endif  // TORICCODE_1_Q_H

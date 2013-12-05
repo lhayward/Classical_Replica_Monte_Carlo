@@ -358,3 +358,9 @@ void ToricCode_1_q::updateEnergy()
   }
   energy_ *= -J_;
 }
+
+/***************************** writeBin(int binNum, int numMeas) *****************************/
+void ToricCode_1_q::writeBin(int binNum, int numMeas)
+{
+  fout << hcube_->getL() << '\t' << T_ << '\t' << binNum;
+}

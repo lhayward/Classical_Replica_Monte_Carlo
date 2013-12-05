@@ -41,8 +41,8 @@ IsingModel::IsingModel(std::ifstream* fin, std::string outFileName, Lattice* lat
       } 
       else
       { 
-        std::cout << "ERROR in IsingModel constructor: The lattice must have an even number of "
-                  << "nearest neighbours.\n" << std::endl; 
+        std::cout << "ERROR in IsingModel constructor: The lattice must have an even number "
+                  << "of nearest neighbours.\n" << std::endl; 
         isValid_ = false;
       }
     }
@@ -144,4 +144,10 @@ void IsingModel::updateEnergy()
       energy_ += -J_*spins_->getSpin(a,i)*nnSum;
     }
   } //for loop over replicas
+}
+
+/***************************** writeBin(int binNum, int numMeas) *****************************/
+void IsingModel::writeBin(int binNum, int numMeas)
+{
+  fout << lattice_->getL() << '\t' << T_ << '\t' << binNum;
 }

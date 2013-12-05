@@ -36,6 +36,7 @@ class Lattice
     
     //getter methods:
     bool isValid();
+    uint getL();
     uint getN();
     uint getZ();
 };

@@ -57,5 +57,6 @@ Lattice::~Lattice()
 
 /*********************************** Public Getter Methods: **********************************/
 bool Lattice::isValid(){ return isValid_; }
+uint Lattice::getL()   { return L_; }
 uint Lattice::getN()   { return N_; }
 uint Lattice::getZ()   { return z_; }

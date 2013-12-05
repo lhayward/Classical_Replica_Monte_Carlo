@@ -14,7 +14,7 @@
 
 class Measure 
 { 
-   private:
+  private:
     std::map<std::string,double> measurements;
     
   public:
