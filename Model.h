@@ -10,6 +10,7 @@
 #define MODEL_H
 
 #include <string>
+#include "Measure.h"
 #include "MersenneTwister.h"
 
 class Model 
@@ -25,6 +26,7 @@ class Model
     double        T_;       //current temperature
     bool*         regionA_; //indicates whether or not each spin is in region A
     double        energy_;  //current energy
+    Measure       measures;
     
   public:
     Model(std::ifstream* fin, std::string fileName);
@@ -32,8 +34,10 @@ class Model
     
     //methods implemented in Model class:
     double getEnergy();
+    void   zeroMeasurements();
     
     //methods that can be overwritten by child classes:
+    virtual void makeMeasurement();
     virtual void printParams();
     virtual void setT (double newT);
     

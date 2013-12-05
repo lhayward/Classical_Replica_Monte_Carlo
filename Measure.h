@@ -20,6 +20,11 @@ class Measure
   public:
     Measure();
     virtual ~Measure();
+    
+    void accumulate(std::string label, double newMeas);
+    void insert    (std::string label);
+    void print     ();
+    void zero      ();
 };
 
 #endif  // MEASURE_H

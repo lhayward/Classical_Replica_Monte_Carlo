@@ -81,6 +81,7 @@ int main(int argc, char** argv)
       //loop over Monte Carlo bins:
       for( uint i=0; i<params->numBins_; i++ )
       {
+        model->zeroMeasurements();
         //perform the measurements for one bin:
         for( uint j=0; j<params->measPerBin_; j++ )
         {

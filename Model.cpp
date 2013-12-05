@@ -37,6 +37,10 @@ Model::Model(std::ifstream* fin, std::string fileName)
   //initialize the temperature (should be changed by user to desired temperature before
   //starting the simulation):
   T_ = 1.0;
+  
+  //Add measurement names to Measure object:
+  measures.insert("E");
+  measures.insert("ESq");
 }
 
 /*********************************** ~Model() (destructor) ***********************************/
@@ -45,6 +49,13 @@ Model::~Model()
   if(regionA_!=NULL)
   { delete[] regionA_; }
   regionA_ = NULL; 
+}
+
+/************************************* makeMeasurement() *************************************/
+void Model::makeMeasurement()
+{
+  measures.accumulate( "E",   energy_ ) ;
+  measures.accumulate( "ESq", pow(energy_,2) );
 }
 
 /*************************************** printParams() ***************************************/
@@ -65,6 +76,10 @@ void Model::printParams()
 /************************************* setT(double newT) *************************************/
 void Model::setT(double newT)
 { T_ = newT; }
+
+/************************************* zeroMeasurements() ************************************/
+void Model::zeroMeasurements()
+{ measures.zero(); }
 
 /*********************************** Public Getter Methods: **********************************/
 double Model::getEnergy(){ return energy_; }
