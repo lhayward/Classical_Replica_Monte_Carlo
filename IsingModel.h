@@ -38,6 +38,7 @@ class IsingModel : public Model
     IsingModel(std::ifstream* fin, std::string outFileName, Lattice* lattice);
     virtual ~IsingModel();
     
+    virtual void makeMeasurement();
     virtual void printParams    ();
     virtual void printRegionA   ();
     virtual void printSpins     ();

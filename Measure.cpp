@@ -37,6 +37,15 @@ void Measure::print()
   std::cout << std::endl;
 }
 
+/********************** writeAverages(std::ofstream* fout, uint numMeas) *********************/
+void Measure::writeAverages(std::ofstream* fout, uint numMeas)
+{
+  std::map<std::string,double>::iterator it;
+  
+  for( it=measurements.begin(); it!=measurements.end(); ++it )
+  { (*fout) << '\t' << (it->second/(1.0*numMeas)); }
+}
+
 /******************************************* zero() ******************************************/
 void Measure::zero()
 {

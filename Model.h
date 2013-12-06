@@ -38,11 +38,11 @@ class Model
     void   zeroMeasurements();
     
     //methods that can be overwritten by child classes:
-    virtual void makeMeasurement();
     virtual void printParams();
-    virtual void setT (double newT);
+    virtual void setT       (double newT);
     
     //pure virtual methods (to be implemented by all child classes):
+    virtual void makeMeasurement() = 0;
     virtual void printRegionA   () = 0;
     virtual void printSpins     () = 0;
     virtual void randomize      (MTRand* randomGen) = 0;

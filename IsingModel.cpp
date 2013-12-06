@@ -72,6 +72,15 @@ IsingModel::~IsingModel()
   spins_ = NULL;
 }
 
+/************************************* makeMeasurement() *************************************/
+void IsingModel::makeMeasurement()
+{
+  double energyPerSpin = energy_/(1.0*alpha_*N_);
+  
+  measures.accumulate( "E",  energyPerSpin ) ;
+  measures.accumulate( "ESq", pow(energyPerSpin,2) );
+}
+
 /*************************************** printParams() ***************************************/
 void IsingModel::printParams()
 {
@@ -150,4 +159,5 @@ void IsingModel::updateEnergy()
 void IsingModel::writeBin(int binNum, int numMeas)
 {
   fout << lattice_->getL() << '\t' << T_ << '\t' << binNum;
+  fout << std::endl;
 }

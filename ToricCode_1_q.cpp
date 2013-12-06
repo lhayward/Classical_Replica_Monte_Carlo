@@ -223,6 +223,15 @@ void ToricCode_1_q::localUpdate(MTRand* randomGen)
   } //if
 }
 
+/************************************* makeMeasurement() *************************************/
+void ToricCode_1_q::makeMeasurement()
+{
+  double energyPerSpin = energy_/(1.0*alpha_*N1_);
+  std::cout << "energyPerSpin = " << energyPerSpin << std::endl;
+  measures.accumulate( "E",   energyPerSpin ) ;
+  measures.accumulate( "ESq", pow(energyPerSpin,2) );
+}
+
 /*************************************** printParams() ***************************************/
 void ToricCode_1_q::printParams()
 {
@@ -299,9 +308,7 @@ void ToricCode_1_q::printRegionA()
 
 /**************************************** printSpins() ***************************************/
 void ToricCode_1_q::printSpins()
-{
-  spins_->print();
-}
+{ spins_->print(); }
 
 /******************************** randomize(MTRand* randomGen) *******************************/
 void ToricCode_1_q::randomize(MTRand* randomGen)
@@ -363,4 +370,6 @@ void ToricCode_1_q::updateEnergy()
 void ToricCode_1_q::writeBin(int binNum, int numMeas)
 {
   fout << hcube_->getL() << '\t' << T_ << '\t' << binNum;
+  measures.writeAverages(&fout, numMeas);
+  fout << std::endl;
 }

@@ -53,6 +53,7 @@ class ToricCode_1_q : public Model
     ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattice* lattice);
     virtual ~ToricCode_1_q();
     
+    virtual void makeMeasurement();
     virtual void printParams    ();
     virtual void printRegionA   ();
     virtual void printSpins     ();

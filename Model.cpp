@@ -53,13 +53,6 @@ Model::~Model()
   regionA_ = NULL; 
 }
 
-/************************************* makeMeasurement() *************************************/
-void Model::makeMeasurement()
-{
-  measures.accumulate( "E",   energy_ ) ;
-  measures.accumulate( "ESq", pow(energy_,2) );
-}
-
 /*************************************** printParams() ***************************************/
 void Model::printParams()
 {
