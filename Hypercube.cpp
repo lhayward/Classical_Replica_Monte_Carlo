@@ -154,12 +154,30 @@ uint Hypercube::getNeighbour(uint i, uint j)
 /************************** getRegionA(std::string regionAInputStr) **************************/
 std::pair<std::string,bool*> Hypercube::getRegionA(std::string regionAInputStr)
 {
+  std::string regionType;
+  std::string regionAOutputString;
+  std::size_t commaIndex;
   bool* regionA = new bool[N_];
+  
+  std::cout << "regionAInputStr = " << regionAInputStr << std::endl;
+  commaIndex = regionAInputStr.find_last_of(",");
+  std::cout << "commaIndex = " << commaIndex <<std::endl;
+  regionType = regionAInputStr.substr( 0, std::min(commaIndex,regionAInputStr.length()) );
+  std::cout << "regionType = " << regionType << std::endl;
+  
+  if( regionType == "cylinder" )
+  {
+    regionAOutputString = regionType;
+  }
+  else
+  {
+    regionAOutputString = "none";
+  }
   
   for( uint i=0; i<N_; i++ )
   { regionA[i] = 0; }
   
-  return std::pair<std::string,bool*>("test", regionA);
+  return std::pair<std::string,bool*>(regionAOutputString, regionA);
 }
 
 /*************************************** printParams() ***************************************/
