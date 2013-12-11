@@ -21,8 +21,9 @@ Model::Model(std::ifstream* fin, std::string outFileName)
   
   if( fin!=NULL && fin->is_open() )
   {
-    J_     = FileReading::readDouble(fin, EQUALS_CHAR);
-    alpha_ = FileReading::readUint  (fin, EQUALS_CHAR);
+    J_          = FileReading::readDouble(fin, EQUALS_CHAR);
+    alpha_      = FileReading::readUint  (fin, EQUALS_CHAR);
+    //regionAStr_ = FileReading::readString(fin, EQUALS_CHAR);
     fracA_ = FileReading::readDouble(fin, EQUALS_CHAR);
   }
   else
@@ -32,6 +33,8 @@ Model::Model(std::ifstream* fin, std::string outFileName)
   }
   
   fout.open(outFileName.c_str());
+  fout.precision(15);
+  
   regionA_=NULL;
   energy_=0;
   //initialize the temperature (should be changed by user to desired temperature before
@@ -58,9 +61,10 @@ void Model::printParams()
 {
   if( isValid_ )
   {
-    std::cout << "                       Coupling J = " << J_ << "\n"
-              << "         Number of Replicas alpha = " << alpha_ << "\n"
+    std::cout << "                Coupling J = " << J_ << "\n"
+              << "  Number of Replicas alpha = " << alpha_ << "\n"
               << "  Fraction of Columns in Region A = " << fracA_ << "\n";
+              //<< "                  Region A = " << regionAStr_ << "\n";
   }
   else
   {

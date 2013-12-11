@@ -18,6 +18,7 @@
 ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattice* lattice)
   : Model(fin, outFileName)
 {
+  std::cout.precision(15);
   if( isValid_ )  //check that parent is valid (read from file correctly)
   {
     if( lattice != NULL && lattice->isValid() )
@@ -48,6 +49,7 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattic
         //create and initialize the regionA_ array:
         regionA_ = new bool[N1_];
         init_regionA();
+        printRegionA();
         
         //create the localUpdateProbs_ array:
         numProbs_ = (D_-1)*alpha_;
@@ -158,14 +160,14 @@ void ToricCode_1_q::init_regionA()
 {
   bool* cubeRegionA = hcube_->getRegionA(fracA_);
   
+  std::cout << "N1_ = " << N1_ << std::endl;
   //loop over all 0-cells (vertices of the hypercube):
   for( uint i=0; i<N0_; i++ )
   {
     //the D 1-cells associated with this 0-cell will be in region A iff the 0-cell is in 
     //region A:
-    regionA_[D_*i]     = cubeRegionA[i];
-    regionA_[D_*i + 1] = cubeRegionA[i];
-    regionA_[D_*i + 2] = cubeRegionA[i];
+    for( uint j=0; j<D_; j++ )
+    { regionA_[D_*i + j] = cubeRegionA[i]; }
   }
   
   if(cubeRegionA!=NULL)
@@ -227,7 +229,7 @@ void ToricCode_1_q::localUpdate(MTRand* randomGen)
 void ToricCode_1_q::makeMeasurement()
 {
   double energyPerSpin = energy_/(1.0*alpha_*N1_);
-  std::cout << "energyPerSpin = " << energyPerSpin << std::endl;
+  
   measures.accumulate( "E",   energyPerSpin ) ;
   measures.accumulate( "ESq", pow(energyPerSpin,2) );
 }
@@ -321,10 +323,10 @@ void ToricCode_1_q::randomize(MTRand* randomGen)
 void ToricCode_1_q::setT(double newT)
 { 
   Model::setT(newT); 
-
+  
   //update the localUpdateProbs_ array:
   for( uint i=0; i<numProbs_; i++ )
-  { localUpdateProbs_[i] = exp(-abs(J_)*2*(2*(i+1))/T_); }
+  { localUpdateProbs_[i] = exp(-2.0*abs(J_)*(2*(i+1))/T_); }
 }
 
 /********************************** sweep(MTRand* randomGen) *********************************/

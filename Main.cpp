@@ -65,6 +65,7 @@ int main(int argc, char** argv)
     model = readModel(params->modelName_, paramFileName, modelParamStr, outFileName, lattice);
     model->printParams();
     
+    
     std::cout << "\n***STARTING SIMULATION***\n" << std::endl;
     //loop over the different temperatures:
     for( uint TIndex=0; TIndex<(params->TList_->size()); TIndex++)
@@ -92,7 +93,9 @@ int main(int argc, char** argv)
           model->makeMeasurement();
         } //loop over measurements
         model->writeBin((i+1), params->measPerBin_);
-        std::cout << (i+1) << " Bins Complete" << std::endl;
+        
+        if( (i+1)%100==0 )
+        { std::cout << (i+1) << " Bins Complete" << std::endl; }
       } //loop over bins
       std::cout << std::endl;
     } //temperature loop

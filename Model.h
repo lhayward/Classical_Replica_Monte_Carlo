@@ -23,6 +23,7 @@ class Model
     double        J_;       //coupling 
     uint          alpha_;   //the number of replicas
     double        fracA_;   //the fractions of spins in region A (only relevant for alpha_>=2)
+    std::string   regionAStr_;  
     double        T_;       //current temperature
     bool*         regionA_; //indicates whether or not each spin is in region A
     double        energy_;  //current energy
