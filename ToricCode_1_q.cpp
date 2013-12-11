@@ -158,9 +158,14 @@ void ToricCode_1_q::init_plaqArrays()
 /*************************************** init_regionA() **************************************/
 void ToricCode_1_q::init_regionA()
 {
-  bool* cubeRegionA = hcube_->getRegionA(fracA_);
+  //bool* cubeRegionA = hcube_->getRegionA(fracA_);
+  std::pair<std::string,bool*> regAPair = hcube_->getRegionA(regionAInputStr_);
   
-  std::cout << "N1_ = " << N1_ << std::endl;
+  regionAOutputStr_ = regAPair.first;
+  bool* cubeRegionA = regAPair.second;
+  
+  std::cout << "Output String = " << regionAOutputStr_ << std::endl;
+  
   //loop over all 0-cells (vertices of the hypercube):
   for( uint i=0; i<N0_; i++ )
   {
@@ -172,7 +177,7 @@ void ToricCode_1_q::init_regionA()
   
   if(cubeRegionA!=NULL)
   { delete[] cubeRegionA; }
-  cubeRegionA = NULL; 
+  cubeRegionA = NULL;
 }
 
 /******************************* localUpdate(MTRand* randomGen) ******************************/
@@ -242,9 +247,9 @@ void ToricCode_1_q::printParams()
     std::cout << "(1," << (D_-1) << ") Toric Code Parameters:\n"
               << "---------------------------" << std::endl;
     Model::printParams();
-    std::cout << "                Number of 0-cells = " << N0_ << "\n"
-              << "                Number of 1-cells = " << N1_ << "\n"
-              << "                Number of 2-cells = " << N2_ << "\n"
+    std::cout << "         Number of 0-cells = " << N0_ << "\n"
+              << "         Number of 1-cells = " << N1_ << "\n"
+              << "         Number of 2-cells = " << N2_ << "\n"
               << std::endl;
   }
   else

@@ -39,7 +39,8 @@ class Hypercube : public Lattice
     virtual ~Hypercube();
     
     virtual uint getNeighbour(uint i, uint j);
-    virtual bool* getRegionA(double fracA);
+    //virtual bool* getRegionA(double fracA);
+    std::pair<std::string,bool*> getRegionA(std::string regionAInputStr);
     virtual void printParams();
     virtual void printNeighbours();
     

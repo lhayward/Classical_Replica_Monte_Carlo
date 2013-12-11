@@ -30,7 +30,8 @@ class Lattice
     
     //pure virtual methods (to be implemented by all child classes):
     virtual uint  getNeighbour(uint i, uint j) = 0;
-    virtual bool* getRegionA(double fracA) = 0;
+    //virtual bool* getRegionA(double fracA) = 0;
+    virtual std::pair<std::string,bool*> getRegionA(std::string regionAInputStr) = 0;
     virtual void  printParams() = 0;
     virtual void  printNeighbours() = 0;
     

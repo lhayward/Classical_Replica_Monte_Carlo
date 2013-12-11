@@ -18,6 +18,8 @@
 IsingModel::IsingModel(std::ifstream* fin, std::string outFileName, Lattice* lattice)
   : Model(fin, outFileName)
 {
+  std::pair<std::string,bool*> regAPair; //pair used to store regionA info
+  
   if( isValid_ )  //check that parent is valid (read from file correctly)
   {
     if( lattice != NULL && lattice->isValid() )
@@ -29,7 +31,11 @@ IsingModel::IsingModel(std::ifstream* fin, std::string outFileName, Lattice* lat
       if( z_%2 == 0 )
       {  
         N_ = lattice_->getN();
-        regionA_ = lattice_->getRegionA(fracA_);
+        //regionA_ = lattice_->getRegionA(fracA_);
+        regAPair = lattice_->getRegionA(regionAInputStr_);
+  
+        regionAOutputStr_ = regAPair.first;
+        regionA_          = regAPair.second;
     
         numProbs_ = (z_*alpha_)/2;
         singleUpdateProbs_ = new double[numProbs_];

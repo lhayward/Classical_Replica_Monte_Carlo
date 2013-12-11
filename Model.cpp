@@ -21,10 +21,10 @@ Model::Model(std::ifstream* fin, std::string outFileName)
   
   if( fin!=NULL && fin->is_open() )
   {
-    J_          = FileReading::readDouble(fin, EQUALS_CHAR);
-    alpha_      = FileReading::readUint  (fin, EQUALS_CHAR);
-    //regionAStr_ = FileReading::readString(fin, EQUALS_CHAR);
-    fracA_ = FileReading::readDouble(fin, EQUALS_CHAR);
+    J_               = FileReading::readDouble(fin, EQUALS_CHAR);
+    alpha_           = FileReading::readUint  (fin, EQUALS_CHAR);
+    regionAInputStr_ = FileReading::readString(fin, EQUALS_CHAR);
+    //fracA_ = FileReading::readDouble(fin, EQUALS_CHAR);
   }
   else
   { 
@@ -63,8 +63,8 @@ void Model::printParams()
   {
     std::cout << "                Coupling J = " << J_ << "\n"
               << "  Number of Replicas alpha = " << alpha_ << "\n"
-              << "  Fraction of Columns in Region A = " << fracA_ << "\n";
-              //<< "                  Region A = " << regionAStr_ << "\n";
+              << "                  Region A = " << regionAOutputStr_ << "\n";
+              //<< "  Fraction of Columns in Region A = " << fracA_ << "\n";
   }
   else
   {

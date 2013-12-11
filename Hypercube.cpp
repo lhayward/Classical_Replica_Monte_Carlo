@@ -135,7 +135,7 @@ uint Hypercube::getNeighbour(uint i, uint j)
 }
 
 /********************************** getRegionA(double fracA) *********************************/
-bool* Hypercube::getRegionA(double fracA)
+/*bool* Hypercube::getRegionA(double fracA)
 { 
   bool* regionA = new bool[N_];
   
@@ -149,6 +149,17 @@ bool* Hypercube::getRegionA(double fracA)
   { regionA[i] = 0; }
   
   return regionA;
+}*/
+
+/************************** getRegionA(std::string regionAInputStr) **************************/
+std::pair<std::string,bool*> Hypercube::getRegionA(std::string regionAInputStr)
+{
+  bool* regionA = new bool[N_];
+  
+  for( uint i=0; i<N_; i++ )
+  { regionA[i] = 0; }
+  
+  return std::pair<std::string,bool*>("test", regionA);
 }
 
 /*************************************** printParams() ***************************************/
