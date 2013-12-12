@@ -29,9 +29,14 @@ class Hypercube : public Lattice
   private:
     uint   D_; //dimension
     
-    void init_N_and_neighbours();
-    int  round(double num);
-    uint uintPower(uint base, uint exp);
+    double fillCylinder(bool* regionA, double fracA);
+    void   fill_a(bool* regionA);
+    void   fill_b(bool* regionA);
+    void   fill_c(bool* regionA);
+    void   fill_d(bool* regionA);
+    void   init_N_and_neighbours();
+    int    round(double num);
+    uint   uintPower(uint base, uint exp);
     
   public:
     Hypercube(uint L, uint D);
