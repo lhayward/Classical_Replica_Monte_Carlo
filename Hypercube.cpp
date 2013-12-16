@@ -76,6 +76,32 @@ double Hypercube::fillCylinder(bool* regionA, double inputFracA)
   return outputFracA;
 }
 
+/*********** fillRect2D(bool* regionA, uint xMin, uint xMax, uint yMin, uint yMax) ***********/
+void Hypercube::fillRect2D(bool* regionA, uint xMin, uint xMax, uint yMin, uint yMax)
+{
+  for( uint y=yMin; y<yMax; y++ )
+  {
+    for( uint x=xMin; x<xMax; x++ )
+    { regionA[y*L_ + x] = 1; }
+  }
+}
+
+/*********************************** fill_a(bool* regionA) ***********************************/
+void Hypercube::fill_a(bool* regionA)
+{ fillRect2D(regionA, L_/8, L_/2, L_/8, L_/4); }
+
+/*********************************** fill_b(bool* regionA) ***********************************/
+void Hypercube::fill_b(bool* regionA)
+{ fillRect2D(regionA, L_/8, L_/2, 3*L_/8, L_/2); }
+
+/*********************************** fill_c(bool* regionA) ***********************************/
+void Hypercube::fill_c(bool* regionA)
+{ fillRect2D(regionA, L_/8, L_/4, L_/4, 3*L_/8); }
+
+/*********************************** fill_d(bool* regionA) ***********************************/
+void Hypercube::fill_d(bool* regionA)
+{ fillRect2D(regionA, 3*L_/8, L_/2, L_/4, 3*L_/8); }
+
 /******************************** getNeighbour(uint i, uint j) *******************************/
 uint Hypercube::getNeighbour(uint i, uint j)
 {
@@ -144,18 +170,30 @@ std::pair<std::string,bool*> Hypercube::getRegionA(std::string regionAInputStr)
   {
     if( regionType == "A1" )
     {
+      fill_a(regionA);
+      fill_b(regionA);
+      fill_c(regionA);
+      fill_d(regionA);
       regionAOutputString = "A1 (donut)";
     }
     else if( regionType == "A2" )
     {
+      fill_a(regionA);
+      fill_b(regionA);
+      fill_c(regionA);
       regionAOutputString = "A2 (C shape)";
     }
     else if( regionType == "A3" )
     {
+      fill_a(regionA);
+      fill_b(regionA);
+      fill_d(regionA);
       regionAOutputString = "A3 (backwards C shape)";
     }
     else if( regionType == "A4" )
     {
+      fill_a(regionA);
+      fill_b(regionA);
       regionAOutputString = "A4 (bars)";
     }
     else

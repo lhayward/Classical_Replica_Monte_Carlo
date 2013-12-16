@@ -30,6 +30,7 @@ class Hypercube : public Lattice
     uint   D_; //dimension
     
     double fillCylinder(bool* regionA, double fracA);
+    void   fillRect2D(bool* regionA, uint xMin, uint xMax, uint yMin, uint yMax);
     void   fill_a(bool* regionA);
     void   fill_b(bool* regionA);
     void   fill_c(bool* regionA);

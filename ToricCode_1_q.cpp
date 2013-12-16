@@ -49,7 +49,7 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattic
         //create and initialize the regionA_ array:
         regionA_ = new bool[N1_];
         init_regionA();
-        printRegionA();
+        //printRegionA();
         
         //create the localUpdateProbs_ array:
         numProbs_ = (D_-1)*alpha_;
@@ -164,7 +164,15 @@ void ToricCode_1_q::init_regionA()
   regionAOutputStr_ = regAPair.first;
   bool* cubeRegionA = regAPair.second;
   
-  std::cout << "Output String = " << regionAOutputStr_ << std::endl;
+  /*uint LL = hcube_->getL();
+  
+  for( int y=(LL-1); y>=0; y-- )
+  {
+    for( uint x=0; x<LL; x++ )
+    { std::cout << cubeRegionA[y*LL + x] << " "; }
+    std::cout << std::endl;
+  }
+  std::cout << std::endl;*/
   
   //loop over all 0-cells (vertices of the hypercube):
   for( uint i=0; i<N0_; i++ )
