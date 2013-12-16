@@ -8,6 +8,7 @@
 
 #include <fstream>
 #include <iostream>
+#include <stdlib.h>
 #include <string>
 #include <vector>
 #include "FileReading.h"
