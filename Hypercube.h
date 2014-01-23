@@ -30,11 +30,14 @@ class Hypercube : public Lattice
     uint   D_; //dimension
     
     double fillCylinder(bool* regionA, double fracA);
-    void   fillRect2D(bool* regionA, uint xMin, uint xMax, uint yMin, uint yMax);
+    void   fill_KP_A(bool* regionA);
+    void   fill_KP_B(bool* regionA);
+    void   fill_KP_C(bool* regionA);
     void   fill_LW_a(bool* regionA);
     void   fill_LW_b(bool* regionA);
     void   fill_LW_c(bool* regionA);
     void   fill_LW_d(bool* regionA);
+    void   fillRect2D(bool* regionA, uint xMin, uint xMax, uint yMin, uint yMax);
     void   init_N_and_neighbours();
     int    round(double num);
     void   trimWhiteSpace(std::string* word);
