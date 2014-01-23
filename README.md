@@ -10,6 +10,9 @@ The simulation parameters are stored in:
 - the file "params_filePrefix.txt" if filePrefix is specified
 - the file "params.txt" if filePrefix is not specified 
 
+The choices for Region A are:
+- "cylinder, {d}" where d is is a number with 0<=d<=1
+
 An example of a valid parameter file is:
 
 \#SIMULATION PARAMETERS:  
@@ -23,12 +26,12 @@ Lattice Type = hypercube
 Model Name = toriccode  
 
 \#LATTICE PARAMETERS:  
-Lattice Length L = 3  
+Lattice Length L = 4  
 Lattice Dimension D = 2  
 
 \#MODEL PARAMETERS:  
 Coupling J = 1  
 Number of Replicas alpha = 2  
-Fraction of Columns in Region A = 0.5  
+Region A = KP, C  
 
 
