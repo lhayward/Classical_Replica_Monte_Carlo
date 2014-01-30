@@ -29,6 +29,12 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattic
       hcube_ = dynamic_cast<Hypercube *>(lattice);
       if(hcube_)
       {
+        //only measure the Wilson loops when there is only one replica:
+        if( alpha_==1)
+        { measureWilsonLoops_ = true; }
+        else
+        { measureWilsonLoops_ = false; }
+        
         D_  = hcube_->getD();
         L_  = hcube_->getL();
         N0_ = hcube_->getN();
@@ -67,6 +73,10 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattic
         { plaqProds_[a] = new int[N2_]; }
         updateAllPlaqProds(); //initialize the plaqProds_ array and energy_ based on the
                               //current spin configuration
+                              
+        //Check if we need to add the Wilson loop measurement to Measure object:
+        if( measureWilsonLoops_ )
+        { measures.insert("Wilson_x"); }
       }
       else
       {
@@ -264,6 +274,9 @@ void ToricCode_1_q::makeMeasurement()
   
   measures.accumulate( "E",   energyPerSpin ) ;
   measures.accumulate( "ESq", pow(energyPerSpin,2) );
+  
+  if( measureWilsonLoops_ )
+  { measures.accumulate( "Wilson_x", wilsonLoop(0) ); }
 }
 
 /*************************************** printParams() ***************************************/

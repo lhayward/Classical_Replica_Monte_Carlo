@@ -11,6 +11,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 class Measure 
 { 
@@ -19,6 +20,7 @@ class Measure
     
   private:
     std::map<std::string,double> measurements;
+    std::vector< std::pair<std::string,double> > vec;
     
   public:
     Measure();

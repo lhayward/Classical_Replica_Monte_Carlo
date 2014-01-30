@@ -22,6 +22,8 @@ class ToricCode_1_q : public Model
   private:
     static const uint  SPINS_PER_PLAQ_=4;
     
+    bool        measureWilsonLoops_;  //whether or not the Wilson loops should be written the
+                                      //bin file
     uint        D_;   //dimension
     uint        L_;   //hypercube linear length
     uint        N0_;  //number of 0-cells (vertices)

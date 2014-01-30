@@ -24,7 +24,10 @@ void Measure::accumulate(std::string label, double newMeas)
 
 /********************************* insert(std::string label) *********************************/
 void Measure::insert(std::string label)
-{ measurements.insert( std::pair<std::string,double>(label, 0.0) ); }
+{ 
+  measurements.insert( std::pair<std::string,double>(label, 0.0) );
+  vec.push_back( std::pair<std::string,double>(label, 0.0) );
+}
 
 /****************************************** print() ******************************************/
 void Measure::print()
