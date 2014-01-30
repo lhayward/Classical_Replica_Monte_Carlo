@@ -488,7 +488,6 @@ int ToricCode_1_q::wilsonLoop_rec(uint wilsonDir, int latticeDir, uint x[], int 
 void ToricCode_1_q::writeBin(int binNum, int numMeas)
 {
   fout << L_ << '\t' << T_ << '\t' << binNum;
-  measures.print();
   measures.writeAverages(&fout, numMeas);
   fout << std::endl;
 }
