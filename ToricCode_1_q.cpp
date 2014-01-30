@@ -276,7 +276,7 @@ void ToricCode_1_q::makeMeasurement()
   measures.accumulate( "ESq", pow(energyPerSpin,2) );
   
   if( measureWilsonLoops_ )
-  { measures.accumulate( "Wilson_x", wilsonLoop(0) ); }
+  { measures.accumulate( "Wilson_x", abs(wilsonLoop(0)) ); }
 }
 
 /*************************************** printParams() ***************************************/
@@ -488,6 +488,7 @@ int ToricCode_1_q::wilsonLoop_rec(uint wilsonDir, int latticeDir, uint x[], int 
 void ToricCode_1_q::writeBin(int binNum, int numMeas)
 {
   fout << L_ << '\t' << T_ << '\t' << binNum;
+  measures.print();
   measures.writeAverages(&fout, numMeas);
   fout << std::endl;
 }

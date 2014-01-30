@@ -20,7 +20,7 @@ class Measure
     
   private:
     std::map<std::string,double> measurements;
-    std::vector< std::pair<std::string,double> > vec;
+    std::vector<std::string> measStrings;
     
   public:
     Measure();
