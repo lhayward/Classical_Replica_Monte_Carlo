@@ -13,6 +13,9 @@
 #include "FileReading.h"
 #include "ToricCode_1_q.h"
 
+//typdef needed because uint is a return types:
+typedef ToricCode_1_q::uint uint;
+
 /******** ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattice* lattice) ********
 **************************************** (constructor) ***************************************/
 ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattice* lattice)
@@ -27,6 +30,7 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattic
       if(hcube_)
       {
         D_  = hcube_->getD();
+        L_  = hcube_->getL();
         N0_ = hcube_->getN();
         N1_ = D_*N0_;
         N2_ = N0_*(D_*(D_-1))/2;  //Number of plaquettes is N0_ * (D choose 2)
@@ -63,8 +67,6 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattic
         { plaqProds_[a] = new int[N2_]; }
         updateAllPlaqProds(); //initialize the plaqProds_ array and energy_ based on the
                               //current spin configuration
-        double w = wilsonLoop(0);
-        std::cout << "Ave. wilson loop = "  << w << std::endl;
       }
       else
       {
@@ -183,12 +185,10 @@ void ToricCode_1_q::init_regionA()
   regionAOutputStr_ = regAPair.first;
   bool* cubeRegionA = regAPair.second;
   
-  /*uint LL = hcube_->getL();
-  
-  for( int y=(LL-1); y>=0; y-- )
+  /*for( int y=(L_-1); y>=0; y-- )
   {
-    for( uint x=0; x<LL; x++ )
-    { std::cout << cubeRegionA[y*LL + x] << " "; }
+    for( uint x=0; x<L_; x++ )
+    { std::cout << cubeRegionA[y*L_ + x] << " "; }
     std::cout << std::endl;
   }
   std::cout << std::endl;*/
@@ -370,6 +370,16 @@ void ToricCode_1_q::sweep(MTRand* randomGen)
   { localUpdate(randomGen); }
 }
 
+/******************************** uintPower(int base, int exp) *******************************/
+uint ToricCode_1_q::uintPower(uint base, uint exp)
+{
+  uint result = 1;
+  for(uint i=1; i<=exp; i++)
+  { result *= base; } 
+  
+  return result;
+} //uintPower method
+
 /************************************ updateAllPlaqProds() ***********************************/
 void ToricCode_1_q::updateAllPlaqProds()
 {
@@ -401,20 +411,70 @@ void ToricCode_1_q::updateEnergy()
 }
 
 /************************************ wilsonLoop(int dir) *************************************
-* This method calculates the average Wilson loop in the direction "dir" of the hypercube. 
-* This average is taken over the L_^(D_-1) possible Wilson loops in the given direction "dir".
+* This method calculates the average Wilson loop in the direction "dir" of the hypercube. This
+* average is taken over the L_^(D_-1) possible Wilson loops in the given direction "dir". Note
+* that this method is a "driver" method for the recursive method wilsonLoop_rec.
 **********************************************************************************************/
-double ToricCode_1_q::wilsonLoop(int dir)
+double ToricCode_1_q::wilsonLoop(uint dir)
 {
-  //int* x = new int[D_];
+  uint* x = new uint[D_];
+  int WSum = wilsonLoop_rec(dir, D_-1, x, 0);
   
-  return 0;
+  //Since there are L^(D_-1) = N0_/L_Wilson loops for each direction, divide by L^(D_-1) to get
+  //the average:
+  return (WSum)/(N0_*1.0/L_);
+}
+
+/************** wilsonLoop_rec(int wilsonDir, int latticeDir, int x[], int WSum) **************
+**********************************************************************************************/
+int ToricCode_1_q::wilsonLoop_rec(uint wilsonDir, int latticeDir, uint x[], int WSum)
+{
+  int W;  //current Wilson loop (for the base case)
+  uint zeroCell; //location of a given 0-cell on the hypercube (for the base case)
+  uint spinLoc;  //location of a given spin (for the base case)
+  
+  //BASE CASE: all needed parameters for a given loop have been specified, so calculate the
+  //Wilson loop for these parameters and add it to the total, WSum.
+  if( latticeDir < 0 )
+  {
+    W = 1;
+    for( uint i=0; i<L_; i++ )
+    {
+      x[wilsonDir] = i;
+      zeroCell = 0;
+      
+      //calculate the location of the zero-cell on the hypercube:
+      for( uint j=0; j<D_; j++ )
+      { zeroCell += x[j]*uintPower(L_, j); }
+      
+      spinLoc = D_*zeroCell + wilsonDir;
+      W = W*spins_->getSpin(0, spinLoc);
+    }
+    WSum += W;
+  }
+  //RECURSIVE CASE #1: if the current lattice direction is the Wilson loop direction, then
+  //we don't want to loop over this direction.
+  else if( latticeDir == wilsonDir )
+  { WSum = wilsonLoop_rec(wilsonDir, latticeDir-1, x, WSum); }
+  
+  //RECURSIVE CASE #2: if latticeDir >= 0, and latticeDir != wilsonDir, then we want to loop
+  //over this latticeDir in order to get all valid Wilson loops in direction "dir".
+  else
+  {
+    for( uint i=0; i<L_; i++ )
+    {
+      x[latticeDir] = i; 
+      WSum = wilsonLoop_rec(wilsonDir, latticeDir-1, x, WSum);
+    }
+  }
+  
+  return WSum;
 }
 
 /***************************** writeBin(int binNum, int numMeas) *****************************/
 void ToricCode_1_q::writeBin(int binNum, int numMeas)
 {
-  fout << hcube_->getL() << '\t' << T_ << '\t' << binNum;
+  fout << L_ << '\t' << T_ << '\t' << binNum;
   measures.writeAverages(&fout, numMeas);
   fout << std::endl;
 }

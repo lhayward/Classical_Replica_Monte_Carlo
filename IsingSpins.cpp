@@ -34,8 +34,11 @@ void IsingSpins::randomize(MTRand* randomGen)
 /***************** flip(uint latticeSite, uint replicaStart, uint replicaEnd) ****************/
 void IsingSpins::flip(uint latticeSite, uint replicaStart, uint replicaEnd)
 {
-  for( uint a=replicaStart; a<=replicaEnd; a++ )
-  { spins_[a][latticeSite] *= -1; }
+  if( replicaStart<=replicaEnd && replicaEnd<alpha_ )
+  {
+    for( uint a=replicaStart; a<=replicaEnd; a++ )
+    { spins_[a][latticeSite] *= -1; }
+  }
 }
 
 /************************ randomize(MTRand* randomGen, bool* regionA) *************************

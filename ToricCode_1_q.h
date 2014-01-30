@@ -23,6 +23,7 @@ class ToricCode_1_q : public Model
     static const uint  SPINS_PER_PLAQ_=4;
     
     uint        D_;   //dimension
+    uint        L_;   //hypercube linear length
     uint        N0_;  //number of 0-cells (vertices)
     uint        N1_;  //number of 1-cells (bonds), i.e. the number of d.o.f. since the spins
                       //live on the bonds
@@ -46,10 +47,11 @@ class ToricCode_1_q : public Model
     void   localUpdate       (MTRand* randomGen);
     void   printPlaqProds    ();
     void   printPlaqs        ();
+    uint   uintPower(uint base, uint exp);
     void   updateAllPlaqProds();
-    double wilsonLoop        (int dir); //driver method for calculating the average Wilson loop
+    double wilsonLoop        (uint dir); //driver method for calculating the average Wilson loop
                                         //in the lattice direction "dir" (0 <= dir <= D_-1)
-    double wilsonLoop_rec    (int wilsonDir, int loopingDir, int x[], int WSum);
+    int    wilsonLoop_rec    (uint wilsonDir, int latticeDir, uint x[], int WSum);
                                         //recursive method to be used with the above 
                                         //wilsonLoop driver method
     
