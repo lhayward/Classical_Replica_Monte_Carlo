@@ -63,6 +63,8 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattic
         { plaqProds_[a] = new int[N2_]; }
         updateAllPlaqProds(); //initialize the plaqProds_ array and energy_ based on the
                               //current spin configuration
+        double w = wilsonLoop(0);
+        std::cout << "Ave. wilson loop = "  << w << std::endl;
       }
       else
       {
@@ -90,20 +92,15 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattic
 /******************************* ~ToricCode_1_q() (destructor) *******************************/
 ToricCode_1_q::~ToricCode_1_q()
 {
+  //delete the IsingSpins object:
   if( spins_ != NULL )
   { delete spins_; }
   spins_ = NULL;
   
-  //delete the plaqSpins_ array:
-  for(uint i=0; i<N2_; i++)
-  { 
-    if( plaqSpins_[i] != NULL )
-    { delete[] plaqSpins_[i]; }
-    plaqSpins_[i] = NULL; 
-  }
-  if( plaqSpins_ != NULL )
-  { delete[] plaqSpins_; }
-  plaqSpins_ = NULL;
+  //delete the localUpdateProbs_ array:
+  if( localUpdateProbs_ != NULL )
+  { delete[] localUpdateProbs_; }
+  localUpdateProbs_ = NULL;
   
   //delete the neighPlaqs_ array:
   for(uint i=0; i<N1_; i++)
@@ -115,6 +112,28 @@ ToricCode_1_q::~ToricCode_1_q()
   if( neighPlaqs_ != NULL )
   { delete[] neighPlaqs_; }
   neighPlaqs_ = NULL;
+  
+  //delete the plaqProds_ array:
+  for(uint a=0; a<alpha_; a++)
+  { 
+    if( plaqProds_[a] != NULL )
+    { delete[] plaqProds_[a]; }
+    plaqProds_[a] = NULL; 
+  }
+  if( plaqProds_ != NULL )
+  { delete[] plaqProds_; }
+  plaqProds_ = NULL;
+  
+  //delete the plaqSpins_ array:
+  for(uint i=0; i<N2_; i++)
+  { 
+    if( plaqSpins_[i] != NULL )
+    { delete[] plaqSpins_[i]; }
+    plaqSpins_[i] = NULL; 
+  }
+  if( plaqSpins_ != NULL )
+  { delete[] plaqSpins_; }
+  plaqSpins_ = NULL;
   
 }
 
@@ -379,6 +398,17 @@ void ToricCode_1_q::updateEnergy()
     { energy_ += plaqProds_[a][i]; }
   }
   energy_ *= -J_;
+}
+
+/************************************ wilsonLoop(int dir) *************************************
+* This method calculates the average Wilson loop in the direction "dir" of the hypercube. 
+* This average is taken over the L_^(D_-1) possible Wilson loops in the given direction "dir".
+**********************************************************************************************/
+double ToricCode_1_q::wilsonLoop(int dir)
+{
+  //int* x = new int[D_];
+  
+  return 0;
 }
 
 /***************************** writeBin(int binNum, int numMeas) *****************************/

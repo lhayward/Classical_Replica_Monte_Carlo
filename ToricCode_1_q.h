@@ -38,16 +38,20 @@ class ToricCode_1_q : public Model
                             //plaquette i
     uint**      neighPlaqs_;  //neighPlaqs_[i] stores the indices of the 2(D-1) plaquettes
                               //touching spin i
-    int**       plaqProds_; //plaqProds_[a][i] stores the product of all spins on plaquette i 
+    int**       plaqProds_; //plaqProds_[a][i] stores the product of all spins on plaquette i
                             //in replica a
     
-    void init_plaqArrays   ();
-    void init_regionA      ();
-    void localUpdate       (MTRand* randomGen);
-    void printPlaqProds    ();
-    void printPlaqs        ();
-    void updateAllPlaqProds();
-    
+    void   init_plaqArrays   ();
+    void   init_regionA      ();
+    void   localUpdate       (MTRand* randomGen);
+    void   printPlaqProds    ();
+    void   printPlaqs        ();
+    void   updateAllPlaqProds();
+    double wilsonLoop        (int dir); //driver method for calculating the average Wilson loop
+                                        //in the lattice direction "dir" (0 <= dir <= D_-1)
+    double wilsonLoop_rec    (int wilsonDir, int loopingDir, int x[], int WSum);
+                                        //recursive method to be used with the above 
+                                        //wilsonLoop driver method
     
   public:
     ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattice* lattice);
