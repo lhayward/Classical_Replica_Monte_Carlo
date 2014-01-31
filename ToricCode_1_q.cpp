@@ -433,6 +433,11 @@ double ToricCode_1_q::wilsonLoop(uint dir)
   uint* x = new uint[D_];
   int WSum = wilsonLoop_rec(dir, D_-1, x, 0);
   
+  //delete the x array:
+  if( x != NULL )
+  { delete[] x; }
+  x = NULL;
+  
   //Since there are L^(D_-1) = N0_/L_Wilson loops for each direction, divide by L^(D_-1) to get
   //the average:
   return (WSum)/(N0_*1.0/L_);
