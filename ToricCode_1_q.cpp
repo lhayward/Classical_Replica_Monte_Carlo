@@ -55,11 +55,12 @@ ToricCode_1_q::ToricCode_1_q(std::ifstream* fin, std::string outFileName, Lattic
         
         //initialize the plaqSpins_ and neighPlaqs_ arrays:
         init_plaqArrays();
+        printPlaqs();
         
         //create and initialize the regionA_ array:
         regionA_ = new bool[N1_];
         init_regionA();
-        //printRegionA();
+        printRegionA();
         
         //create the localUpdateProbs_ array:
         numProbs_ = (D_-1)*alpha_;
@@ -438,7 +439,7 @@ double ToricCode_1_q::wilsonLoop(uint dir)
   { delete[] x; }
   x = NULL;
   
-  //Since there are L^(D_-1) = N0_/L_Wilson loops for each direction, divide by L^(D_-1) to get
+  //Since there are L^(D_-1) = N0_/L_ Wilson loops for each direction, divide by L^(D_-1) to get
   //the average:
   return (WSum)/(N0_*1.0/L_);
 }

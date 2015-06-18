@@ -33,6 +33,9 @@ class Hypercube : public Lattice
     void   fill_KP_A(bool* regionA);
     void   fill_KP_B(bool* regionA);
     void   fill_KP_C(bool* regionA);
+    void   fill_KP_D(bool* regionA);
+    void   fill_KP_E(bool* regionA);
+    void   fill_KP_F(bool* regionA);
     void   fill_LW_a(bool* regionA);
     void   fill_LW_b(bool* regionA);
     void   fill_LW_c(bool* regionA);

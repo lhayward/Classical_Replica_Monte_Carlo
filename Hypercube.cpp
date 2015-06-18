@@ -88,7 +88,7 @@ double Hypercube::fillCylinder(bool* regionA, double inputFracA)
 *         |                   |     
 *         |_________          |     
 *         | A  |    |         |     
-*         |____|  C |         |     
+*         |____| C  |         |     
 *         | B  |    |         |     
 *         |____|____|_________|     
 *         <--------->               
@@ -107,6 +107,37 @@ void Hypercube::fill_KP_B(bool* regionA)
 /********************************** fill_KP_C(bool* regionA) *********************************/
 void Hypercube::fill_KP_C(bool* regionA)
 { fillRect2D(regionA, L_/4, L_/2, 0, L_/2); }
+
+/**********************************************************************************************
+* NOTE: The Kitaev-Preskill regions D,E,F can be illustrated as:
+* 
+*                   L               
+*         <------------------->     
+*          ___________________      
+*         |                   |     
+*         |                   |     
+*         |                   |     
+*         |_________          |     
+*         |    | E  |         |     
+*         | D  |____|         |     
+*         |    | F  |         |     
+*         |____|____|_________|     
+*         <--------->               
+*             L/2                   
+*                                   
+**********************************************************************************************/
+
+/********************************** fill_KP_D(bool* regionA) *********************************/
+void Hypercube::fill_KP_D(bool* regionA)
+{ fillRect2D(regionA, 0, L_/4, 0, L_/2); }
+
+/********************************** fill_KP_E(bool* regionA) *********************************/
+void Hypercube::fill_KP_E(bool* regionA)
+{ fillRect2D(regionA, L_/4, L_/2, L_/4, L_/2); }
+
+/********************************** fill_KP_F(bool* regionA) *********************************/
+void Hypercube::fill_KP_F(bool* regionA)
+{ fillRect2D(regionA, L_/4, L_/2, 0, L_/4); }
 
 /**********************************************************************************************
 * NOTE: The Levin-Wen regions a,b,c,d can be illustrated as:
@@ -226,8 +257,8 @@ std::pair<std::string,bool*> Hypercube::getRegionA(std::string regionAInputStr)
     { regionAOutputString = "none"; }
   } // if for cylinder case
   
-  //the Kitaev-Preskill regions {A,B,C,AB,AC,BC,ABC} can only be implemented on a D=2 lattice 
-  //with L a multiple of 4:
+  //the Kitaev-Preskill regions {A,B,C,AB,AC,BC,ABC} and {D,E,F,DE,EF,DF,DEF} can only be 
+  //implemented on a D=2 lattice with L a multiple of 4:
   else if(regionType_1 == "KP" && commaIndex<(regionAInputStr.length()-1) && D_==2 && L_%4==0)
   {
     regionType_2 = regionAInputStr.substr( commaIndex + 1 );
@@ -250,8 +281,23 @@ std::pair<std::string,bool*> Hypercube::getRegionA(std::string regionAInputStr)
       fill_KP_C(regionA);
       regionAOutputString.append("C");
     }
+    if( (regionType_2.find("D") < regionType_2.length()) )
+    { 
+      fill_KP_D(regionA);
+      regionAOutputString.append("D");
+    }
+    if( (regionType_2.find("E") < regionType_2.length()) )
+    { 
+      fill_KP_E(regionA);
+      regionAOutputString.append("E");
+    }
+    if( (regionType_2.find("F") < regionType_2.length()) )
+    { 
+      fill_KP_F(regionA);
+      regionAOutputString.append("F");
+    }
     
-    //if none of the regions {A,B,C} were specified:
+    //if none of the regions {A,B,C} or {D,E,F} were specified:
     if( regionAOutputString == "Kitaev-Preskill Region " )
     { regionAOutputString = "none"; }
   } //Kitaev-Preskill regions
